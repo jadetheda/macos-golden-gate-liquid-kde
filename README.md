@@ -4,51 +4,391 @@
 
 # macOS Golden Gate Liquid Theme for Plasma 6.6+
 
-The [Tahoe implementation](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde), with Golden Gate light/dark wallpapers selected by default. Both wallpaper sets live in Tahoe. This repository contains the downloader and one defaults parameter; the installer, themes and behavior are shared.
+[![plasma](https://img.shields.io/badge/Plasma-6.6%2B-1d99f3?logo=kde)](https://kde.org/plasma-desktop/) [![license](https://img.shields.io/badge/license-GPL--3.0-blue)](LICENSE) [![report a bug](https://img.shields.io/badge/report-a%20bug-red?logo=github)](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new)
+
+macOS Golden Gate-inspired glass, Dock, global menu and app themes for KDE Plasma 6.6–6.8.
 
 > [!CAUTION]
-> Experimental. Desktop updates may break compatibility. Avoid production systems.
+> Experimental. Desktop updates may break compatibility. Avoid production systems; [report issues here](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new).
 
-This independent community project is not affiliated with KDE, KDE e.V., or Apple Inc.
+<br>
 
-## Install
+![Features and screenshots](https://img.shields.io/badge/features-%26%20screenshots-4B6B8A?style=for-the-badge&logo=kde&logoColor=white)
+
+Captured in an isolated KDE neon VM with Golden Gate wallpapers. System Information uses sample hardware data.
+
+### Acrylic Glass Golden Gate Launcher
+
+Search, favorites and two app views.
+
+<p align="center">
+  <img src="src/screenshots/launcher_v1.png" alt="Application launcher in light mode" width="415">
+  <img src="src/screenshots/launcher_dark_v1.png" alt="Application launcher in dark mode" width="415">
+</p>
+
+<br>
+
+### Acrylic Glass Golden Gate Dock
+
+Glass refraction, hover zoom, notification badges and auto-hide.
+
+<p align="center">
+  <img src="src/screenshots/dock_1_v1.png" alt="Glass Dock with pinned applications" width="840">
+</p>
+
+<br>
+
+### Acrylic Glass Golden Gate Finder
+
+Finder-style Nautilus in light and dark.
+
+<p align="center">
+  <img src="src/screenshots/finder_v1.png" alt="Finder-style Nautilus in light mode" width="415">
+  <img src="src/screenshots/finder_dark_v1.png" alt="Finder-style Nautilus in dark mode" width="415">
+</p>
+
+<br>
+
+### Acrylic Glass Golden Gate Menu
+
+System controls and global menus for compatible apps.
+
+<p align="center">
+  <img src="src/screenshots/menu_v1.png" alt="System menu in light mode" width="415">
+  <img src="src/screenshots/menu_dark_v1.png" alt="System menu in dark mode" width="415">
+</p>
+
+<br>
+
+### System Information
+
+<p align="center">
+  <img src="src/screenshots/about_v1.png" alt="About This Computer in light mode" width="415">
+  <img src="src/screenshots/about_dark_v1.png" alt="About This Computer in dark mode" width="415">
+</p>
+
+<br>
+
+### Plasma Theme
+
+<p align="center">
+  <img src="src/screenshots/context_menu_v1.png" alt="Desktop context menu in light mode" width="415">
+  <img src="src/screenshots/context_menu_dark_v1.png" alt="Desktop context menu in dark mode" width="415">
+</p>
+
+<br>
+
+### Boot Splash
+
+Plymouth startup and shutdown theme with LUKS2 unlock support.
+
+<p align="center">
+  <img src="src/screenshots/boot_v1.png" alt="Plymouth startup splash with a progress bar" width="415">
+  <img src="src/screenshots/boot_shutdown_v1.png" alt="Plymouth shutdown splash without a progress bar" width="415">
+</p>
+
+<br>
+
+![Getting started](https://img.shields.io/badge/getting-started-3B7B5B?style=for-the-badge&logo=gnubash&logoColor=white)
+
+**Graphical installer**
 
 ```bash
 ./installer
 ```
 
-The first launch downloads a pinned Tahoe source archive, verifies its SHA-256, and selects `MacGoldenGate` in the shared defaults file. Later launches reuse the prepared source in `build/`. Internet is needed for the first download (about 140 MB) and missing system dependencies; Tahoe's optional Rounded Corners download remains unchanged.
-
-The terminal entry points work the same way:
+**Terminal wizard**
 
 ```bash
 sudo ./install
 sudo ./uninstall
 ```
 
-All arguments pass through to Tahoe. Custom monitor backgrounds are preserved. To explicitly replace them with this edition's defaults:
+English, Spanish and Simplified Chinese. All options: `sudo ./install --help`.
+
+<details>
+<summary><b>Requirements</b></summary>
+
+- KDE Plasma 6.6+
+- Python 3.10+
+- `sudo`
+- Qt 6 development tools
+- KDE and Qt 6 development packages for the compiled plasmoids and KWin effects
+- `cmake`, `g++`, and `pkg-config` when compiled features are selected
+- `dbus-send`
+- `systemctl` or `crontab` for scheduled features
+
+The first launch downloads the pinned shared Tahoe source and verifies its SHA-256. Theme assets are bundled in that source; later launches reuse it. Missing dependencies and optional KDE Rounded Corners also require internet access.
+
+| Distro | Qt 6 tools | KDE Plasma 6 development packages |
+|--------|------------|-----------------------------------|
+| Arch family | `pacman -S qt6-tools` | `pacman -S extra-cmake-modules plasma-workspace kdecoration libplasma libnotificationmanager libksysguard plasma-activities-stats` |
+| Fedora family | `dnf install qt6-qttools-devel` | `dnf install extra-cmake-modules plasma-workspace-devel kdecoration-devel libplasma-devel knotifications-devel libksysguard-devel kf6-plasma-activities-devel` |
+| openSUSE Tumbleweed | `zypper install qt6-tools-devel` | `zypper install extra-cmake-modules plasma6-workspace-devel kdecoration-devel libKF6Plasma-devel libnotificationmanager6-devel libksysguard6-devel libKF6PlasmaActivitiesStats6-devel` |
+
+</details>
+
+<details>
+<summary><b>Choose features and theme mode</b></summary>
+
+Flags skip the wizard. Exclude components with `--no-<name>` or select them with `--only`:
 
 ```bash
-sudo ./install --reset-wallpapers
+sudo ./install --no-gtk --no-sddm
+sudo ./install --only --fonts --icons
+sudo ./uninstall --only --cursors
 ```
 
-The installed switcher keeps the selected defaults for manual, login and scheduled changes. Runtime IDs and commands retain their Tahoe names; these are two editions of the same installation, so install one at a time.
+**Features**
 
-See Tahoe's [documentation](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde#readme) for supported systems, options and troubleshooting. `./legacy-install`, `./legacy-uninstall`, `./test` and `./vm` also delegate to the same source.
+`wallpapers`, `fonts`, `cursors`, `plasma-theme`, `window-decorations`, `kvantum`, `color-schemes`, `icons`, `plasmoids`, `globalmenu`, `acrylic-glass`, `rounded-corners`, `global-theme`, `layout`, `sounds`, `gtk`, `firefox`, `sddm`, `apps`, `nautilus`, `nautilus-bookmarks`, `portals`, `oled-care`, `plymouth`.
 
-## Development
-
-`defaults.json` selects the wallpaper package. `upstream.json` pins the shared source commit and archive checksum; update both together after publishing a reviewed Tahoe change. The prepared source does not update itself independently.
-
-Test local Tahoe changes before publishing:
+**Theme mode**
 
 ```bash
-GOLDEN_GATE_TAHOE_SOURCE=../macos-tahoe-liquid-kde ./installer --prepare
-GOLDEN_GATE_TAHOE_SOURCE=../macos-tahoe-liquid-kde ./test -q
+sudo ./install          # auto: light at 06:00, dark at 18:00
+sudo ./install --light
+sudo ./install --dark
+```
+
+**Live switching**
+
+```bash
+mac-tahoe-theme-switch light
+mac-tahoe-theme-switch dark
+mac-tahoe-theme-switch auto
+```
+
+**Saved choices**
+
+```bash
+sudo ./install --no-gtk --dark --save
+sudo ./install --reset
+```
+
+**Maintenance**
+
+- `--preflight` checks the system without installing.
+- `--no-apply-theme` stages files without switching the desktop.
+- `--no-grub-modify` leaves `/etc/default/grub` unchanged.
+- Theme changes keep any wallpaper you've chosen for each monitor.
+- `--reset-wallpapers` returns all monitors to the bundled light/dark wallpapers.
+- Both Tahoe and Golden Gate light/dark wallpapers are bundled. Golden Gate is the default here.
+- The editions share the Tahoe installer and runtime IDs, so install one edition at a time.
+- `./legacy-install` and `./legacy-uninstall` use the classic prompt instead of the terminal wizard.
+
+</details>
+
+<details>
+<summary><b>Glass and rounded-corner troubleshooting</b></summary>
+
+- **Plasma 6.8:** reinstall to rebuild the effects and install the shader fixes, then log out and back in. An enabled checkbox alone does not confirm Acrylic Glass is rendering; the installer warns when activation cannot be verified.
+- **Corner artifacts:** Acrylic Glass follows the active Rounded Corners cutout and clips both glass and grain to it ([#89](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/issues/89)). Independent radii remain available when Rounded Corners does not affect a surface; reinstall preserves custom values.
+- **Desktop-edit overlay:** Rounded Corners excludes desktop surfaces before offscreen redirection, even with explicit inclusion rules ([#77](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/issues/77)). The guard is verified in an isolated compositor; the originally reported NVIDIA desktop-edit session still needs confirmation.
+- VirtualBox VM windows are excluded from glass to preserve seamless cutouts ([#90](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/issues/90)). The manager is unaffected.
+
+</details>
+
+<details>
+<summary><b>Firefox theme</b></summary>
+
+Supports native, Flatpak and Snap profiles. Restart Firefox after installation.
+Browser data and customizations are preserved; uninstall removes the theme's additions. UI backups: `~/.local/state/mac-tahoe-liquid-kde/firefox/snapshots/`.
+
+</details>
+
+<details>
+<summary><b>OLED care</b></summary>
+
+Optional panel shifts; disabled by default.
+
+```bash
+sudo ./install --oled-care
+sudo ./install --oled-care --save
+sudo ./install --no-oled-care
+sudo ./install --oled-care --oled-interval=3 --oled-max-shift=4
+```
+
+**Manual controls**
+
+```bash
+mac-tahoe-oled-care shift
+mac-tahoe-oled-care restore
+mac-tahoe-oled-care status
+```
+
+</details>
+
+<details>
+<summary><b>Test in a virtual machine</b></summary>
+
+```bash
+./vm <os>
+```
+
+**OS:** `cachyos` · `arch` · `manjaro` · `endeavouros` · `garuda` · `fedora` · `nobara` · `opensuse` · `neon`
+
+`all` launches every distro.
+
+</details>
+
+<details>
+<summary><b>Reduced transparency</b></summary>
+
+`./installer` → **Features → Transparency → Standard / Reduced → Apply now**.
+
+```sh
+mac-tahoe-theme-switch transparency reduced
+```
+
+Applies to bundled Plasma, Kvantum and GTK themes and persists across theme
+switches and login. Reopen GTK apps if needed. Restore with
+`mac-tahoe-theme-switch transparency standard`.
+
+</details>
+
+
+
+<br>
+
+![Compatibility](https://img.shields.io/badge/compatibility-system%20support-4B6B8A?style=for-the-badge&logo=linux&logoColor=white)
+
+<details>
+<summary><b>Distributions</b></summary>
+
+| | Name | Status |
+|:--:|------|---------|
+| <img src="https://cdn.simpleicons.org/cachyos" alt="CachyOS" width="22"> | CachyOS | ![Heavily tested](https://img.shields.io/badge/heavily%20tested-1A7F37) |
+| <img src="https://cdn.simpleicons.org/archlinux" alt="Arch Linux" width="22"> | Arch Linux | ![Stable](https://img.shields.io/badge/stable-1A7F37) |
+| <img src="https://cdn.simpleicons.org/endeavouros" alt="EndeavourOS" width="22"> | EndeavourOS | ![Relatively stable](https://img.shields.io/badge/relatively%20stable-D4A72C) |
+| <img src="https://cdn.simpleicons.org/fedora" alt="Fedora" width="22"> | Fedora | ![Relatively stable](https://img.shields.io/badge/relatively%20stable-D4A72C) |
+| <img src="https://cdn.simpleicons.org/manjaro" alt="Manjaro" width="22"> | Manjaro | ![Needs more testing](https://img.shields.io/badge/needs%20more%20testing-B42318) |
+| <img src="https://cdn.simpleicons.org/linux" alt="Linux" width="22"> | Artix Linux (OpenRC) | ![Needs more testing](https://img.shields.io/badge/needs%20more%20testing-B42318) |
+| <img src="https://cdn.simpleicons.org/linux" alt="Linux" width="22"> | Garuda Linux | ![Needs more testing](https://img.shields.io/badge/needs%20more%20testing-B42318) |
+| <img src="https://cdn.simpleicons.org/nobaralinux" alt="Nobara" width="22"> | Nobara | ![Needs more testing](https://img.shields.io/badge/needs%20more%20testing-B42318) |
+| <img src="https://cdn.simpleicons.org/opensuse" alt="openSUSE" width="22"> | openSUSE Tumbleweed | ![Needs more testing](https://img.shields.io/badge/needs%20more%20testing-B42318) |
+| <img src="https://cdn.simpleicons.org/kde" alt="KDE" width="22"> | KDE neon | ![Container + VM qualified](https://img.shields.io/badge/container%20%2B%20VM%20qualified-D4A72C) |
+
+Gentoo support was dropped in v0.54.7 because its maintenance is too complex for
+this project. Anyone wishing to continue it will need to maintain it separately.
+
+</details>
+
+<details>
+<summary><b>Init systems</b></summary>
+
+| Init system | Support | Testing |
+|-------------|---------|---------|
+| systemd | Supported | Completed |
+| OpenRC | Supported | In progress |
+
+OpenRC scheduled features require a running cron daemon. Artix has container
+validation; live installation testing is pending.
+
+</details>
+
+<details>
+<summary><b>Plasma versions</b></summary>
+
+| Plasma | Support | Since |
+|--------|---------|-------|
+| 6.5 and older | Not supported | Not applicable |
+| 6.6 | Supported | v0.1.0 |
+| 6.7 | Supported | v0.19.0 |
+| 6.8 | Supported | v0.54.1 |
+
+</details>
+
+<br>
+
+![Roadmap](https://img.shields.io/badge/project-roadmap-6B4B8A?style=for-the-badge&logo=github&logoColor=white)
+
+<details>
+<summary><b>Component status</b></summary>
+
+| Component | Status |
+|-----------|--------|
+| Color Schemes | Available |
+| Wallpapers | Available |
+| Fonts | Available |
+| Cursors | Available |
+| Plasma Theme | Available |
+| Kvantum Theme | Available |
+| GTK Theme | Available |
+| Acrylic Glass | Available |
+| KDE Rounded Corners | Available |
+| Auto Theme Switcher | Available |
+| OLED Care | Available |
+| Installer UI | Available |
+| Installer TUI | Available |
+| Localization | Available |
+| Aurorae Decorations | Available |
+| Global Menu | Available |
+| Dock Task Manager | Available |
+| Nautilus | Available |
+| Launcher | Available |
+| Trash | Available |
+| Sounds | Available |
+| Boot Screen | Available |
+| Shutdown Screen | Available |
+| Firefox Theme | Available |
+| Icons | In progress |
+| Multi-Distro Support | In progress |
+| OpenRC Testing | In progress |
+| Konsole Theme | Planned |
+| Kate Theme | Planned |
+| SDDM Theme | Planned |
+| Calendar | Planned |
+| Control Center | Planned |
+| System Preferences | Planned |
+| OS Selector | Planned |
+
+</details>
+
+<br>
+
+![Contributing](https://img.shields.io/badge/contributing-A04B4B?style=for-the-badge&logo=github&logoColor=white)
+
+
+
+**[Report a bug](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new)**. Shared implementation issues can also be reported through **Apple menu → About This Computer → Report a Bug…** in Tahoe.
+
+Include:
+
+- Your Plasma version: `plasmashell --version`
+- Your distro: `grep PRETTY_NAME /etc/os-release`
+- The shared theme version shown in **About This Computer**
+- A screenshot or recording for visual issues
+
+Keep pull requests focused and validate with `./vm`. See the shared [contribution guide](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/CONTRIBUTING.md).
+
+
+<details>
+<summary><b>Shared source and development</b></summary>
+
+Golden Gate uses the [Tahoe implementation](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde) with Golden Gate light/dark wallpapers. `defaults.json` selects the edition; `upstream.json` pins the reviewed commit and archive checksum. Updates to the shared source happen through that pin.
+
+```bash
 python -m pytest tests -q
+./test -q
+GOLDEN_GATE_TAHOE_SOURCE=../macos-tahoe-liquid-kde ./test -q
 ```
 
-`--prepare` downloads/prepares the source and prints its path without launching an installer. All downloaded implementation files and build outputs stay ignored under `build/`.
+`./installer --prepare` prepares the source without launching the installer. Downloaded files and build outputs stay under `build/`.
+
+</details>
+
+<br>
+
+![Disclaimer](https://img.shields.io/badge/disclaimer-not%20affiliated%20with%20apple-6B6B6B?style=for-the-badge&logo=apple&logoColor=white)
+
+This is an independent reimplementation inspired by the macOS aesthetic. It is not affiliated with or endorsed by Apple or KDE. "macOS" and "Apple" are trademarks of Apple Inc.
+
+The bundled wallpapers, system sounds, and SF Pro / SF Mono fonts remain Apple's property and are not covered by this project's license. All other code and theme assets are original or derived from compatibly licensed open-source work.
+
+Licensed [GPL-3.0](LICENSE).
+
+<br>
 
 ![Credits](https://img.shields.io/badge/credits-%26%20inspiration-8A6B4B?style=for-the-badge&logo=apple&logoColor=white)
 
