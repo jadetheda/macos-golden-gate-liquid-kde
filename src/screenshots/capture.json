@@ -1,8 +1,8 @@
 {
   "source_commit": "c6982f21bee07799ab518e82530c9e33a7d93c7d",
-  "environment": "Isolated KDE neon QEMU/KVM guest, headless virtio GPU, 1920x1080",
+  "environment": "Isolated KDE neon QEMU/KVM guest, headless virtio GPU, 3840x2160, desktop scale 200%",
   "wallpaper": "MacGoldenGate",
-  "desktop_capture": "Spectacle inside the guest; QMP input targets only the guest; crops preserve original rendered pixels.",
+  "desktop_capture": "Spectacle inside the guest; QMP input targets only the guest; native pixel crops without resizing.",
   "about": "Shared preview_about.qml with canned hardware data and KDE platform theme; readiness signal checked before capture.",
   "dock": "Demo applications pinned in the guest; panel temporarily kept visible for capture, then returned to autohide.",
   "boot": "Shared tests/vm/render.sh in guest Xvfb; boot and shutdown pixel validations passed. Neon required plymouth.ignore-serial-consoles and an explicit temporary Theme setting. ImageMagick 6 uses a magick compatibility wrapper.",

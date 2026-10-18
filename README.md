@@ -15,8 +15,6 @@ macOS Golden Gate-inspired glass, Dock, global menu and app themes for KDE Plasm
 
 ![Features and screenshots](https://img.shields.io/badge/features-%26%20screenshots-4B6B8A?style=for-the-badge&logo=kde&logoColor=white)
 
-Captured in an isolated KDE neon VM with Golden Gate wallpapers. System Information uses sample hardware data.
-
 ### Acrylic Glass Golden Gate Launcher
 
 Search, favorites and two app views.
@@ -247,8 +245,6 @@ switches and login. Reopen GTK apps if needed. Restore with
 
 </details>
 
-
-
 <br>
 
 ![Compatibility](https://img.shields.io/badge/compatibility-system%20support-4B6B8A?style=for-the-badge&logo=linux&logoColor=white)
@@ -349,34 +345,16 @@ validation; live installation testing is pending.
 
 ![Contributing](https://img.shields.io/badge/contributing-A04B4B?style=for-the-badge&logo=github&logoColor=white)
 
-
-
-**[Report a bug](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new)**. Shared implementation issues can also be reported through **Apple menu → About This Computer → Report a Bug…** in Tahoe.
+**[Report a bug](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new)** or use **Apple menu → About This Computer → Report a Bug…**.
 
 Include:
 
 - Your Plasma version: `plasmashell --version`
 - Your distro: `grep PRETTY_NAME /etc/os-release`
-- The shared theme version shown in **About This Computer**
+- The theme version shown in **About This Computer**
 - A screenshot or recording for visual issues
 
-Keep pull requests focused and validate with `./vm`. See the shared [contribution guide](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/CONTRIBUTING.md).
-
-
-<details>
-<summary><b>Shared source and development</b></summary>
-
-Golden Gate uses the [Tahoe implementation](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde) with Golden Gate light/dark wallpapers. `defaults.json` selects the edition; `upstream.json` pins the reviewed commit and archive checksum. Updates to the shared source happen through that pin.
-
-```bash
-python -m pytest tests -q
-./test -q
-GOLDEN_GATE_TAHOE_SOURCE=../macos-tahoe-liquid-kde ./test -q
-```
-
-`./installer --prepare` prepares the source without launching the installer. Downloaded files and build outputs stay under `build/`.
-
-</details>
+Keep pull requests focused and validate with `./vm`. See [CONTRIBUTING.md](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/CONTRIBUTING.md).
 
 <br>
 
