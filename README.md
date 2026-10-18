@@ -1,88 +1,54 @@
-# macOS Golden Gate Theme for Plasma 6.6/6.7+
+<p align="center">
+  <img src="src/screenshots/banner.svg" alt="golden gate" width="440">
+</p>
 
-Introducing Golden Gate, reimagined for Linux.
+# macOS Golden Gate Liquid Theme for Plasma 6.6+
 
-The complete macOS Golden Gate experience, from its liquid glass to its finest details, brought natively to KDE Plasma 6.6 and 6.7+.
+The [Tahoe implementation](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde), with Golden Gate light/dark wallpapers selected by default. Both wallpaper sets live in Tahoe. This repository contains the downloader and one defaults parameter; the installer, themes and behavior are shared.
 
 > [!CAUTION]
-> This project is experimental and still under heavy development, so things will break from time to time. Don't use it on a production system. If something goes wrong, please [open an issue](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new).
+> Experimental. Desktop updates may break compatibility. Avoid production systems.
 
-<br>
+This independent community project is not affiliated with KDE, KDE e.V., or Apple Inc.
 
-![Roadmap](https://img.shields.io/badge/project-roadmap-6B4B8A?style=for-the-badge&logo=github&logoColor=white)
-
-| Component | Description | Status |
-|-----------|-------------|--------|
-| **Color Schemes** | Carefully matched light and dark palettes for the whole desktop | Planned |
-| **Wallpapers** | Golden Gate wallpapers that follow the day, from morning to night | Planned |
-| **Fonts** | The full San Francisco family for that crisp, Mac-like reading feel | Planned |
-| **Cursors** | The familiar Mac pointer, faithfully recreated | Planned |
-| **Plasma Theme** | Translucent panels and glass surfaces across the whole shell | Planned |
-| **Kvantum Theme** | Mac styling that feels native in every Qt app | Planned |
-| **GTK Theme** | The same look carried into your GTK apps | Planned |
-| **Acrylic Glass** | Deep liquid-glass blur where the wallpaper shines through every surface | Planned |
-| **KDE Rounded Corners** | Softly rounded corners on every window, just like macOS | Planned |
-| **Auto Theme Switcher** | Light by day, dark by night, switching the whole desktop for you | Planned |
-| **OLED Care** | Gentle pixel shifting that protects OLED panels from burn-in | Planned |
-| **Installer UI** | A beautiful glass installer that sets everything up in a few clicks | Planned |
-| **Aurorae Decorations** | Mac-style title bars with traffic-light window controls | Planned |
-| **Global Menu Plasmoid** | A unified menu bar up top, with app menus right where you expect them | Planned |
-| **Dock Task Manager** | An icons-only Dock with red Mac-style notification badges | Planned |
-| **Nautilus** | A Finder-style file manager with a clean macOS sidebar | Planned |
-| **Icons** | A complete icon set in light and dark, drawn in the macOS style | Planned |
-| **Multi-Distro Support** | One experience that feels at home on Arch, Fedora, openSUSE and Gentoo | Planned |
-| **Launcher Plasmoid** | A Launchpad-style app grid with quick search and favorites | Planned |
-| **Trashcan Plasmoid** | A Trash that lives in the Dock, just like on a Mac | Planned |
-| **Sounds** | Subtle system sounds for notifications and events | Planned |
-| **Firefox Theme** | Firefox dressed to match the rest of the desktop | Planned |
-| **Konsole Theme** | A terminal that looks straight out of macOS | Planned |
-| **Kate Theme** | Matching colors and chrome for the Kate editor | Planned |
-| **SDDM Theme** | A macOS-style login and lock screen | Planned |
-| **Glass Plasmoids** | Bundled open source KDE plasmoids reworked with the glass look | Planned |
-| **Control Center Plasmoid** | A Control Center panel for quick settings | Planned |
-| **System Preferences Plasmoid** | System Settings, presented the Mac way | Planned |
-| **OS Selector** | A gorgeous boot picker for dual-boot setups | Planned |
-| **Boot Screen** | An Apple-style boot splash, crisp from 1080p to 4K | Planned |
-| **Shutdown Screen** | A styled shutdown sequence to match the boot experience | Planned |
-
-<br>
-
-![Harness](https://img.shields.io/badge/testing-harness-8A4B5B?style=for-the-badge&logo=qemu&logoColor=white)
-
-Every supported distro can be test-driven in a disposable VM. `./vm <distro>` boots a graphical KDE Plasma machine with this repo mounted, the `tester` user auto-logged in, and the installer UI already open, while `./vm all` runs every distro at once, each in its own window:
-
-```bash
-./vm cachyos
-./vm all
-```
-
-Supported distros: `cachyos`, `arch`, `manjaro`, `endeavouros`, `garuda`, `fedora`, `nobara`, `opensuse`, `gentoo`, `gentoo-openrc`.
-
-<br>
-
-![Getting started](https://img.shields.io/badge/getting-started-3B7B5B?style=for-the-badge&logo=gnubash&logoColor=white)
-
-Everything goes through the **graphical installer**: a glass window that drives install / uninstall with a per-feature picker:
+## Install
 
 ```bash
 ./installer
 ```
 
-It checks for a newer release on launch, lets you toggle exactly which parts of the theme get applied, and shows live progress while it runs.
+The first launch downloads a pinned Tahoe source archive, verifies its SHA-256, and selects `MacGoldenGate` in the shared defaults file. Later launches reuse the prepared source in `build/`. Internet is needed for the first download (about 140 MB) and missing system dependencies; Tahoe's optional Rounded Corners download remains unchanged.
 
-<br>
+The terminal entry points work the same way:
 
-![Contributing](https://img.shields.io/badge/contributing-A04B4B?style=for-the-badge&logo=github&logoColor=white)
+```bash
+sudo ./install
+sudo ./uninstall
+```
 
-Bug reports are the most valuable contribution right now: **[open an issue](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new)**, or use **Apple menu → About This Computer → Report a Bug…** straight from the desktop. Please include:
+All arguments pass through to Tahoe. Custom monitor backgrounds are preserved. To explicitly replace them with this edition's defaults:
 
-- Your Plasma version (`plasmashell --version`) and distro (`grep PRETTY_NAME /etc/os-release`)
-- The theme version (`cat VERSION`, or the version shown in *About This Computer*)
-- A screenshot or recording if it's a visual regression
+```bash
+sudo ./install --reset-wallpapers
+```
 
-Pull requests are welcome too: keep them small and focused, and test with the `./vm` harness before submitting.
+The installed switcher keeps the selected defaults for manual, login and scheduled changes. Runtime IDs and commands retain their Tahoe names; these are two editions of the same installation, so install one at a time.
 
-<br>
+See Tahoe's [documentation](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde#readme) for supported systems, options and troubleshooting. `./legacy-install`, `./legacy-uninstall`, `./test` and `./vm` also delegate to the same source.
+
+## Development
+
+`defaults.json` selects the wallpaper package. `upstream.json` pins the shared source commit and archive checksum; update both together after publishing a reviewed Tahoe change. The prepared source does not update itself independently.
+
+Test local Tahoe changes before publishing:
+
+```bash
+GOLDEN_GATE_TAHOE_SOURCE=../macos-tahoe-liquid-kde ./installer --prepare
+GOLDEN_GATE_TAHOE_SOURCE=../macos-tahoe-liquid-kde ./test -q
+python -m pytest tests -q
+```
+
+`--prepare` downloads/prepares the source and prints its path without launching an installer. All downloaded implementation files and build outputs stay ignored under `build/`.
 
 ![Credits](https://img.shields.io/badge/credits-%26%20inspiration-8A6B4B?style=for-the-badge&logo=apple&logoColor=white)
 
