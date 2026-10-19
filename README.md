@@ -4,7 +4,7 @@
 
 # macOS Golden Gate Liquid Theme for Plasma 6.7/6.8+
 
-[![plasma](https://img.shields.io/badge/Plasma-6.6%2B-1d99f3?logo=kde)](https://kde.org/plasma-desktop/) [![license](https://img.shields.io/badge/license-GPL--3.0-blue)](LICENSE) [![report a bug](https://img.shields.io/badge/report-a%20bug-red?logo=github)](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new)
+[![release](https://img.shields.io/github/v/release/lestercorderomurillo/macos-golden-gate-liquid-kde?label=release&color=blue)](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/releases) [![plasma](https://img.shields.io/badge/Plasma-6.6%2B-1d99f3?logo=kde)](https://kde.org/plasma-desktop/) [![license](https://img.shields.io/badge/license-GPL--3.0-blue)](LICENSE) [![report a bug](https://img.shields.io/badge/report-a%20bug-red?logo=github)](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new)
 
 macOS Golden Gate-inspired glass, Dock, global menu and app themes for KDE Plasma 6.6–6.8.
 
@@ -118,7 +118,7 @@ English, Spanish and Simplified Chinese. All options: `sudo ./install --help`.
 - `dbus-send`
 - `systemctl` or `crontab` for scheduled features
 
-The first launch downloads the pinned shared Tahoe source and verifies its SHA-256. Theme assets are bundled in that source; later launches reuse it. Missing dependencies and optional KDE Rounded Corners also require internet access.
+Tahoe and Golden Gate releases use matching version numbers. The first launch downloads the pinned shared Tahoe source and verifies its SHA-256. Theme assets are bundled in that source; later launches reuse it. Missing dependencies and optional KDE Rounded Corners also require internet access.
 
 | Distro | Qt 6 tools | KDE Plasma 6 development packages |
 |--------|------------|-----------------------------------|
