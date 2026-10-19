@@ -18,5 +18,7 @@
       "launcher_preset": 2,
       "wallpaper": "MacGoldenGate"
     }
-  }
+  },
+  "source_version": "0.55.1",
+  "source_commit": "4287909bb893889269742376162ec615bde2268a"
 }
