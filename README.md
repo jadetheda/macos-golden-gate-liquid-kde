@@ -17,11 +17,13 @@ macOS Golden Gate-inspired glass, Dock, global menu and app themes for KDE Plasm
 
 ### Acrylic Glass Golden Gate Launcher
 
-Search, favorites and two app views.
+Installs **Preset 2 — Golden Gate**, with a separate search capsule above the
+app panel. Search, favorites and two app views. Switch to **Preset 1 — Tahoe**
+from the Launcher's **…** menu or **Configure Launcher → General → Launcher preset**.
 
 <p align="center">
-  <img src="src/screenshots/launcher_v1.png" alt="Application launcher in light mode" width="415">
-  <img src="src/screenshots/launcher_dark_v1.png" alt="Application launcher in dark mode" width="415">
+  <img src="src/screenshots/launcher_preset_2_light.png" alt="Default Golden Gate preset 2 in light mode, with detached search and Golden Gate wallpaper" width="415">
+  <img src="src/screenshots/launcher_preset_2_dark.png" alt="Default Golden Gate preset 2 in dark mode, with detached search and Golden Gate wallpaper" width="415">
 </p>
 
 <br>
@@ -172,6 +174,10 @@ sudo ./install --reset
 - Theme changes keep any wallpaper you've chosen for each monitor.
 - `--reset-wallpapers` returns all monitors to the bundled light/dark wallpapers.
 - Both Tahoe and Golden Gate light/dark wallpapers are bundled. Golden Gate is the default here.
+- New launchers use **Preset 2 — Golden Gate**, with a separate search capsule
+  above the app panel. Choose **Preset 1 — Tahoe** or **Preset 2 — Golden Gate**
+  from the Launcher's **…** menu or **Configure Launcher → General → Launcher preset**.
+  Reinstalling preserves explicit selections.
 - The editions share the Tahoe installer and runtime IDs, so install one edition at a time.
 - `./legacy-install` and `./legacy-uninstall` use the classic prompt instead of the terminal wizard.
 

@@ -1,0 +1,22 @@
+{
+  "edition": "Golden Gate",
+  "default_launcher_preset": 2,
+  "wallpaper": "MacGoldenGate",
+  "environment": "Disposable KDE neon VM, Plasma 6.7.4, Wayland, 1600x1200",
+  "capture_date": "2026-10-19",
+  "capture_tool": "Spectacle fullscreen; unmodified capture",
+  "setup": "Full desktop theme with SF Pro Text, icons, top panel, Dock, Acrylic Glass and Rounded Corners. VM favorites contain real installed apps.",
+  "default_validation": "Applied the repository defaults through launcher_defaults.apply_launcher_default. launcherPreset=0 follows the installed schema default; no explicit preset selection.",
+  "captures": {
+    "launcher_preset_2_light.png": {
+      "theme_mode": "light",
+      "launcher_preset": 2,
+      "wallpaper": "MacGoldenGate"
+    },
+    "launcher_preset_2_dark.png": {
+      "theme_mode": "dark",
+      "launcher_preset": 2,
+      "wallpaper": "MacGoldenGate"
+    }
+  }
+}

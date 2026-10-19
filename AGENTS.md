@@ -10,6 +10,11 @@ SHA-256. The selected commit must contain edition support and MacGoldenGate.
 Run the wrapper tests and the shared Tahoe suite against the prepared source.
 `GOLDEN_GATE_TAHOE_SOURCE` allows testing a local Tahoe checkout before publishing.
 
+`defaults.json` selects `launcher_preset: 2` alongside the Golden Gate wallpaper.
+The pinned Tahoe source must include `launcher_defaults.py`. Both launcher
+presets stay selectable from the options menu and General settings; do not
+force the edition default over an explicit saved choice.
+
 Preserve the README Credits section and existing local banner artwork.
 Never run the live installer as a test or change the user's desktop.
 

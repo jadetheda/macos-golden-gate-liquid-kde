@@ -98,6 +98,29 @@ def test_missing_upstream_support_is_not_silently_ignored(tmp_path):
         bootstrap.apply_defaults(tmp_path, {"wallpaper":"MacGoldenGate"})
 
 
+@pytest.mark.parametrize("preset", [1, 2])
+def test_launcher_preset_requires_shared_support_and_is_forwarded(tmp_path, preset):
+    scripts = tmp_path / "src/scripts"
+    scripts.mkdir(parents=True)
+    config = scripts / "defaults.json"
+    config.write_text('{"wallpaper":"MacTahoe","launcher_preset":1}')
+    wallpaper = tmp_path / "src/offline/wallpapers/MacGoldenGate"
+    wallpaper.mkdir(parents=True)
+    (wallpaper / "metadata.json").write_text('{}')
+    defaults = {"wallpaper": "MacGoldenGate", "launcher_preset": preset}
+    with pytest.raises(ValueError, match="lacks launcher presets"):
+        bootstrap.apply_defaults(tmp_path, defaults)
+    assert json.loads(config.read_text())["wallpaper"] == "MacTahoe"
+    (scripts / "launcher_defaults.py").write_text("# shared preset support\n")
+    bootstrap.apply_defaults(tmp_path, defaults)
+    assert json.loads(config.read_text()) == defaults
+
+
+def test_golden_gate_defaults_to_second_launcher_preset():
+    defaults = json.loads((bootstrap.ROOT / "defaults.json").read_text())
+    assert defaults["launcher_preset"] == 2
+
+
 def test_launch_forwards_arguments_and_disables_independent_updates(tmp_path, monkeypatch):
     monkeypatch.setattr(bootstrap, "prepare", lambda: tmp_path)
     monkeypatch.setattr(bootstrap.os, "chdir", lambda path: None)

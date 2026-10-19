@@ -92,6 +92,13 @@ def apply_defaults(source: Path, defaults: dict) -> None:
     wallpaper = source / "src/offline/wallpapers" / package
     if not config.is_file() or not (wallpaper / "metadata.json").is_file():
         raise ValueError("Pinned Tahoe source lacks edition support or wallpapers")
+    preset = defaults.get("launcher_preset", 1)
+    if type(preset) is not int or preset not in (1, 2):
+        raise ValueError("Unsupported launcher preset default")
+    if "launcher_preset" in defaults and not (source / "src/scripts/launcher_defaults.py").is_file():
+        raise ValueError("Pinned Tahoe source lacks launcher presets; publish and pin "
+                         "the shared update, or set GOLDEN_GATE_TAHOE_SOURCE to "
+                         "the updated local Tahoe checkout")
     config.write_text(json.dumps(defaults, indent=2) + "\n")
 
 
