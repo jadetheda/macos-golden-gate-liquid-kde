@@ -2,7 +2,7 @@
   <img src="src/screenshots/banner.svg" alt="golden gate" width="440">
 </p>
 
-# macOS Golden Gate Liquid Theme for Plasma 6.6+
+# macOS Golden Gate Liquid Theme for Plasma 6.7/6.8+
 
 [![plasma](https://img.shields.io/badge/Plasma-6.6%2B-1d99f3?logo=kde)](https://kde.org/plasma-desktop/) [![license](https://img.shields.io/badge/license-GPL--3.0-blue)](LICENSE) [![report a bug](https://img.shields.io/badge/report-a%20bug-red?logo=github)](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new)
 
