@@ -15,6 +15,19 @@ macOS Golden Gate-inspired glass, Dock, global menu and app themes for KDE Plasm
 
 ![Features and screenshots](https://img.shields.io/badge/features-%26%20screenshots-4B6B8A?style=for-the-badge&logo=kde&logoColor=white)
 
+### Golden Gate desktop · 4K
+
+Native 3840 × 2160 captures in light and dark mode. Open either image for full resolution.
+
+<p align="center">
+  <a href="src/screenshots/showcase_light_4k.png"><img src="src/screenshots/showcase_light_4k.png" alt="Golden Gate light desktop with a backgroundless menu bar, Finder-style files, glass system information and Dock" width="840"></a>
+  <a href="src/screenshots/showcase_dark_4k.png"><img src="src/screenshots/showcase_dark_4k.png" alt="Golden Gate dark desktop with a backgroundless menu bar, Finder-style files, glass system information and Dock" width="840"></a>
+</p>
+
+Captured in a disposable VM; system information uses preview data. [v0.56.8 validation: 192 reviewed 4K captures](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/v0.56.8/docs/validation-v0.56.8.md).
+
+<br>
+
 ### Acrylic Glass Golden Gate Launcher
 
 The **Golden Gate** glass preset combines strong blur, restrained color refraction and a black upper gradient on menus in both light and dark mode. The tint starts at 95% opacity and fades out across the upper half; the lower half stays untinted glass. The Dock keeps clear, blurred glass without the gradient. Both modes use transparent surfaces. Choose **Tahoe** or **Golden Gate** in the Acrylic Glass effect settings, then customize the complete material. [Material settings](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/docs/glass-materials.md).

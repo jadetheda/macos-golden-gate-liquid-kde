@@ -1,115 +1,254 @@
 {
   "edition": "Golden Gate",
-  "source_version": "0.56.3",
+  "source_version": "0.56.8",
   "default_launcher_preset": 2,
   "wallpaper": "MacGoldenGate",
   "capture_date": "2026-10-20",
-  "environment": "Disposable KDE neon VM, Wayland, 1600x1200",
+  "environment": "Disposable KDE neon VM, Plasma 6.7.4, Wayland, 3840x2160 at 200%",
   "renderer": "KWin virgl OpenGL compositor",
-  "capture_tool": "Spectacle fullscreen; unmodified launcher captures, lossless crops for menus and Dock",
+  "capture_tool": "Spectacle fullscreen; original 4K launcher frames and lossless detail crops",
   "captures": {
     "launcher_preset_2_light.png": {
       "theme_mode": "light",
       "material_preset": "golden-gate",
       "material_values": {
-        "BlurStrength": 8.0,
+        "BlurStrength": 10.0,
         "MaterialOpacity": 1.0,
         "NoiseStrength": 1,
-        "RgbDriftStrength": 2.5,
-        "MagnifyGlassStrength": 0.008,
-        "RefractionWidth": 12.0,
-        "HighlightWidth": 1.25,
-        "HighlightStrength": 0.09,
+        "RgbDriftStrength": 6.0,
+        "MagnifyGlassStrength": 0.02,
+        "RefractionWidth": 18.0,
+        "HighlightWidth": 1.5,
+        "HighlightStrength": 0.11,
         "Brightness": 1.0,
-        "Contrast": 0.85,
-        "Saturation": 1.02,
+        "Contrast": 1.0,
+        "Saturation": 1.05,
         "DarkGradientOverlay": true,
         "GradientTopColor": "#000000",
         "GradientBottomColor": "#000000",
         "GradientTopOpacity": 0.95,
-        "GradientBottomOpacity": 0.0
+        "GradientBottomOpacity": 0.0,
+        "MaterialPreset": 2
       },
-      "effect_build": "e31a91c7e3264cc2f84432e3242c38f5875535e6ca41884e582453bc3b4ecb12"
+      "source_capture": "light-golden-gate-on-wallpaper-launcher2.png",
+      "source_size": [
+        3840,
+        2160
+      ],
+      "crop": null,
+      "effect_build": "a0bb571f6bfb1fc51b22bb853cf5a01eadaa05795a26d3e2d2e518c8a7c27ed8",
+      "sha256": "c3bb51514cf05351ac009dce56f8944ba44af5bcde24db0739637625c2da7dee"
     },
     "menu_v1.png": {
       "theme_mode": "light",
-      "source_capture": "golden-gate-light-menu.png",
+      "material_preset": "golden-gate",
+      "material_values": {
+        "BlurStrength": 10.0,
+        "MaterialOpacity": 1.0,
+        "NoiseStrength": 1,
+        "RgbDriftStrength": 6.0,
+        "MagnifyGlassStrength": 0.02,
+        "RefractionWidth": 18.0,
+        "HighlightWidth": 1.5,
+        "HighlightStrength": 0.11,
+        "Brightness": 1.0,
+        "Contrast": 1.0,
+        "Saturation": 1.05,
+        "DarkGradientOverlay": true,
+        "GradientTopColor": "#000000",
+        "GradientBottomColor": "#000000",
+        "GradientTopOpacity": 0.95,
+        "GradientBottomOpacity": 0.0,
+        "MaterialPreset": 2
+      },
+      "source_capture": "light-golden-gate-on-wallpaper-menu.png",
+      "source_size": [
+        3840,
+        2160
+      ],
       "crop": [
         0,
-        0,
-        320,
-        360
+        36,
+        546,
+        656
       ],
-      "effect_build": "e31a91c7e3264cc2f84432e3242c38f5875535e6ca41884e582453bc3b4ecb12"
+      "effect_build": "a0bb571f6bfb1fc51b22bb853cf5a01eadaa05795a26d3e2d2e518c8a7c27ed8",
+      "sha256": "71067d86dd07a3969f35beff78021a59afbf700516476f84f48ed14be1977f0f"
     },
     "context_menu_v1.png": {
       "theme_mode": "light",
-      "source_capture": "golden-gate-light-context.png",
-      "crop": [
-        660,
-        360,
-        1080,
-        650
+      "material_preset": "golden-gate",
+      "material_values": {
+        "BlurStrength": 10.0,
+        "MaterialOpacity": 1.0,
+        "NoiseStrength": 1,
+        "RgbDriftStrength": 6.0,
+        "MagnifyGlassStrength": 0.02,
+        "RefractionWidth": 18.0,
+        "HighlightWidth": 1.5,
+        "HighlightStrength": 0.11,
+        "Brightness": 1.0,
+        "Contrast": 1.0,
+        "Saturation": 1.05,
+        "DarkGradientOverlay": true,
+        "GradientTopColor": "#000000",
+        "GradientBottomColor": "#000000",
+        "GradientTopOpacity": 0.95,
+        "GradientBottomOpacity": 0.0,
+        "MaterialPreset": 2
+      },
+      "source_capture": "light-golden-gate-on-wallpaper-context.png",
+      "source_size": [
+        3840,
+        2160
       ],
-      "effect_build": "e31a91c7e3264cc2f84432e3242c38f5875535e6ca41884e582453bc3b4ecb12"
+      "crop": [
+        2066,
+        964,
+        2794,
+        1448
+      ],
+      "effect_build": "a0bb571f6bfb1fc51b22bb853cf5a01eadaa05795a26d3e2d2e518c8a7c27ed8",
+      "sha256": "536d2ab59f217fa6c19ed6f910f5b50c2ca207bd1c6bd5cd5bdc2cc29b84cfb0"
     },
     "dock_1_v1.png": {
       "theme_mode": "light",
-      "source_capture": "golden-gate-light-desktop.png",
-      "crop": [
-        450,
-        1085,
-        1150,
-        1200
+      "material_preset": "golden-gate",
+      "material_values": {
+        "BlurStrength": 10.0,
+        "MaterialOpacity": 1.0,
+        "NoiseStrength": 1,
+        "RgbDriftStrength": 6.0,
+        "MagnifyGlassStrength": 0.02,
+        "RefractionWidth": 18.0,
+        "HighlightWidth": 1.5,
+        "HighlightStrength": 0.11,
+        "Brightness": 1.0,
+        "Contrast": 1.0,
+        "Saturation": 1.05,
+        "DarkGradientOverlay": true,
+        "GradientTopColor": "#000000",
+        "GradientBottomColor": "#000000",
+        "GradientTopOpacity": 0.95,
+        "GradientBottomOpacity": 0.0,
+        "MaterialPreset": 2
+      },
+      "source_capture": "light-golden-gate-on-wallpaper-dock.png",
+      "source_size": [
+        3840,
+        2160
       ],
-      "effect_build": "e31a91c7e3264cc2f84432e3242c38f5875535e6ca41884e582453bc3b4ecb12"
+      "crop": [
+        1385,
+        1964,
+        2455,
+        2160
+      ],
+      "effect_build": "a0bb571f6bfb1fc51b22bb853cf5a01eadaa05795a26d3e2d2e518c8a7c27ed8",
+      "sha256": "4f02b1d1d78814265bb0d9a1d46dc4cdc57ff64e438832cb2a69864a146611a5"
     },
     "launcher_preset_2_dark.png": {
       "theme_mode": "dark",
       "material_preset": "golden-gate",
       "material_values": {
-        "BlurStrength": 8.0,
+        "BlurStrength": 10.0,
         "MaterialOpacity": 1.0,
         "NoiseStrength": 1,
-        "RgbDriftStrength": 2.5,
-        "MagnifyGlassStrength": 0.008,
-        "RefractionWidth": 12.0,
-        "HighlightWidth": 1.25,
-        "HighlightStrength": 0.09,
+        "RgbDriftStrength": 6.0,
+        "MagnifyGlassStrength": 0.02,
+        "RefractionWidth": 18.0,
+        "HighlightWidth": 1.5,
+        "HighlightStrength": 0.11,
         "Brightness": 1.0,
-        "Contrast": 0.85,
-        "Saturation": 1.02,
+        "Contrast": 1.0,
+        "Saturation": 1.05,
         "DarkGradientOverlay": true,
         "GradientTopColor": "#000000",
         "GradientBottomColor": "#000000",
         "GradientTopOpacity": 0.95,
-        "GradientBottomOpacity": 0.0
+        "GradientBottomOpacity": 0.0,
+        "MaterialPreset": 2
       },
-      "effect_build": "e31a91c7e3264cc2f84432e3242c38f5875535e6ca41884e582453bc3b4ecb12",
-      "qt_quick_renderer": "Mesa software rendering in the VM; KWin remains virgl"
+      "source_capture": "dark-golden-gate-on-wallpaper-launcher2.png",
+      "source_size": [
+        3840,
+        2160
+      ],
+      "crop": null,
+      "effect_build": "a0bb571f6bfb1fc51b22bb853cf5a01eadaa05795a26d3e2d2e518c8a7c27ed8",
+      "sha256": "20e4de10f8739eebebdcd7d2d6d21b6281b7e7497aca43951c1fc70cf607ed05"
     },
     "menu_dark_v1.png": {
       "theme_mode": "dark",
-      "source_capture": "golden-gate-dark-menu.png",
+      "material_preset": "golden-gate",
+      "material_values": {
+        "BlurStrength": 10.0,
+        "MaterialOpacity": 1.0,
+        "NoiseStrength": 1,
+        "RgbDriftStrength": 6.0,
+        "MagnifyGlassStrength": 0.02,
+        "RefractionWidth": 18.0,
+        "HighlightWidth": 1.5,
+        "HighlightStrength": 0.11,
+        "Brightness": 1.0,
+        "Contrast": 1.0,
+        "Saturation": 1.05,
+        "DarkGradientOverlay": true,
+        "GradientTopColor": "#000000",
+        "GradientBottomColor": "#000000",
+        "GradientTopOpacity": 0.95,
+        "GradientBottomOpacity": 0.0,
+        "MaterialPreset": 2
+      },
+      "source_capture": "dark-golden-gate-on-wallpaper-menu.png",
+      "source_size": [
+        3840,
+        2160
+      ],
       "crop": [
         0,
-        0,
-        320,
-        360
+        36,
+        546,
+        656
       ],
-      "effect_build": "e31a91c7e3264cc2f84432e3242c38f5875535e6ca41884e582453bc3b4ecb12"
+      "effect_build": "a0bb571f6bfb1fc51b22bb853cf5a01eadaa05795a26d3e2d2e518c8a7c27ed8",
+      "sha256": "0afc44374b47378ba8198b7ae6ea30e9947ad6a17bcf1582dc1c77d3a019f530"
     },
     "context_menu_dark_v1.png": {
       "theme_mode": "dark",
-      "source_capture": "golden-gate-dark-context.png",
-      "crop": [
-        660,
-        360,
-        1080,
-        650
+      "material_preset": "golden-gate",
+      "material_values": {
+        "BlurStrength": 10.0,
+        "MaterialOpacity": 1.0,
+        "NoiseStrength": 1,
+        "RgbDriftStrength": 6.0,
+        "MagnifyGlassStrength": 0.02,
+        "RefractionWidth": 18.0,
+        "HighlightWidth": 1.5,
+        "HighlightStrength": 0.11,
+        "Brightness": 1.0,
+        "Contrast": 1.0,
+        "Saturation": 1.05,
+        "DarkGradientOverlay": true,
+        "GradientTopColor": "#000000",
+        "GradientBottomColor": "#000000",
+        "GradientTopOpacity": 0.95,
+        "GradientBottomOpacity": 0.0,
+        "MaterialPreset": 2
+      },
+      "source_capture": "dark-golden-gate-on-wallpaper-context.png",
+      "source_size": [
+        3840,
+        2160
       ],
-      "effect_build": "e31a91c7e3264cc2f84432e3242c38f5875535e6ca41884e582453bc3b4ecb12"
+      "crop": [
+        2066,
+        964,
+        2794,
+        1448
+      ],
+      "effect_build": "a0bb571f6bfb1fc51b22bb853cf5a01eadaa05795a26d3e2d2e518c8a7c27ed8",
+      "sha256": "67ceefe7a2ab990b68e9739c7fe7524cb5b8e3fcfb1f50553842a41876d50dc6"
     }
-  },
-  "source_commit": "bf87022d0949d57f6782b95ad390c6b2fb927b97"
+  }
 }

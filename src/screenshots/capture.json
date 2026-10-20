@@ -1,24 +1,106 @@
 {
-  "source_commit": "c6982f21bee07799ab518e82530c9e33a7d93c7d",
-  "environment": "Isolated KDE neon QEMU/KVM guest, headless virtio GPU, 3840x2160, desktop scale 200%",
+  "source_release": "v0.56.8",
+  "edition": "Golden Gate",
+  "environment": "Disposable KDE neon QEMU/KVM VM; Plasma 6.7.4 Wayland, virgl OpenGL, native 3840x2160 at 200% scale",
   "wallpaper": "MacGoldenGate",
-  "desktop_capture": "Spectacle inside the guest; QMP input targets only the guest; native pixel crops without resizing.",
-  "about": "Shared preview_about.qml with canned hardware data and KDE platform theme; readiness signal checked before capture.",
-  "dock": "Demo applications pinned in the guest; panel temporarily kept visible for capture, then returned to autohide.",
-  "boot": "Shared tests/vm/render.sh in guest Xvfb; boot and shutdown pixel validations passed. Neon required plymouth.ignore-serial-consoles and an explicit temporary Theme setting. ImageMagick 6 uses a magick compatibility wrapper.",
-  "images": [
-    "src/screenshots/launcher_v1.png",
-    "src/screenshots/launcher_dark_v1.png",
-    "src/screenshots/dock_1_v1.png",
-    "src/screenshots/finder_v1.png",
-    "src/screenshots/finder_dark_v1.png",
-    "src/screenshots/menu_v1.png",
-    "src/screenshots/menu_dark_v1.png",
-    "src/screenshots/about_v1.png",
-    "src/screenshots/about_dark_v1.png",
-    "src/screenshots/context_menu_v1.png",
-    "src/screenshots/context_menu_dark_v1.png",
-    "src/screenshots/boot_v1.png",
-    "src/screenshots/boot_shutdown_v1.png"
-  ]
+  "desktop_capture": "Spectacle in the guest; original frames and lossless native crops, no upscaling. Guest-only QMP input.",
+  "about": "Shared preview_about.qml with canned hardware data; readiness checked before capture.",
+  "dock": "Demo pins; temporarily visible during capture, then restored to autohide.",
+  "boot": "Repository Plymouth harness in guest Xvfb at 3840x2160; render and pixel checks passed. Temporary Theme setting and plymouth.ignore-serial-consoles required by neon.",
+  "effect_source_identity": "a0bb571f6bfb1fc51b22bb853cf5a01eadaa05795a26d3e2d2e518c8a7c27ed8",
+  "images": {
+    "finder_v1.png": {
+      "source": "golden-gate-light-finder.png",
+      "source_resolution": [
+        3840,
+        2160
+      ],
+      "crop": [
+        412,
+        472,
+        2468,
+        1768
+      ],
+      "sha256": "788ddc91bab321748964aae7254ae1173ff3038977e918cc9cef081061bc1327"
+    },
+    "about_v1.png": {
+      "source": "light-golden-gate-on-wallpaper-about.png",
+      "source_resolution": [
+        3840,
+        2160
+      ],
+      "crop": [
+        1532,
+        312,
+        2308,
+        1768
+      ],
+      "sha256": "d5f2863f3f331e57326f2c9ea8c5a9af8e64780d02af0f5fc5bcddb5114c69c7"
+    },
+    "showcase_light_4k.png": {
+      "source": "golden-gate-light-showcase.png",
+      "source_resolution": [
+        3840,
+        2160
+      ],
+      "crop": null,
+      "sha256": "a8dc34909e0a5f37492d6b1260b681b83690408119ba178b3070239fca7adc11"
+    },
+    "finder_dark_v1.png": {
+      "source": "golden-gate-dark-finder.png",
+      "source_resolution": [
+        3840,
+        2160
+      ],
+      "crop": [
+        412,
+        472,
+        2468,
+        1768
+      ],
+      "sha256": "e0c9e4a48268ed4a9b1b80983438b3af73c29ce17dc329d69e43c020f77150b8"
+    },
+    "about_dark_v1.png": {
+      "source": "dark-golden-gate-on-wallpaper-about.png",
+      "source_resolution": [
+        3840,
+        2160
+      ],
+      "crop": [
+        1532,
+        312,
+        2308,
+        1768
+      ],
+      "sha256": "32e3067da275f62567a4b9536e3c313ff4c0c8ebd35325bd0a7375211fe6920f"
+    },
+    "showcase_dark_4k.png": {
+      "source": "golden-gate-dark-showcase.png",
+      "source_resolution": [
+        3840,
+        2160
+      ],
+      "crop": null,
+      "sha256": "58cf675fe08736f6c1bc2f0f832bed0a59032e84fc1b0a5edc16587ff1911ad5"
+    },
+    "boot_v1.png": {
+      "source": "plymouth-boot-splash.png",
+      "source_resolution": [
+        3840,
+        2160
+      ],
+      "crop": null,
+      "sha256": "f685ec98f1e4407f2624c352f6b6e18ae8c2a686a64f162f6d0666d8fcbfb4d0"
+    },
+    "boot_shutdown_v1.png": {
+      "source": "plymouth-shutdown-splash.png",
+      "source_resolution": [
+        3840,
+        2160
+      ],
+      "crop": null,
+      "sha256": "abe6faef7c08133f6e6d29004d15f5c85c6d5a03c727451d16181a22eb64c5a3"
+    }
+  },
+  "launcher_menu_dock_context_metadata": "launcher-presets.json"
 }
