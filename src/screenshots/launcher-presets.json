@@ -2,23 +2,93 @@
   "edition": "Golden Gate",
   "default_launcher_preset": 2,
   "wallpaper": "MacGoldenGate",
-  "environment": "Disposable KDE neon VM, Plasma 6.7.4, Wayland, 1600x1200",
-  "capture_date": "2026-10-19",
+  "environment": "Disposable KDE neon VM, Plasma 6.7.4, Wayland, 1920x1080",
+  "capture_date": "2026-10-20",
   "capture_tool": "Spectacle fullscreen; unmodified capture",
   "setup": "Full desktop theme with SF Pro Text, icons, top panel, Dock, Acrylic Glass and Rounded Corners. VM favorites contain real installed apps.",
-  "default_validation": "Applied the repository defaults through launcher_defaults.apply_launcher_default. launcherPreset=0 follows the installed schema default; no explicit preset selection.",
+  "default_validation": "Explicit edition launcher and material selection; shipped defaults also exercised by native preset tests. Four desktop captures and black/white backdrop checks run sequentially.",
   "captures": {
     "launcher_preset_2_light.png": {
       "theme_mode": "light",
       "launcher_preset": 2,
-      "wallpaper": "MacGoldenGate"
+      "wallpaper": "MacGoldenGate",
+      "material_preset": "golden-gate",
+      "material_values": {
+        "BlurStrength": 6.5,
+        "MaterialOpacity": 1.0,
+        "NoiseStrength": 1,
+        "RgbDriftStrength": 1.0,
+        "MagnifyGlassStrength": 0.008,
+        "RefractionWidth": 16.0,
+        "HighlightWidth": 2.5,
+        "HighlightStrength": 0.18,
+        "Brightness": 1.0,
+        "Contrast": 0.85,
+        "Saturation": 1.02,
+        "DarkGradientOverlay": true,
+        "GradientTopColor": "#000000",
+        "GradientBottomColor": "#000000",
+        "GradientTopOpacity": 0.7,
+        "GradientBottomOpacity": 0.02
+      },
+      "effect_build": "6c2e1e181fc5d1b3dbd4802085b3a00ae0e95920375e42948c48413f03b4baac"
     },
     "launcher_preset_2_dark.png": {
       "theme_mode": "dark",
       "launcher_preset": 2,
-      "wallpaper": "MacGoldenGate"
+      "wallpaper": "MacGoldenGate",
+      "material_preset": "golden-gate",
+      "material_values": {
+        "BlurStrength": 6.5,
+        "MaterialOpacity": 1.0,
+        "NoiseStrength": 1,
+        "RgbDriftStrength": 1.0,
+        "MagnifyGlassStrength": 0.008,
+        "RefractionWidth": 16.0,
+        "HighlightWidth": 2.5,
+        "HighlightStrength": 0.18,
+        "Brightness": 1.0,
+        "Contrast": 0.85,
+        "Saturation": 1.02,
+        "DarkGradientOverlay": true,
+        "GradientTopColor": "#000000",
+        "GradientBottomColor": "#000000",
+        "GradientTopOpacity": 0.7,
+        "GradientBottomOpacity": 0.02
+      },
+      "effect_build": "6c2e1e181fc5d1b3dbd4802085b3a00ae0e95920375e42948c48413f03b4baac"
     }
   },
-  "source_version": "0.55.1",
-  "source_commit": "4287909bb893889269742376162ec615bde2268a"
+  "source_version": "0.56.1",
+  "renderer": "KWin uses the virgl OpenGL compositor. Plasma Qt Quick uses Mesa llvmpipe; this is a VM capture setting only.",
+  "dock_gradient_validation": {
+    "method": "Compare real compositor captures with the gradient enabled and disabled, separately in light and dark mode.",
+    "dock_rgb_mean_absolute_difference": {
+      "light": [
+        0,
+        0,
+        0
+      ],
+      "dark": [
+        0,
+        0,
+        0
+      ]
+    },
+    "menu_rgb_mean_absolute_difference": {
+      "light": [
+        85.7116,
+        77.2636,
+        70.7015
+      ],
+      "dark": [
+        29.487,
+        29.6632,
+        40.483
+      ]
+    },
+    "renderer": "virgl"
+  },
+  "capture_note": "The VM intermittently showed incomplete icon textures immediately after appearance switches, also with llvmpipe. The reviewed final captures show settled modes after reapplying the appearance. This release does not claim to fix that VM rendering issue.",
+  "source_commit": "6b456cfa958797f37a4f393e5b89a445915242a3"
 }

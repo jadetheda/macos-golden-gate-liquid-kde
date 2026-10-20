@@ -17,7 +17,7 @@ macOS Golden Gate-inspired glass, Dock, global menu and app themes for KDE Plasm
 
 ### Acrylic Glass Golden Gate Launcher
 
-The **Golden Gate** glass preset combines deeper blur, gentler refraction and a black gradient at the top. Choose **Clear**, **Tahoe** or **Golden Gate** in the Acrylic Glass effect settings, then customize the complete material. [Material settings](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/docs/glass-materials.md).
+The **Golden Gate** glass preset combines deeper blur, gentler refraction and a black upper gradient on menus in both light and dark mode. The Dock keeps clear, blurred glass without the gradient. Both modes use transparent surfaces. Choose **Clear**, **Tahoe** or **Golden Gate** in the Acrylic Glass effect settings, then customize the complete material. [Material settings](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/docs/glass-materials.md).
 
 <p align="center">
   <img src="src/screenshots/launcher_preset_2_light.png" alt="Default Golden Gate preset 2 in light mode, with detached search and Golden Gate wallpaper" width="415">
@@ -231,20 +231,6 @@ mac-tahoe-oled-care status
 
 </details>
 
-<details>
-<summary><b>Reduced transparency</b></summary>
-
-`./installer` → **Features → Transparency → Standard / Reduced → Apply now**.
-
-```sh
-mac-tahoe-theme-switch transparency reduced
-```
-
-Applies to bundled Plasma, Kvantum and GTK themes and persists across theme
-switches and login. Reopen GTK apps if needed. Restore with
-`mac-tahoe-theme-switch transparency standard`.
-
-</details>
 
 <br>
 
