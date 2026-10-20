@@ -1,94 +1,115 @@
 {
   "edition": "Golden Gate",
+  "source_version": "0.56.3",
   "default_launcher_preset": 2,
   "wallpaper": "MacGoldenGate",
-  "environment": "Disposable KDE neon VM, Plasma 6.7.4, Wayland, 1920x1080",
   "capture_date": "2026-10-20",
-  "capture_tool": "Spectacle fullscreen; unmodified capture",
-  "setup": "Full desktop theme with SF Pro Text, icons, top panel, Dock, Acrylic Glass and Rounded Corners. VM favorites contain real installed apps.",
-  "default_validation": "Edition launcher and material presets selected explicitly for four sequential desktop captures.",
+  "environment": "Disposable KDE neon VM, Wayland, 1600x1200",
+  "renderer": "KWin virgl OpenGL compositor",
+  "capture_tool": "Spectacle fullscreen; unmodified launcher captures, lossless crops for menus and Dock",
   "captures": {
     "launcher_preset_2_light.png": {
       "theme_mode": "light",
-      "launcher_preset": 2,
-      "wallpaper": "MacGoldenGate",
       "material_preset": "golden-gate",
       "material_values": {
-        "BlurStrength": 6.5,
+        "BlurStrength": 8.0,
         "MaterialOpacity": 1.0,
         "NoiseStrength": 1,
-        "RgbDriftStrength": 1.0,
+        "RgbDriftStrength": 2.5,
         "MagnifyGlassStrength": 0.008,
-        "RefractionWidth": 16.0,
-        "HighlightWidth": 2.5,
-        "HighlightStrength": 0.18,
+        "RefractionWidth": 12.0,
+        "HighlightWidth": 1.25,
+        "HighlightStrength": 0.09,
         "Brightness": 1.0,
         "Contrast": 0.85,
         "Saturation": 1.02,
         "DarkGradientOverlay": true,
         "GradientTopColor": "#000000",
         "GradientBottomColor": "#000000",
-        "GradientTopOpacity": 0.7,
-        "GradientBottomOpacity": 0.02
+        "GradientTopOpacity": 0.95,
+        "GradientBottomOpacity": 0.0
       },
-      "effect_build": "6c2e1e181fc5d1b3dbd4802085b3a00ae0e95920375e42948c48413f03b4baac"
+      "effect_build": "e31a91c7e3264cc2f84432e3242c38f5875535e6ca41884e582453bc3b4ecb12"
+    },
+    "menu_v1.png": {
+      "theme_mode": "light",
+      "source_capture": "golden-gate-light-menu.png",
+      "crop": [
+        0,
+        0,
+        320,
+        360
+      ],
+      "effect_build": "e31a91c7e3264cc2f84432e3242c38f5875535e6ca41884e582453bc3b4ecb12"
+    },
+    "context_menu_v1.png": {
+      "theme_mode": "light",
+      "source_capture": "golden-gate-light-context.png",
+      "crop": [
+        660,
+        360,
+        1080,
+        650
+      ],
+      "effect_build": "e31a91c7e3264cc2f84432e3242c38f5875535e6ca41884e582453bc3b4ecb12"
+    },
+    "dock_1_v1.png": {
+      "theme_mode": "light",
+      "source_capture": "golden-gate-light-desktop.png",
+      "crop": [
+        450,
+        1085,
+        1150,
+        1200
+      ],
+      "effect_build": "e31a91c7e3264cc2f84432e3242c38f5875535e6ca41884e582453bc3b4ecb12"
     },
     "launcher_preset_2_dark.png": {
       "theme_mode": "dark",
-      "launcher_preset": 2,
-      "wallpaper": "MacGoldenGate",
       "material_preset": "golden-gate",
       "material_values": {
-        "BlurStrength": 6.5,
+        "BlurStrength": 8.0,
         "MaterialOpacity": 1.0,
         "NoiseStrength": 1,
-        "RgbDriftStrength": 1.0,
+        "RgbDriftStrength": 2.5,
         "MagnifyGlassStrength": 0.008,
-        "RefractionWidth": 16.0,
-        "HighlightWidth": 2.5,
-        "HighlightStrength": 0.18,
+        "RefractionWidth": 12.0,
+        "HighlightWidth": 1.25,
+        "HighlightStrength": 0.09,
         "Brightness": 1.0,
         "Contrast": 0.85,
         "Saturation": 1.02,
         "DarkGradientOverlay": true,
         "GradientTopColor": "#000000",
         "GradientBottomColor": "#000000",
-        "GradientTopOpacity": 0.7,
-        "GradientBottomOpacity": 0.02
+        "GradientTopOpacity": 0.95,
+        "GradientBottomOpacity": 0.0
       },
-      "effect_build": "6c2e1e181fc5d1b3dbd4802085b3a00ae0e95920375e42948c48413f03b4baac"
+      "effect_build": "e31a91c7e3264cc2f84432e3242c38f5875535e6ca41884e582453bc3b4ecb12",
+      "qt_quick_renderer": "Mesa software rendering in the VM; KWin remains virgl"
+    },
+    "menu_dark_v1.png": {
+      "theme_mode": "dark",
+      "source_capture": "golden-gate-dark-menu.png",
+      "crop": [
+        0,
+        0,
+        320,
+        360
+      ],
+      "effect_build": "e31a91c7e3264cc2f84432e3242c38f5875535e6ca41884e582453bc3b4ecb12"
+    },
+    "context_menu_dark_v1.png": {
+      "theme_mode": "dark",
+      "source_capture": "golden-gate-dark-context.png",
+      "crop": [
+        660,
+        360,
+        1080,
+        650
+      ],
+      "effect_build": "e31a91c7e3264cc2f84432e3242c38f5875535e6ca41884e582453bc3b4ecb12"
     }
   },
-  "source_version": "0.56.2",
-  "renderer": "KWin uses the virgl OpenGL compositor in a disposable VM. The dark capture uses Mesa llvmpipe for Plasma Qt Quick.",
-  "dock_gradient_validation": {
-    "method": "Compare real compositor captures with the gradient enabled and disabled, separately in light and dark mode.",
-    "dock_rgb_mean_absolute_difference": {
-      "light": [
-        0,
-        0,
-        0
-      ],
-      "dark": [
-        0,
-        0,
-        0
-      ]
-    },
-    "menu_rgb_mean_absolute_difference": {
-      "light": [
-        85.7116,
-        77.2636,
-        70.7015
-      ],
-      "dark": [
-        29.487,
-        29.6632,
-        40.483
-      ]
-    },
-    "renderer": "virgl"
-  },
-  "capture_note": "The VM intermittently showed incomplete icon textures immediately after appearance switches, also with llvmpipe. The reviewed final captures show settled modes after reapplying the appearance. This release does not claim to fix that VM rendering issue.",
-  "source_commit": "6b456cfa958797f37a4f393e5b89a445915242a3"
+  "source_commit": "bf87022d0949d57f6782b95ad390c6b2fb927b97"
 }

@@ -33,6 +33,7 @@ The shared Acrylic Glass KCM offers Clear, Tahoe and Golden Gate materials.
 The edition initially selects Golden Gate; explicit saved material selections
 and individual overrides must survive reinstalls. Preset data and rendering
 live only in Tahoe, including transparent shared Plasma/Kvantum popup surfaces.
-Golden Gate menus retain their black upper gradient in light and dark mode;
+Golden Gate menus retain their black upper gradient in light and dark mode:
+95% black at the top, fading to zero at 50% of the surface height;
 the Dock is exempt from the gradient while retaining blur and refraction.
 There is no Reduced Transparency preference or generated opaque variant.
