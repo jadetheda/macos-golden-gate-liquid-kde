@@ -29,7 +29,9 @@ the host theme, move its windows, or inject host input for screenshots. Run
 captures sequentially, verify labels and window identity, and review each image
 before publishing it.
 
-The shared Acrylic Glass KCM offers Clear, Tahoe and Golden Gate materials.
+The shared Acrylic Glass KCM offers Tahoe and Golden Gate materials, both
+with blur strength 10 and stable saved IDs 1 and 2. Retired Clear ID 0 falls
+back to Tahoe without resetting saved optics when opening the KCM.
 Installing or reinstalling Acrylic Glass selects the complete Golden Gate
 material, replacing saved material selections and optical overrides while
 preserving radius controls and window rules. Preset data and rendering
