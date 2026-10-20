@@ -17,7 +17,7 @@ macOS Golden Gate-inspired glass, Dock, global menu and app themes for KDE Plasm
 
 ### Acrylic Glass Golden Gate Launcher
 
-Softer refraction, slightly stronger blur, and dark shading that fades into clear glass. Toggle **Dark gradient overlay** in the Acrylic Glass effect settings.
+The **Golden Gate** glass preset combines deeper blur, gentler refraction and a black gradient at the top. Choose **Clear**, **Tahoe** or **Golden Gate** in the Acrylic Glass effect settings, then customize the complete material. [Material settings](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/docs/glass-materials.md).
 
 <p align="center">
   <img src="src/screenshots/launcher_preset_2_light.png" alt="Default Golden Gate preset 2 in light mode, with detached search and Golden Gate wallpaper" width="415">
