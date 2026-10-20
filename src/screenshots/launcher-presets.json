@@ -6,7 +6,7 @@
   "capture_date": "2026-10-20",
   "capture_tool": "Spectacle fullscreen; unmodified capture",
   "setup": "Full desktop theme with SF Pro Text, icons, top panel, Dock, Acrylic Glass and Rounded Corners. VM favorites contain real installed apps.",
-  "default_validation": "Explicit edition launcher and material selection; shipped defaults also exercised by native preset tests. Four desktop captures and black/white backdrop checks run sequentially.",
+  "default_validation": "Edition launcher and material presets selected explicitly for four sequential desktop captures.",
   "captures": {
     "launcher_preset_2_light.png": {
       "theme_mode": "light",
@@ -59,8 +59,8 @@
       "effect_build": "6c2e1e181fc5d1b3dbd4802085b3a00ae0e95920375e42948c48413f03b4baac"
     }
   },
-  "source_version": "0.56.1",
-  "renderer": "KWin uses the virgl OpenGL compositor. Plasma Qt Quick uses Mesa llvmpipe; this is a VM capture setting only.",
+  "source_version": "0.56.2",
+  "renderer": "KWin uses the virgl OpenGL compositor in a disposable VM. The dark capture uses Mesa llvmpipe for Plasma Qt Quick.",
   "dock_gradient_validation": {
     "method": "Compare real compositor captures with the gradient enabled and disabled, separately in light and dark mode.",
     "dock_rgb_mean_absolute_difference": {
