@@ -8,7 +8,7 @@
   "renderer": "KWin virgl OpenGL compositor",
   "capture_tool": "Spectacle fullscreen; original 4K launcher frames and lossless detail crops",
   "captures": {
-    "launcher_preset_2_light.png": {
+    "launcher_preset_2_light-91259f2e2aba.png": {
       "theme_mode": "light",
       "material_preset": "golden-gate",
       "material_values": {
@@ -164,7 +164,7 @@
       },
       "effect_build": "82f21f4138be23c792274f5b1f239fb09c9d3d7590dd692d961000a54a8cba26"
     },
-    "launcher_preset_2_dark.png": {
+    "launcher_preset_2_dark-a51f905275c1.png": {
       "source": "golden-gate-dark-launcher.png",
       "source_resolution": [
         3840,
@@ -172,7 +172,7 @@
       ],
       "mode": "dark",
       "crop": null,
-      "sha256": "a630550419c3bdafa80a4f7b7e71b3480c8793c1b9e928066de857108b42d8ba",
+      "sha256": "a51f905275c1c56efa852ba0fcb7f76b9d0462470f2c49a34eeeb4109ec6e6c3",
       "appearance": {
         "Plasma": "MacTahoeLiquidKde-Dark",
         "Qt": "MacTahoeLiquidKdeDark",
@@ -185,7 +185,7 @@
       "source_release": "v0.57.0",
       "effect_source_identity": "82f21f4138be23c792274f5b1f239fb09c9d3d7590dd692d961000a54a8cba26",
       "visual_review": "accepted",
-      "source_version": "0.57.0",
+      "source_version": "0.57.2",
       "theme_mode": "dark",
       "material_preset": "golden-gate",
       "material_values": {
@@ -207,7 +207,94 @@
         "GradientBottomOpacity": 0.0,
         "MaterialPreset": 2
       },
-      "effect_build": "82f21f4138be23c792274f5b1f239fb09c9d3d7590dd692d961000a54a8cba26"
+      "effect_build": "fa2c10bbf5cc68237eef386751323c8e15e0bbc96e9b0ad15b98925ad45eba85",
+      "source_capture": "dark-2.png",
+      "source_commit": "e87f23009374f9073de674428aac5f2c5c7788f2",
+      "capture_date": "2026-10-20",
+      "vm_image_sha256": "a0db83c3dfbaa942e381ee4fcc9a0ae8f692ab20b968f55be5cd63a0d172e50f",
+      "profile_sha256": "a5e23cf9661304156d8665455a4a18bec232a23ddd30c8426206aeab16fe62f1",
+      "windows": [
+        {
+          "caption": "",
+          "resourceClass": "plasmashell",
+          "type": 1,
+          "appletPopup": false,
+          "geometry": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 1080
+          }
+        },
+        {
+          "caption": "",
+          "resourceClass": "plasmashell",
+          "type": 2,
+          "appletPopup": false,
+          "geometry": {
+            "x": 0,
+            "y": 0,
+            "width": 1920,
+            "height": 32
+          }
+        },
+        {
+          "caption": "",
+          "resourceClass": "plasmashell",
+          "type": 2,
+          "appletPopup": false,
+          "geometry": {
+            "x": 779,
+            "y": 996,
+            "width": 362,
+            "height": 84
+          }
+        },
+        {
+          "caption": "plasmashell",
+          "resourceClass": "org.kde.plasmashell",
+          "type": 18,
+          "appletPopup": true,
+          "geometry": {
+            "x": 643,
+            "y": 165,
+            "width": 634,
+            "height": 104
+          }
+        },
+        {
+          "caption": "plasmashell",
+          "resourceClass": "org.kde.plasmashell",
+          "type": 18,
+          "appletPopup": true,
+          "geometry": {
+            "x": 446,
+            "y": 282,
+            "width": 1028,
+            "height": 632
+          }
+        }
+      ],
+      "window_verified": true,
+      "stable_frames": true,
+      "timing_verification": {
+        "initial_settle_seconds": 8,
+        "samples": [
+          {
+            "sha256": "a51f905275c1c56efa852ba0fcb7f76b9d0462470f2c49a34eeeb4109ec6e6c3",
+            "elapsed_seconds": 0.0
+          },
+          {
+            "sha256": "a51f905275c1c56efa852ba0fcb7f76b9d0462470f2c49a34eeeb4109ec6e6c3",
+            "elapsed_seconds": 4.966
+          },
+          {
+            "sha256": "a51f905275c1c56efa852ba0fcb7f76b9d0462470f2c49a34eeeb4109ec6e6c3",
+            "elapsed_seconds": 9.886
+          }
+        ],
+        "comparison": "All three full-resolution frames are pixel-identical."
+      }
     },
     "menu_dark_v1.png": {
       "source": "golden-gate-dark-menu.png",
@@ -312,7 +399,8 @@
   },
   "pending_captures": [
     "context_menu_v1.png",
-    "launcher_preset_2_light.png",
+    "launcher_preset_2_light-91259f2e2aba.png",
     "menu_v1.png"
-  ]
+  ],
+  "provenance_note": "The source_version above describes the original capture batch; individual captures record subsequent source versions and commits."
 }

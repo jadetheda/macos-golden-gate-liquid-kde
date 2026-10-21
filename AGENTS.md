@@ -66,3 +66,9 @@ Golden Gate menus retain their black upper gradient in light and dark mode:
 95% black at the top, fading to zero at 50% of the surface height;
 the Dock is exempt from the gradient while retaining blur and refraction.
 There is no Reduced Transparency preference or generated opaque variant.
+
+Published screenshots must include the first 12 hexadecimal characters of their
+content SHA-256 in the filename (for example, `launcher_preset_1_light-abc123def456.png`).
+Update README links and provenance together, remove replaced image files and
+obsolete aliases, and preserve unrelated artwork. Apply this in both repositories
+every time images are published; never overwrite a changed image at its old URL.
