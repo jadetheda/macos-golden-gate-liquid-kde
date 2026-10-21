@@ -52,13 +52,13 @@ The desktop and its apps in light and dark mode.
 The Golden Gate desktop in light and dark mode.
 
 <p align="center">
-  <a href="src/screenshots/showcase_light_4k-6a5ba74a5c5c.png"><img src="src/screenshots/showcase_light_4k-6a5ba74a5c5c.png" alt="Golden Gate light desktop with Files focused" width="415"></a>
-  <a href="src/screenshots/desktop_about_light_4k-8f97838cb03f.png"><img src="src/screenshots/desktop_about_light_4k-8f97838cb03f.png" alt="Golden Gate light desktop with About This Computer focused" width="415"></a>
+  <a href="src/screenshots/showcase_light_4k-9f0f8b2b1e20.png"><img src="src/screenshots/showcase_light_4k-9f0f8b2b1e20.png" alt="Golden Gate light desktop with Files focused" width="415"></a>
+  <a href="src/screenshots/desktop_about_light_4k-7aa4e24c74b4.png"><img src="src/screenshots/desktop_about_light_4k-7aa4e24c74b4.png" alt="Golden Gate light desktop with About This Computer focused" width="415"></a>
 </p>
 
 <p align="center">
   <a href="src/screenshots/showcase_dark_4k-fd14ec652e4f.png"><img src="src/screenshots/showcase_dark_4k-fd14ec652e4f.png" alt="Golden Gate dark desktop with Files focused" width="415"></a>
-  <a href="src/screenshots/desktop_about_dark_4k-5e3ba3a6c2bf.png"><img src="src/screenshots/desktop_about_dark_4k-5e3ba3a6c2bf.png" alt="Golden Gate dark desktop with About This Computer focused" width="415"></a>
+  <a href="src/screenshots/desktop_about_dark_4k-212285ebd3ac.png"><img src="src/screenshots/desktop_about_dark_4k-212285ebd3ac.png" alt="Golden Gate dark desktop with About This Computer focused" width="415"></a>
 </p>
 
 <br>
@@ -68,8 +68,8 @@ The Golden Gate desktop in light and dark mode.
 Detached search, favorites and app categories with blurred glass and a dark upper gradient. [Material settings](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/docs/glass-materials.md).
 
 <p align="center">
-  <img src="src/screenshots/launcher_preset_2_light-3ae46924285a.png" alt="Default Golden Gate preset 2 in light mode, with detached search and Golden Gate wallpaper" width="415">
-  <img src="src/screenshots/launcher_preset_2_dark-23a83749f792.png" alt="Default Golden Gate preset 2 in dark mode, with detached search and Golden Gate wallpaper" width="415">
+  <img src="src/screenshots/launcher_preset_2_light-028fd42533eb.png" alt="Default Golden Gate preset 2 in light mode, with detached search and Golden Gate wallpaper" width="415">
+  <img src="src/screenshots/launcher_preset_2_dark-638799d16848.png" alt="Default Golden Gate preset 2 in dark mode, with detached search and Golden Gate wallpaper" width="415">
 </p>
 
 <br>
@@ -89,7 +89,7 @@ Glass refraction, hover zoom, notification badges and auto-hide.
 Finder-style Nautilus in light and dark.
 
 <p align="center">
-  <img src="src/screenshots/finder_v1-d7344fdf64b8.png" alt="Finder-style Nautilus in light mode" width="415">
+  <img src="src/screenshots/finder_v1-162edb2a7945.png" alt="Finder-style Nautilus in light mode" width="415">
   <img src="src/screenshots/finder_dark_v1-124234cc8858.png" alt="Finder-style Nautilus in dark mode" width="415">
 </p>
 
@@ -100,8 +100,8 @@ Finder-style Nautilus in light and dark.
 System controls and global menus for compatible apps.
 
 <p align="center">
-  <img src="src/screenshots/menu_v1-0e784e46beff.png" alt="System menu in light mode" width="415">
-  <img src="src/screenshots/menu_dark_v1-0c9518b2545e.png" alt="System menu in dark mode" width="415">
+  <img src="src/screenshots/menu_v1-04777f4536c2.png" alt="System menu in light mode" width="415">
+  <img src="src/screenshots/menu_dark_v1-f3d38f10f16e.png" alt="System menu in dark mode" width="415">
 </p>
 
 <br>
@@ -111,8 +111,8 @@ System controls and global menus for compatible apps.
 Hardware, software and theme details in About This Computer.
 
 <p align="center">
-  <img src="src/screenshots/about_v1-3824857404bf.png" alt="About This Computer in light mode" width="415">
-  <img src="src/screenshots/about_dark_v1-8dd990616f6c.png" alt="About This Computer in dark mode" width="415">
+  <img src="src/screenshots/about_v1-e66694b53462.png" alt="About This Computer in light mode" width="415">
+  <img src="src/screenshots/about_dark_v1-ea1fa9607e12.png" alt="About This Computer in dark mode" width="415">
 </p>
 
 <br>
