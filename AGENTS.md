@@ -74,6 +74,10 @@ the Dock is exempt from the gradient while retaining blur and refraction.
 Launcher text uses a soft, low-opacity halo of the opposite luminance, without
 a hard outline. Light-mode category pills have a translucent white backing
 for readable dark labels. Keep this shared implementation in Tahoe.
+In Golden Gate light mode, the Apps input uses full-opacity text and a
+stronger diffuse halo. Category fills use 56% white when selected and 40%
+otherwise. These changes follow the staged edition independently of the
+selected launcher preset; preserve Tahoe and dark-mode styling.
 There is no Reduced Transparency preference or generated opaque variant.
 
 Published screenshots must include the first 12 hexadecimal characters of their
