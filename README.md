@@ -134,7 +134,7 @@ English, Spanish and Simplified Chinese. All options: `sudo ./install --help`.
 
 ![Project contributions](https://img.shields.io/badge/project-contributions-6B4B8A?style=for-the-badge&logo=github&logoColor=white)
 
-Here is what we added or improved in the components we ship. Golden Gate uses a fixed Tahoe release, verifies its checksum and applies its own glass, Launcher and wallpaper defaults.
+Here is what we added or improved in the components we ship.
 
 - **Multilanguage support:** English, Spanish and Simplified Chinese in the graphical and terminal installers, plus translated Plasma widgets.
 - **Installation and packaging:** graphical installer, terminal wizard, selectable components, saved preferences, bundled theme assets and release updates.
