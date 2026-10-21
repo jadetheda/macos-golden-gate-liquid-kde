@@ -52,13 +52,13 @@ The desktop and its apps in light and dark mode.
 The Golden Gate desktop in light and dark mode.
 
 <p align="center">
-  <a href="src/screenshots/showcase_light_4k-2475d0f7472d.png"><img src="src/screenshots/showcase_light_4k-2475d0f7472d.png" alt="Golden Gate light desktop with Files focused" width="415"></a>
-  <a href="src/screenshots/desktop_about_light_4k-4f8451f4e751.png"><img src="src/screenshots/desktop_about_light_4k-4f8451f4e751.png" alt="Golden Gate light desktop with About This Computer focused" width="415"></a>
+  <a href="src/screenshots/showcase_light_4k-6a5ba74a5c5c.png"><img src="src/screenshots/showcase_light_4k-6a5ba74a5c5c.png" alt="Golden Gate light desktop with Files focused" width="415"></a>
+  <a href="src/screenshots/desktop_about_light_4k-8f97838cb03f.png"><img src="src/screenshots/desktop_about_light_4k-8f97838cb03f.png" alt="Golden Gate light desktop with About This Computer focused" width="415"></a>
 </p>
 
 <p align="center">
-  <a href="src/screenshots/showcase_dark_4k-965a25a7980b.png"><img src="src/screenshots/showcase_dark_4k-965a25a7980b.png" alt="Golden Gate dark desktop with Files focused" width="415"></a>
-  <a href="src/screenshots/desktop_about_dark_4k-2370a052a1ac.png"><img src="src/screenshots/desktop_about_dark_4k-2370a052a1ac.png" alt="Golden Gate dark desktop with About This Computer focused" width="415"></a>
+  <a href="src/screenshots/showcase_dark_4k-fd14ec652e4f.png"><img src="src/screenshots/showcase_dark_4k-fd14ec652e4f.png" alt="Golden Gate dark desktop with Files focused" width="415"></a>
+  <a href="src/screenshots/desktop_about_dark_4k-5e3ba3a6c2bf.png"><img src="src/screenshots/desktop_about_dark_4k-5e3ba3a6c2bf.png" alt="Golden Gate dark desktop with About This Computer focused" width="415"></a>
 </p>
 
 <br>
@@ -68,8 +68,8 @@ The Golden Gate desktop in light and dark mode.
 Detached search, favorites and app categories with blurred glass and a dark upper gradient. [Material settings](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/docs/glass-materials.md).
 
 <p align="center">
-  <img src="src/screenshots/launcher_preset_2_light-2b4aadd87a85.png" alt="Default Golden Gate preset 2 in light mode, with detached search and Golden Gate wallpaper" width="415">
-  <img src="src/screenshots/launcher_preset_2_dark-f9cb167a9194.png" alt="Default Golden Gate preset 2 in dark mode, with detached search and Golden Gate wallpaper" width="415">
+  <img src="src/screenshots/launcher_preset_2_light-3ae46924285a.png" alt="Default Golden Gate preset 2 in light mode, with detached search and Golden Gate wallpaper" width="415">
+  <img src="src/screenshots/launcher_preset_2_dark-23a83749f792.png" alt="Default Golden Gate preset 2 in dark mode, with detached search and Golden Gate wallpaper" width="415">
 </p>
 
 <br>
@@ -89,7 +89,7 @@ Glass refraction, hover zoom, notification badges and auto-hide.
 Finder-style Nautilus in light and dark.
 
 <p align="center">
-  <img src="src/screenshots/finder_v1-162edb2a7945.png" alt="Finder-style Nautilus in light mode" width="415">
+  <img src="src/screenshots/finder_v1-d7344fdf64b8.png" alt="Finder-style Nautilus in light mode" width="415">
   <img src="src/screenshots/finder_dark_v1-124234cc8858.png" alt="Finder-style Nautilus in dark mode" width="415">
 </p>
 
@@ -111,8 +111,8 @@ System controls and global menus for compatible apps.
 Hardware, software and theme details in About This Computer.
 
 <p align="center">
-  <img src="src/screenshots/about_v1-1e8754b653c5.png" alt="About This Computer in light mode" width="415">
-  <img src="src/screenshots/about_dark_v1-da0ce346bde4.png" alt="About This Computer in dark mode" width="415">
+  <img src="src/screenshots/about_v1-3824857404bf.png" alt="About This Computer in light mode" width="415">
+  <img src="src/screenshots/about_dark_v1-8dd990616f6c.png" alt="About This Computer in dark mode" width="415">
 </p>
 
 <br>
@@ -318,9 +318,13 @@ Try the theme in an isolated Plasma desktop.
 ./vm <os>
 ```
 
-**OS:** `cachyos` · `arch` · `manjaro` · `endeavouros` · `garuda` · `fedora` · `nobara` · `opensuse` · `neon` · `debian` · `artix`
+**OS:** `cachyos` · `arch` · `manjaro` · `endeavouros` · `garuda` · `fedora` · `nobara` · `opensuse` · `neon` · `debian` · `artix` · `kubuntu`
 
 `all` launches every distro. [VM setup and qualification guide](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/README.md).
+
+`./vm kubuntu` boots the SHA-256-pinned Kubuntu 26.04.1 LTS ISO on loopback
+SSH port `2234` after guest setup. This launcher regression target is pending
+full live qualification.
 
 </details>
 
