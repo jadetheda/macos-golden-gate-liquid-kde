@@ -10,6 +10,7 @@
 
 <p align="center">
   <a href="https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/releases"><img src="https://img.shields.io/github/v/release/lestercorderomurillo/macos-golden-gate-liquid-kde?label=release&amp;color=blue" alt="release"></a>
+  <a href="https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/releases/tag/v0.57.15"><img src="https://img.shields.io/badge/LTS-v0.57.15-green" alt="LTS v0.57.15"></a>
   <a href="https://kde.org/plasma-desktop/"><img src="https://img.shields.io/badge/Plasma-6.6%2B-1d99f3?logo=kde" alt="plasma"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0-blue" alt="license"></a>
   <a href="https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new"><img src="https://img.shields.io/badge/report-a%20bug-red?logo=github" alt="report a bug"></a>
@@ -262,6 +263,19 @@ Fixes and known limitations for blur, refraction and window corners.
 - **Corner artifacts:** Acrylic Glass follows the active Rounded Corners cutout and clips both glass and grain to it ([#89](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/issues/89)). Independent radii remain available when Rounded Corners does not affect a surface; reinstall preserves custom values.
 - **Desktop-edit overlay:** Rounded Corners excludes desktop surfaces before offscreen redirection, even with explicit inclusion rules ([#77](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/issues/77)). The guard is verified in an isolated compositor; the originally reported NVIDIA desktop-edit session still needs confirmation.
 - VirtualBox VM windows are excluded from glass to preserve seamless cutouts ([#90](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/issues/90)). The manager is unaffected.
+
+</details>
+
+<details>
+<summary><b>Global Menu compatibility</b></summary>
+
+Global Menu displays menus exported by the focused application. The installer
+includes the D-Bus menu runtime, installs the GTK3 exporter on Arch/Debian-family
+systems, and activates KDE's registrar. Log out and back in after installation
+to load the GTK startup integration. Applications must still support menu
+export: custom Electron/Wayland menus are not automatically transferable, and
+Flatpak/Snap isolation can restrict the connection. A visible application name
+alone does not mean its menus were exported.
 
 </details>
 
