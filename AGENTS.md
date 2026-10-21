@@ -10,7 +10,9 @@ SHA-256. The selected commit must contain edition support and MacGoldenGate.
 Run the wrapper tests and the shared Tahoe suite against the prepared source.
 `GOLDEN_GATE_TAHOE_SOURCE` allows testing a local Tahoe checkout before publishing.
 
-Publish matching `v<version>` releases in both repositories. This repository's
+Publish matching `v<version>` releases in both repositories. Release titles must
+be exactly `v<version>`, with no subtitles, descriptions or other extra text.
+This repository's
 `VERSION` must equal the pinned Tahoe source's `VERSION`; `upstream.json` must
 reference the commit tagged for that Tahoe release. Publish Tahoe first,
 verify the archive checksum, then publish Golden Gate. Each README must show
