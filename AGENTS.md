@@ -30,7 +30,7 @@ full-height ListView delegate cells; do not position the delegates themselves.
 
 Preserve the README Credits section and existing local banner artwork.
 Preserve existing copyright and component license notices. Follow `NOTICE`,
-`LICENSING.md`, `BRANDING.md`, and `THIRD_PARTY_NOTICES.md`; keep GPL intact,
+`LICENSING.md`, and `THIRD_PARTY_NOTICES.md`; keep GPL intact,
 without copying, rebranding, or commercial-use bans or claims to third-party marks.
 Never run the live installer as a test or change the user's desktop.
 

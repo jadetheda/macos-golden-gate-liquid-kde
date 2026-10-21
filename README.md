@@ -38,7 +38,7 @@
 > Experimental. Desktop updates may break compatibility. Avoid production systems; [report issues here](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new).
 
 > [!NOTE]
-> **A note on forks.** Forks and adaptations are welcome. Tahoe and Golden Gate reflect months of development and testing, so please credit the original work and highlight what you’ve changed or added. See our [licensing and attribution guide](LICENSING.md) and [project identity policy](BRANDING.md).
+> **A note on forks.** Forks and adaptations are welcome. Tahoe and Golden Gate reflect months of development and testing, so please credit the original work and highlight what you’ve changed or added. See our [licensing and attribution guide](LICENSING.md).
 
 <br>
 
@@ -464,7 +464,7 @@ This is an independent reimplementation inspired by the macOS aesthetic. It is n
 
 The macOS 27 emblem, bundled wallpapers, system sounds, and SF Pro / SF Mono fonts remain Apple's property and are not covered by this project's license. Other components retain their own licenses and copyright notices; see the third-party notice index below for scope and known provenance gaps.
 
-Licensed [GPL-3.0](LICENSE) as a whole; individual component licenses and third-party rights remain applicable. See [copyright notices](NOTICE), [redistribution obligations](LICENSING.md), [third-party notices](THIRD_PARTY_NOTICES.md), and [official project identity](BRANDING.md).
+Licensed [GPL-3.0](LICENSE) as a whole; individual component licenses and third-party rights remain applicable. See [copyright notices](NOTICE), [licensing and project identity](LICENSING.md), and [third-party notices](THIRD_PARTY_NOTICES.md).
 
 <br>
 

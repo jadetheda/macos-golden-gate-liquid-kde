@@ -21,8 +21,8 @@ them or claim ownership of the upstream components.
   owned by this project or erase their applicable attribution.
 
 [NOTICE](NOTICE) identifies original project contributions. [LICENSING.md](LICENSING.md)
-explains redistribution obligations and [BRANDING.md](BRANDING.md) distinguishes
-official releases from independent versions. [License text sources](LICENSES/sources.json)
+explains redistribution obligations and distinguishes official releases from
+independent versions. [License text sources](LICENSES/sources.json)
 record the included supplemental text's immutable source and hash.
 
 This index is not a complete chain-of-title certification. Missing provenance
