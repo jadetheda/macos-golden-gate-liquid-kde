@@ -1,0 +1,97 @@
+{
+  "upstream": "https://github.com/simple-icons/simple-icons/tree/c71c69e3a27e4436936b831c72643e6513b9f49b",
+  "collection_license": "CC0-1.0",
+  "modifications": "Added brand fill colors; Nobara uses neutral gray for light and dark backgrounds.",
+  "icons": {
+    "cachyos": {
+      "title": "CachyOS",
+      "hex": "00AA88",
+      "source": "https://commons.wikimedia.org/wiki/File:CachyOS_Logo.svg",
+      "sha256": "a6a187aa038660013aa2b3af4635b61f9f61127bd839651b59322e202441fbe7"
+    },
+    "archlinux": {
+      "title": "Arch Linux",
+      "hex": "1793D1",
+      "source": "https://www.archlinux.org/art",
+      "guidelines": "https://wiki.archlinux.org/index.php/DeveloperWiki:TrademarkPolicy#Logo_Usage_Guidelines",
+      "sha256": "1d45fa365b8308aa408565a649e6646232d43e4ccbc02b106021b8b2dcd65a4d"
+    },
+    "endeavouros": {
+      "title": "EndeavourOS",
+      "hex": "7F7FFF",
+      "source": "https://github.com/endeavouros-team/endeavouros-theming/blob/135f642c980ed8d8fc212783eb478f96226f6c72/endeavouros-logo-text.svg",
+      "sha256": "1f79ce92f028c7afb92ab8ca6a4abf10ec2cdec52cd2e2369355bd4629f04c58"
+    },
+    "fedora": {
+      "title": "Fedora",
+      "hex": "51A2DA",
+      "source": "https://docs.fedoraproject.org/en-US/project/brand/",
+      "guidelines": "https://fedoraproject.org/wiki/Legal:Trademark_guidelines",
+      "license": {
+        "type": "custom",
+        "url": "https://docs.fedoraproject.org/en-US/project/brand/"
+      },
+      "sha256": "dafd9d19355dc0c89e8a14aac3740b224e2eb0e2fb42db050ba3832acaa7b106"
+    },
+    "manjaro": {
+      "title": "Manjaro",
+      "hex": "35BFA4",
+      "source": "https://manjaro.org",
+      "sha256": "da3aa09c0c86f777453438600d400a26a8373fc294d0391699c86960ebf55f38"
+    },
+    "artixlinux": {
+      "title": "Artix Linux",
+      "hex": "10A0CC",
+      "source": "https://gitea.artixlinux.org/artix/artwork/src/commit/256432e3d06b3e9024bfd6912768e80281ea3746/icons/logo-gray.svg",
+      "sha256": "2861c69c6a41b7e03b66d35fc9a2d5cce2a75dd51ff1b75396210303f5a830ba"
+    },
+    "garudalinux": {
+      "title": "Garuda Linux",
+      "hex": "8839EF",
+      "source": "https://gitlab.com/garuda-linux/themes-and-settings/artwork/garuda-icons/-/blob/aab26625fe01479ebc3a252103fca723baca9e88/usr/share/icons/garuda/distributor-logo-garuda-outline.svg",
+      "license": {
+        "type": "GPL-3.0-only"
+      },
+      "sha256": "2cc12a0de72bd629ee2580b00b8216d62a92ace1de2acf4853abd41a286a587b"
+    },
+    "nobaralinux": {
+      "title": "Nobara Linux",
+      "hex": "000000",
+      "source": "https://wiki.nobaraproject.org",
+      "sha256": "51aa397cd42cacd1958e757f7ec1c10d3e85be19796a076e81b486888cba5092"
+    },
+    "opensuse": {
+      "title": "openSUSE",
+      "hex": "73BA25",
+      "source": "https://github.com/openSUSE/artwork/blob/33e94aa76837c09f03d1712705949b71a246a53b/logos/buttons/button-colour.svg",
+      "guidelines": "https://en.opensuse.org/Portal:Artwork",
+      "sha256": "4bf06439a0f080cf5168dda7190770bd57a0d66db069b387d087992912a57234"
+    },
+    "kdeneon": {
+      "title": "KDE neon",
+      "hex": "3DC08D",
+      "source": "https://community.kde.org/Neon",
+      "sha256": "582c4eec29614d7dec4ab9bb003aba5be9955933fddb69a829ad0944eb709f42"
+    },
+    "debian": {
+      "title": "Debian",
+      "hex": "A81D33",
+      "source": "https://www.debian.org/logos",
+      "guidelines": "https://www.debian.org/logos/",
+      "license": {
+        "type": "CC-BY-SA-3.0"
+      },
+      "sha256": "a4772536243ad46258a015be1fe6e8192a111c9301d2632a959daf6aea64191b"
+    },
+    "nixos": {
+      "title": "NixOS",
+      "hex": "5277C3",
+      "source": "https://brand.nixos.org/logos/nixos-logomark-black-flat-minimal.svg",
+      "guidelines": "https://brand.nixos.org/documents/nixos-branding-guide.pdf",
+      "license": {
+        "type": "CC-BY-4.0"
+      },
+      "sha256": "35d6d093ee2023a68cef55758ffe49fe7346cff8dfd322bbbed7b6c14333eeaa"
+    }
+  }
+}
