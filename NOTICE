@@ -1,0 +1,33 @@
+Tahoe and Golden Gate — copyright and provenance notice
+
+Copyright (C) 2026 Lester Cordero Murillo, for his original contributions.
+Other contributors and upstream authors retain copyright in their respective
+contributions. This notice does not claim exclusive ownership of third-party
+code, artwork, fonts, sounds, names, or logos, or replace their notices.
+
+Canonical project repositories:
+https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde
+https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde
+
+The project as a whole is distributed under GNU GPL version 3; see LICENSE.
+Individual file and component licenses remain applicable. See LICENSING.md
+and THIRD_PARTY_NOTICES.md for scope and exceptions. The work is provided
+without warranty, subject to the terms of the applicable licenses.
+
+Preserve applicable copyright, license, attribution, and warranty notices
+when redistributing, as required by the relevant licenses. Renaming a project
+or changing its screenshots does not remove those obligations. Modified
+GPL-covered versions must carry prominent modification notices and a
+relevant date. Contributors may add notices for their own contributions.
+
+A copy or modified version is not automatically an official project release.
+No endorsement, affiliation, or validation of a downstream build is granted
+by the software license. See BRANDING.md for identifying independent versions
+and accurately describing screenshots and test results.
+
+Apple imagery, SF fonts, and system sounds are not licensed by this notice.
+Apple, KDE, and distribution names and logos belong to their respective
+rights holders. This project is independent and is not endorsed by Apple or KDE.
+
+This notice records copyright and provenance; it does not add restrictions
+to the GNU GPL or change permissions already granted in earlier releases.
