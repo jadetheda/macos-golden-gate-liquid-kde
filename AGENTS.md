@@ -44,6 +44,12 @@ Publish through `.github/workflows/release.yml`, which runs that gate against
 the immutable Tahoe pin. Never bypass it with direct `gh release create`.
 The capture implementation belongs only in Tahoe; do not vendor it here.
 
+The shared installer must record a verified uninstall wallpaper reset as
+project-applied state. Reinstallation replaces that unchanged background while
+preserving a background selected afterward by the user. A Breeze/Next filename
+alone is not proof of ownership; legacy misclassified states require an
+explicit reset. Keep this implementation in Tahoe.
+
 The shared Acrylic Glass KCM offers Tahoe and Golden Gate materials, both
 with blur strength 10 and stable saved IDs 1 and 2. Retired Clear ID 0 falls
 back to Tahoe without resetting saved optics when opening the KCM.
