@@ -1,0 +1,27 @@
+{
+  "source_release": "v0.57.0",
+  "effect_build": "82f21f4138be23c792274f5b1f239fb09c9d3d7590dd692d961000a54a8cba26",
+  "approved": [
+    "dock_1_v1.png",
+    "finder_v1.png",
+    "showcase_light_4k.png",
+    "about_v1.png",
+    "launcher_preset_2_dark.png",
+    "menu_dark_v1.png",
+    "context_menu_dark_v1.png",
+    "finder_dark_v1.png",
+    "showcase_dark_4k.png",
+    "about_dark_v1.png"
+  ],
+  "rejected": {
+    "context_menu_v1.png": "Black foreground is unreadable over the black upper gradient in light mode; previous published image retained.",
+    "launcher_preset_2_light.png": "Black foreground is unreadable over the black upper gradient in light mode; previous published image retained.",
+    "menu_v1.png": "Black foreground is unreadable over the black upper gradient in light mode; previous published image retained."
+  },
+  "negative_control": {
+    "source": "tahoe-light-showcase.png",
+    "expected_mode": "light",
+    "result": "rejected",
+    "reason": "Files pixels contradict light: median=36.0, matching=0.0%"
+  }
+}
