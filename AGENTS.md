@@ -39,7 +39,9 @@ back to Tahoe without resetting saved optics when opening the KCM.
 Installing or reinstalling Acrylic Glass selects the complete Golden Gate
 material, replacing saved material selections and optical overrides while
 preserving radius controls and window rules. Preset data and rendering
-live only in Tahoe, including transparent shared Plasma/Kvantum popup surfaces.
+live only in Tahoe, including Plasma/Kvantum popup surfaces. Golden Gate stages a 1% white
+client fill in both modes so the upper gradient supplies the dark tint;
+Tahoe retains 55% white light fills and slightly clearer 48% black dark fills.
 Golden Gate menus retain their black upper gradient in light and dark mode:
 95% black at the top, fading to zero at 50% of the surface height;
 the Dock is exempt from the gradient while retaining blur and refraction.
