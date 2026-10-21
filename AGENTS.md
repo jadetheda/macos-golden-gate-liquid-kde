@@ -60,7 +60,10 @@ Installing or reinstalling Acrylic Glass selects the complete Golden Gate
 material, replacing saved material selections and optical overrides while
 preserving radius controls and window rules. Preset data and rendering
 live only in Tahoe, including Plasma/Kvantum popup surfaces. Golden Gate stages a 1% white
-client fill in both modes so the upper gradient supplies the dark tint;
+client fill in both modes so the upper gradient supplies the dark tint.
+Only light native Qt menus use a 60% white translucent Kvantum menu fill to
+keep dark system text readable. Preserve dark menus, Tahoe, and all non-menu
+surfaces; apply this exception in both the installer and Nix staging.
 Tahoe retains 55% white light fills and slightly clearer 48% black dark fills.
 Golden Gate menus retain their black upper gradient in light and dark mode:
 85% black at the top, fading to zero at 55% of the surface height;
