@@ -78,3 +78,9 @@ content SHA-256 in the filename (for example, `launcher_preset_1_light-abc123def
 Update README links and provenance together, remove replaced image files and
 obsolete aliases, and preserve unrelated artwork. Apply this in both repositories
 every time images are published; never overwrite a changed image at its old URL.
+
+Main README desktop screenshots must show Files and About This Computer in
+separate images in each appearance mode. Each frame must contain only its
+featured application with that window focused; reject combined or unfocused
+frames. Enforce this in capture and release validation. This requirement is
+for the main README gallery, not distro qualification/OS screenshots.
