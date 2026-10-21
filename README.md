@@ -10,7 +10,7 @@
 
 [![release](https://img.shields.io/github/v/release/lestercorderomurillo/macos-golden-gate-liquid-kde?label=release&color=blue)](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/releases) [![plasma](https://img.shields.io/badge/Plasma-6.6%2B-1d99f3?logo=kde)](https://kde.org/plasma-desktop/) [![license](https://img.shields.io/badge/license-GPL--3.0-blue)](LICENSE) [![report a bug](https://img.shields.io/badge/report-a%20bug-red?logo=github)](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new)
 
-The ultimate macOS Golden Gate-inspired theme for Linux. Immersive glass, an iconic Dock and a complete desktop transformation for KDE Plasma 6.6, 6.7 and 6.8+ across supported distributions.
+The ultimate macOS Golden Gate experience, reimagined for Linux. Immersive glass, an iconic Dock and a complete desktop transformation for KDE Plasma 6.6, 6.7 and 6.8+. One vision: every distro.
 
 > [!CAUTION]
 > Experimental. Desktop updates may break compatibility. Avoid production systems; [report issues here](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new).
