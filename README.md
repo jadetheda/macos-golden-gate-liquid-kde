@@ -133,6 +133,27 @@ sudo ./uninstall
 English, Spanish and Simplified Chinese. All options: `sudo ./install --help`.
 
 <details>
+<summary><b>Project contributions</b></summary>
+
+Integration, features and fixes maintained by this project alongside the bundled open-source components. Golden Gate ships this shared work through a pinned, checksum-verified Tahoe source release, with its own material, Launcher and wallpaper defaults.
+
+- **Multilanguage support:** English, Spanish and Simplified Chinese in the graphical and terminal installers, plus translated Plasma widgets.
+- **Installation and packaging:** graphical installer, terminal wizard, selectable components, saved preferences, bundled theme assets and release updates.
+- **Multiple distributions:** dependency detection and package mappings for Arch-based, Fedora-based, openSUSE and KDE neon systems.
+- **systemd and OpenRC:** scheduled theme switching and OLED care through user timers or cron.
+- **Glass improvements:** configurable blur, edge refraction, opacity and gradients; Tahoe and Golden Gate materials with consistent light/dark surfaces and paired edge highlights.
+- **Plasma compatibility:** rendering and build fixes for Plasma 6.6–6.8, with effects compiled against the installed Qt and KWin SDKs.
+- **Launcher improvements:** two selectable layouts, integrated or detached search, favorites, app categories and drag/wheel category scrolling.
+- **Dock improvements:** glass surfaces, hover zoom, notification badges, auto-hide and preservation of pinned apps during layout rebuilds.
+- **Live appearance switching:** coordinated Plasma, Kvantum, GTK, icons and window decorations, with per-monitor wallpaper ownership and an explicit wallpaper reset.
+- **Application integration:** global menus, a GTK menu lifetime fix, Finder-style Nautilus and Firefox theming with profile backups.
+- **Install and uninstall recovery:** preflight checks, session detection, settings snapshots and restoration of managed changes.
+- **Optional features:** OLED panel shifts and experimental NixOS/Home Manager modules.
+- **Validation:** regression tests, distribution container checks and disposable Plasma VMs for desktop and visual testing.
+
+</details>
+
+<details>
 <summary><b>Requirements</b></summary>
 
 Required desktop, build tools and system packages.
