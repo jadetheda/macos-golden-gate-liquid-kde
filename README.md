@@ -117,7 +117,7 @@ Here is what we added or improved in the components we ship.
 
 - **Multilanguage support:** English, Spanish and Simplified Chinese in the graphical and terminal installers, plus translated Plasma widgets.
 - **Installation and packaging:** graphical installer, terminal wizard, selectable components, saved preferences, bundled theme assets and release updates.
-- **Multiple distributions:** dependency detection and package mappings for Arch-based, Fedora-based, openSUSE and KDE neon systems.
+- **Multiple distributions:** dependency detection and package mappings for Arch-based, Fedora-based, openSUSE, Debian and KDE neon systems.
 - **systemd and OpenRC:** scheduled theme switching and OLED care through user timers or cron.
 - **Glass improvements:** configurable blur, edge refraction, opacity and gradients; Tahoe and Golden Gate materials with consistent light/dark surfaces and paired edge highlights.
 - **Plasma compatibility:** rendering and build fixes for Plasma 6.6–6.8, with effects compiled against the installed Qt and KWin SDKs.
@@ -307,6 +307,17 @@ Supported distributions and their current testing status.
 | <img src="https://cdn.simpleicons.org/nobaralinux" alt="Nobara" width="22"> | Nobara | ![Needs more testing](https://img.shields.io/badge/needs%20more%20testing-B42318) |
 | <img src="https://cdn.simpleicons.org/opensuse" alt="openSUSE" width="22"> | openSUSE Tumbleweed | ![Needs more testing](https://img.shields.io/badge/needs%20more%20testing-B42318) |
 | <img src="https://cdn.simpleicons.org/kde" alt="KDE" width="22"> | KDE neon | ![Container + VM qualified](https://img.shields.io/badge/container%20%2B%20VM%20qualified-D4A72C) |
+
+| <img src="https://cdn.simpleicons.org/debian" alt="Debian" width="22"> | Debian testing / sid (Plasma 6.6+) | ![Needs more testing](https://img.shields.io/badge/needs%20more%20testing-B42318) |
+
+Debian requires an existing KDE Plasma 6.6 or newer desktop and matching
+development packages. [Debian testing](https://packages.debian.org/forky/plasma-workspace)
+and [sid](https://packages.debian.org/sid/plasma-workspace) currently meet that requirement;
+[Debian 13 (trixie)'s stock Plasma 6.3.6](https://packages.debian.org/trixie/plasma-workspace)
+does not. The installer uses the configured APT repositories and does not
+upgrade Debian to another release or enable testing/unstable repositories.
+The container matrix checks Debian testing's package mappings and compiled
+components; live desktop qualification is still pending.
 
 Gentoo support was dropped in v0.54.7 because its maintenance is too complex for
 this project. Anyone wishing to continue it will need to maintain it separately.
