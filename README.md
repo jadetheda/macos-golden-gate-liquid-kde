@@ -29,8 +29,8 @@ The desktop and its apps in light and dark mode.
 The complete Golden Gate desktop with matching light and dark wallpapers.
 
 <p align="center">
-  <a href="src/screenshots/showcase_light_4k.png"><img src="src/screenshots/showcase_light_4k.png" alt="Golden Gate light desktop with a backgroundless menu bar, Finder-style files, glass system information and Dock" width="840"></a>
-  <a href="src/screenshots/showcase_dark_4k.png"><img src="src/screenshots/showcase_dark_4k.png" alt="Golden Gate dark desktop with a backgroundless menu bar, Finder-style files, glass system information and Dock" width="840"></a>
+  <a href="src/screenshots/showcase_light_4k-14657683e655.png"><img src="src/screenshots/showcase_light_4k-14657683e655.png" alt="Golden Gate light desktop with a backgroundless menu bar, Finder-style files, glass system information and Dock" width="840"></a>
+  <a href="src/screenshots/showcase_dark_4k-2a14f2ff47d5.png"><img src="src/screenshots/showcase_dark_4k-2a14f2ff47d5.png" alt="Golden Gate dark desktop with a backgroundless menu bar, Finder-style files, glass system information and Dock" width="840"></a>
 </p>
 
 <br>
@@ -40,8 +40,8 @@ The complete Golden Gate desktop with matching light and dark wallpapers.
 Detached search, favorites and app categories with blurred glass and a dark upper gradient. [Material settings](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/docs/glass-materials.md).
 
 <p align="center">
-  <img src="src/screenshots/launcher_preset_2_light-91259f2e2aba.png" alt="Default Golden Gate preset 2 in light mode, with detached search and Golden Gate wallpaper" width="415">
-  <img src="src/screenshots/launcher_preset_2_dark-a51f905275c1.png" alt="Default Golden Gate preset 2 in dark mode, with detached search and Golden Gate wallpaper" width="415">
+  <img src="src/screenshots/launcher_preset_2_light-71b14894fdbe.png" alt="Default Golden Gate preset 2 in light mode, with detached search and Golden Gate wallpaper" width="415">
+  <img src="src/screenshots/launcher_preset_2_dark-445fa4542b82.png" alt="Default Golden Gate preset 2 in dark mode, with detached search and Golden Gate wallpaper" width="415">
 </p>
 
 <br>
@@ -51,7 +51,7 @@ Detached search, favorites and app categories with blurred glass and a dark uppe
 Glass refraction, hover zoom, notification badges and auto-hide.
 
 <p align="center">
-  <img src="src/screenshots/dock_1_v1.png" alt="Glass Dock with pinned applications" width="840">
+  <img src="src/screenshots/dock_1_v1-f52422cd61aa.png" alt="Glass Dock with pinned applications" width="840">
 </p>
 
 <br>
@@ -61,8 +61,8 @@ Glass refraction, hover zoom, notification badges and auto-hide.
 Finder-style Nautilus in light and dark.
 
 <p align="center">
-  <img src="src/screenshots/finder_v1.png" alt="Finder-style Nautilus in light mode" width="415">
-  <img src="src/screenshots/finder_dark_v1.png" alt="Finder-style Nautilus in dark mode" width="415">
+  <img src="src/screenshots/finder_v1-c31e0c73193f.png" alt="Finder-style Nautilus in light mode" width="415">
+  <img src="src/screenshots/finder_dark_v1-cfaf9b264012.png" alt="Finder-style Nautilus in dark mode" width="415">
 </p>
 
 <br>
@@ -72,8 +72,8 @@ Finder-style Nautilus in light and dark.
 System controls and global menus for compatible apps.
 
 <p align="center">
-  <img src="src/screenshots/menu_v1.png" alt="System menu in light mode" width="415">
-  <img src="src/screenshots/menu_dark_v1.png" alt="System menu in dark mode" width="415">
+  <img src="src/screenshots/menu_v1-42cd3966cd95.png" alt="System menu in light mode" width="415">
+  <img src="src/screenshots/menu_dark_v1-a82f82eb9321.png" alt="System menu in dark mode" width="415">
 </p>
 
 <br>
@@ -83,8 +83,8 @@ System controls and global menus for compatible apps.
 Hardware, software and theme details in About This Computer.
 
 <p align="center">
-  <img src="src/screenshots/about_v1.png" alt="About This Computer in light mode" width="415">
-  <img src="src/screenshots/about_dark_v1.png" alt="About This Computer in dark mode" width="415">
+  <img src="src/screenshots/about_v1-2d36503997d8.png" alt="About This Computer in light mode" width="415">
+  <img src="src/screenshots/about_dark_v1-44c87ac8f6d7.png" alt="About This Computer in dark mode" width="415">
 </p>
 
 <br>
@@ -94,8 +94,8 @@ Hardware, software and theme details in About This Computer.
 Translucent menus and popups with matching light and dark colors.
 
 <p align="center">
-  <img src="src/screenshots/context_menu_v1.png" alt="Desktop context menu in light mode" width="415">
-  <img src="src/screenshots/context_menu_dark_v1.png" alt="Desktop context menu in dark mode" width="415">
+  <img src="src/screenshots/context_menu_v1-af61160211f9.png" alt="Desktop context menu in light mode" width="415">
+  <img src="src/screenshots/context_menu_dark_v1-0aa5b04b96f5.png" alt="Desktop context menu in dark mode" width="415">
 </p>
 
 <br>
@@ -105,8 +105,8 @@ Translucent menus and popups with matching light and dark colors.
 Plymouth startup and shutdown theme with LUKS2 unlock support.
 
 <p align="center">
-  <img src="src/screenshots/boot_v1.png" alt="Plymouth startup splash with a progress bar" width="415">
-  <img src="src/screenshots/boot_shutdown_v1.png" alt="Plymouth shutdown splash without a progress bar" width="415">
+  <img src="src/screenshots/boot_v1-f685ec98f1e4.png" alt="Plymouth startup splash with a progress bar" width="415">
+  <img src="src/screenshots/boot_shutdown_v1-abe6faef7c08.png" alt="Plymouth shutdown splash without a progress bar" width="415">
 </p>
 
 <br>
