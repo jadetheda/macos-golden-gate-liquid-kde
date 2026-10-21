@@ -111,27 +111,6 @@ Plymouth startup and shutdown theme with LUKS2 unlock support.
 
 <br>
 
-![Getting started](https://img.shields.io/badge/getting-started-3B7B5B?style=for-the-badge&logo=gnubash&logoColor=white)
-
-Install with the graphical interface or terminal wizard.
-
-**Graphical installer**
-
-```bash
-./installer
-```
-
-**Terminal wizard**
-
-```bash
-sudo ./install
-sudo ./uninstall
-```
-
-English, Spanish and Simplified Chinese. All options: `sudo ./install --help`.
-
-<br>
-
 ![Project contributions](https://img.shields.io/badge/project-contributions-6B4B8A?style=for-the-badge&logo=github&logoColor=white)
 
 Here is what we added or improved in the components we ship.
@@ -151,6 +130,25 @@ Here is what we added or improved in the components we ship.
 - **Testing:** regression tests, container checks across distributions and Plasma VMs for checking desktop behavior and appearance.
 
 <br>
+
+![Getting started](https://img.shields.io/badge/getting-started-3B7B5B?style=for-the-badge&logo=gnubash&logoColor=white)
+
+Install with the graphical interface or terminal wizard.
+
+**Graphical installer**
+
+```bash
+./installer
+```
+
+**Terminal wizard**
+
+```bash
+sudo ./install
+sudo ./uninstall
+```
+
+English, Spanish and Simplified Chinese. All options: `sudo ./install --help`.
 
 <details>
 <summary><b>Requirements</b></summary>
