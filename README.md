@@ -277,9 +277,9 @@ Try the theme in an isolated Plasma desktop.
 ./vm <os>
 ```
 
-**OS:** `cachyos` · `arch` · `manjaro` · `endeavouros` · `garuda` · `fedora` · `nobara` · `opensuse` · `neon`
+**OS:** `cachyos` · `arch` · `manjaro` · `endeavouros` · `garuda` · `fedora` · `nobara` · `opensuse` · `neon` · `debian` · `artix`
 
-`all` launches every distro.
+`all` launches every distro. [VM setup and qualification guide](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/README.md).
 
 </details>
 
@@ -307,8 +307,7 @@ Supported distributions and their current testing status.
 | <img src="https://cdn.simpleicons.org/nobaralinux" alt="Nobara" width="22"> | Nobara | ![Needs more testing](https://img.shields.io/badge/needs%20more%20testing-B42318) |
 | <img src="https://cdn.simpleicons.org/opensuse" alt="openSUSE" width="22"> | openSUSE Tumbleweed | ![Needs more testing](https://img.shields.io/badge/needs%20more%20testing-B42318) |
 | <img src="https://cdn.simpleicons.org/kde" alt="KDE" width="22"> | KDE neon | ![Container + VM qualified](https://img.shields.io/badge/container%20%2B%20VM%20qualified-D4A72C) |
-
-| <img src="https://cdn.simpleicons.org/debian" alt="Debian" width="22"> | Debian testing / sid (Plasma 6.6+) | ![Needs more testing](https://img.shields.io/badge/needs%20more%20testing-B42318) |
+| <img src="https://cdn.simpleicons.org/debian" alt="Debian" width="22"> | Debian testing / sid (Plasma 6.6+) | [![VM verified](https://img.shields.io/badge/VM%20verified-1A7F37)](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md#live-desktop-proof) |
 
 Debian requires an existing KDE Plasma 6.6 or newer desktop and matching
 development packages. [Debian testing](https://packages.debian.org/forky/plasma-workspace)
@@ -316,8 +315,8 @@ and [sid](https://packages.debian.org/sid/plasma-workspace) currently meet that 
 [Debian 13 (trixie)'s stock Plasma 6.3.6](https://packages.debian.org/trixie/plasma-workspace)
 does not. The installer uses the configured APT repositories and does not
 upgrade Debian to another release or enable testing/unstable repositories.
-The container matrix checks Debian testing's package mappings and compiled
-components; live desktop qualification is still pending.
+[4K screenshots and live VM results for each distro](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md) cover
+installation, light/dark apps, reboot and uninstall.
 
 Gentoo support was dropped in v0.54.7 because its maintenance is too complex for
 this project. Anyone wishing to continue it will need to maintain it separately.
