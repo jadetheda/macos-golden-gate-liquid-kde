@@ -1,5 +1,9 @@
 <p align="center">
-  <img src="src/screenshots/banner.svg" alt="golden gate" width="440">
+  <!-- Artwork: https://developer.apple.com/macos/ -->
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="src/screenshots/macos-27-dark.png">
+    <img src="src/screenshots/macos-27.png" alt="macOS 27 circular emblem" width="180" height="180">
+  </picture>
 </p>
 
 # macOS Golden Gate Liquid Theme for Plasma 6.7/6.8+
@@ -393,7 +397,7 @@ Keep pull requests focused and validate with `./vm`. See [CONTRIBUTING.md](https
 
 This is an independent reimplementation inspired by the macOS aesthetic. It is not affiliated with or endorsed by Apple or KDE. "macOS" and "Apple" are trademarks of Apple Inc.
 
-The bundled wallpapers, system sounds, and SF Pro / SF Mono fonts remain Apple's property and are not covered by this project's license. All other code and theme assets are original or derived from compatibly licensed open-source work.
+The macOS 27 emblem, bundled wallpapers, system sounds, and SF Pro / SF Mono fonts remain Apple's property and are not covered by this project's license. All other code and theme assets are original or derived from compatibly licensed open-source work.
 
 Licensed [GPL-3.0](LICENSE).
 
