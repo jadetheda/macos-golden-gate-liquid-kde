@@ -38,7 +38,7 @@
 > Experimental. Desktop updates may break compatibility. Avoid production systems; [report issues here](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new).
 
 > [!NOTE]
-> **A note on forks.** Forks and adaptations are welcome. Tahoe and Golden Gate reflect months of development and testing, so please credit the original work and highlight what you’ve changed or added. See our [licensing and attribution guide](LICENSING.md).
+> Tahoe and Golden Gate reflect months of development and testing, so please credit the original work and highlight what you’ve changed or added. See our [licensing and attribution guide](LICENSING.md).
 
 <br>
 
