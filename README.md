@@ -16,13 +16,13 @@ macOS Golden Gate-inspired glass, Dock, global menu and app themes for KDE Plasm
 > Experimental. Desktop updates may break compatibility. Avoid production systems; [report issues here](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new).
 
 > [!NOTE]
-> **Beware of copycats.** A new name or fresh screenshots do not always mean new work. Tahoe and Golden Gate reflect months of development and testing. Forks are welcome—please credit the original work and highlight your own improvements.
+> **Beware of copycats.** Some copies only change the name and screenshots. We have spent months building and testing Tahoe and Golden Gate. Forks are welcome. Please give credit and show what you added.
 
 <br>
 
 ![Features and screenshots](https://img.shields.io/badge/features-%26%20screenshots-4B6B8A?style=for-the-badge&logo=kde&logoColor=white)
 
-Explore the desktop and its components in light and dark mode.
+The desktop and its apps in light and dark mode.
 
 ### Golden Gate desktop
 
@@ -133,7 +133,7 @@ English, Spanish and Simplified Chinese. All options: `sudo ./install --help`.
 <details>
 <summary><b>Project contributions</b></summary>
 
-Integration, features and fixes maintained by this project alongside the bundled open-source components. Golden Gate ships this shared work through a pinned, checksum-verified Tahoe source release, with its own material, Launcher and wallpaper defaults.
+Here is what we added or improved in the components we ship. Golden Gate uses a fixed Tahoe release, verifies its checksum and applies its own glass, Launcher and wallpaper defaults.
 
 - **Multilanguage support:** English, Spanish and Simplified Chinese in the graphical and terminal installers, plus translated Plasma widgets.
 - **Installation and packaging:** graphical installer, terminal wizard, selectable components, saved preferences, bundled theme assets and release updates.
@@ -142,12 +142,12 @@ Integration, features and fixes maintained by this project alongside the bundled
 - **Glass improvements:** configurable blur, edge refraction, opacity and gradients; Tahoe and Golden Gate materials with consistent light/dark surfaces and paired edge highlights.
 - **Plasma compatibility:** rendering and build fixes for Plasma 6.6–6.8, with effects compiled against the installed Qt and KWin SDKs.
 - **Launcher improvements:** two selectable layouts, integrated or detached search, favorites, app categories and drag/wheel category scrolling.
-- **Dock improvements:** glass surfaces, hover zoom, notification badges, auto-hide and preservation of pinned apps during layout rebuilds.
-- **Live appearance switching:** coordinated Plasma, Kvantum, GTK, icons and window decorations, with per-monitor wallpaper ownership and an explicit wallpaper reset.
-- **Application integration:** global menus, a GTK menu lifetime fix, Finder-style Nautilus and Firefox theming with profile backups.
-- **Install and uninstall recovery:** preflight checks, session detection, settings snapshots and restoration of managed changes.
+- **Dock improvements:** glass surfaces, hover zoom, notification badges and auto-hide. Reinstalling keeps your pinned apps.
+- **Theme switching:** changes Plasma, Kvantum, GTK, icons and window decorations together. Keeps wallpapers you choose for each monitor, with an option to reset them.
+- **App integration:** global menus, a fix for GTK menu crashes, Finder-style Nautilus and Firefox theming with profile backups.
+- **Install and uninstall:** checks requirements, finds your desktop session, backs up settings and restores changes on removal.
 - **Optional features:** OLED panel shifts and experimental NixOS/Home Manager modules.
-- **Validation:** regression tests, distribution container checks and disposable Plasma VMs for desktop and visual testing.
+- **Testing:** regression tests, container checks across distributions and Plasma VMs for checking desktop behavior and appearance.
 
 </details>
 
@@ -221,7 +221,7 @@ sudo ./install --reset
 - Theme changes keep any wallpaper you've chosen for each monitor.
 - `--reset-wallpapers` returns all monitors to the bundled light/dark wallpapers.
 - Both Tahoe and Golden Gate light/dark wallpapers are bundled. Golden Gate is the default here.
-- Choose **1 — Tahoe** or **2 — Golden Gate** from the Launcher's **…** menu.
+- Choose **Tahoe (1)** or **Golden Gate (2)** from the Launcher's **…** menu.
 - The editions share the Tahoe installer and runtime IDs, so install one edition at a time.
 - `./legacy-install` and `./legacy-uninstall` use the classic prompt instead of the terminal wizard.
 
@@ -347,12 +347,12 @@ Plasma 6.6–6.8 is supported; compiled effects use the host SDK.
 
 ![Roadmap](https://img.shields.io/badge/project-roadmap-6B4B8A?style=for-the-badge&logo=github&logoColor=white)
 
-Track completed features and upcoming work.
+What works now and what we plan to add.
 
 <details>
 <summary><b>Component status</b></summary>
 
-Available components, ongoing work and planned additions.
+The current status of each component.
 
 | Component | Status |
 |-----------|--------|
