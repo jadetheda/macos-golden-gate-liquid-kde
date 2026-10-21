@@ -15,16 +15,12 @@ macOS Golden Gate-inspired glass, Dock, global menu and app themes for KDE Plasm
 
 ![Features and screenshots](https://img.shields.io/badge/features-%26%20screenshots-4B6B8A?style=for-the-badge&logo=kde&logoColor=white)
 
-### Golden Gate desktop · 4K
-
-Native 3840 × 2160 captures in light and dark mode. Open either image for full resolution.
+### Golden Gate desktop
 
 <p align="center">
   <a href="src/screenshots/showcase_light_4k.png"><img src="src/screenshots/showcase_light_4k.png" alt="Golden Gate light desktop with a backgroundless menu bar, Finder-style files, glass system information and Dock" width="840"></a>
   <a href="src/screenshots/showcase_dark_4k.png"><img src="src/screenshots/showcase_dark_4k.png" alt="Golden Gate dark desktop with a backgroundless menu bar, Finder-style files, glass system information and Dock" width="840"></a>
 </p>
-
-Captured in a disposable VM; system information uses preview data. [v0.56.8 validation: 192 reviewed 4K captures](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/v0.56.8/docs/validation-v0.56.8.md).
 
 <br>
 
