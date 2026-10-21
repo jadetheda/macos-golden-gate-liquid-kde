@@ -24,6 +24,9 @@ the preset and wallpaper its edition installs by default.
 The pinned Tahoe source must include `launcher_defaults.py`. Both launcher
 presets stay selectable from the options menu and General settings; do not
 force the edition default over an explicit saved choice.
+Both presets keep every category pill vertically aligned, including categories
+created while scrolling. The shared Tahoe implementation centers pills inside
+full-height ListView delegate cells; do not position the delegates themselves.
 
 Preserve the README Credits section and existing local banner artwork.
 Never run the live installer as a test or change the user's desktop.
