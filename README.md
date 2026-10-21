@@ -16,7 +16,7 @@ macOS Golden Gate-inspired glass, Dock, global menu and app themes for KDE Plasm
 > Experimental. Desktop updates may break compatibility. Avoid production systems; [report issues here](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new).
 
 > [!NOTE]
-> Forks and reuse are welcome. Please credit the original work and highlight your own improvements. Tahoe and Golden Gate reflect months of development and testing; contributions that build on that work are appreciated.
+> **Beware of copycats.** A new name or fresh screenshots do not always mean new work. Tahoe and Golden Gate reflect months of development and testing. Forks are welcome—please credit the original work and highlight your own improvements.
 
 <br>
 
