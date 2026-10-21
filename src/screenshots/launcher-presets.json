@@ -1,6 +1,6 @@
 {
   "edition": "Golden Gate",
-  "source_version": "0.56.8",
+  "source_version": "0.56.9",
   "default_launcher_preset": 2,
   "wallpaper": "MacGoldenGate",
   "capture_date": "2026-10-20",
@@ -30,14 +30,15 @@
         "GradientBottomOpacity": 0.0,
         "MaterialPreset": 2
       },
-      "source_capture": "light-golden-gate-on-wallpaper-launcher2.png",
+      "source_capture": "fixed-golden-gate-light.png",
       "source_size": [
         3840,
         2160
       ],
       "crop": null,
       "effect_build": "a0bb571f6bfb1fc51b22bb853cf5a01eadaa05795a26d3e2d2e518c8a7c27ed8",
-      "sha256": "c3bb51514cf05351ac009dce56f8944ba44af5bcde24db0739637625c2da7dee"
+      "sha256": "91259f2e2aba61789f617147ebed19145f1df30bcfd4561a50bcf39d1dbe9110",
+      "source_version": "0.56.9"
     },
     "menu_v1.png": {
       "theme_mode": "light",
@@ -73,7 +74,8 @@
         656
       ],
       "effect_build": "a0bb571f6bfb1fc51b22bb853cf5a01eadaa05795a26d3e2d2e518c8a7c27ed8",
-      "sha256": "71067d86dd07a3969f35beff78021a59afbf700516476f84f48ed14be1977f0f"
+      "sha256": "71067d86dd07a3969f35beff78021a59afbf700516476f84f48ed14be1977f0f",
+      "source_version": "0.56.8"
     },
     "context_menu_v1.png": {
       "theme_mode": "light",
@@ -109,7 +111,8 @@
         1448
       ],
       "effect_build": "a0bb571f6bfb1fc51b22bb853cf5a01eadaa05795a26d3e2d2e518c8a7c27ed8",
-      "sha256": "536d2ab59f217fa6c19ed6f910f5b50c2ca207bd1c6bd5cd5bdc2cc29b84cfb0"
+      "sha256": "536d2ab59f217fa6c19ed6f910f5b50c2ca207bd1c6bd5cd5bdc2cc29b84cfb0",
+      "source_version": "0.56.8"
     },
     "dock_1_v1.png": {
       "theme_mode": "light",
@@ -145,7 +148,8 @@
         2160
       ],
       "effect_build": "a0bb571f6bfb1fc51b22bb853cf5a01eadaa05795a26d3e2d2e518c8a7c27ed8",
-      "sha256": "4f02b1d1d78814265bb0d9a1d46dc4cdc57ff64e438832cb2a69864a146611a5"
+      "sha256": "4f02b1d1d78814265bb0d9a1d46dc4cdc57ff64e438832cb2a69864a146611a5",
+      "source_version": "0.56.8"
     },
     "launcher_preset_2_dark.png": {
       "theme_mode": "dark",
@@ -169,14 +173,15 @@
         "GradientBottomOpacity": 0.0,
         "MaterialPreset": 2
       },
-      "source_capture": "dark-golden-gate-on-wallpaper-launcher2.png",
+      "source_capture": "fixed-golden-gate-dark.png",
       "source_size": [
         3840,
         2160
       ],
       "crop": null,
       "effect_build": "a0bb571f6bfb1fc51b22bb853cf5a01eadaa05795a26d3e2d2e518c8a7c27ed8",
-      "sha256": "20e4de10f8739eebebdcd7d2d6d21b6281b7e7497aca43951c1fc70cf607ed05"
+      "sha256": "8bdd011bf76183753cedaf9b6a0d984332fa41d2f9f6154e77863869ca042559",
+      "source_version": "0.56.9"
     },
     "menu_dark_v1.png": {
       "theme_mode": "dark",
@@ -212,7 +217,8 @@
         656
       ],
       "effect_build": "a0bb571f6bfb1fc51b22bb853cf5a01eadaa05795a26d3e2d2e518c8a7c27ed8",
-      "sha256": "0afc44374b47378ba8198b7ae6ea30e9947ad6a17bcf1582dc1c77d3a019f530"
+      "sha256": "0afc44374b47378ba8198b7ae6ea30e9947ad6a17bcf1582dc1c77d3a019f530",
+      "source_version": "0.56.8"
     },
     "context_menu_dark_v1.png": {
       "theme_mode": "dark",
@@ -248,7 +254,8 @@
         1448
       ],
       "effect_build": "a0bb571f6bfb1fc51b22bb853cf5a01eadaa05795a26d3e2d2e518c8a7c27ed8",
-      "sha256": "67ceefe7a2ab990b68e9739c7fe7524cb5b8e3fcfb1f50553842a41876d50dc6"
+      "sha256": "67ceefe7a2ab990b68e9739c7fe7524cb5b8e3fcfb1f50553842a41876d50dc6",
+      "source_version": "0.56.8"
     }
   }
 }
