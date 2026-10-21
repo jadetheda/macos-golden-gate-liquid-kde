@@ -33,6 +33,17 @@ the host theme, move its windows, or inject host input for screenshots. Run
 captures sequentially, verify labels and window identity, and review each image
 before publishing it.
 
+Every release must use a fresh complete bundle from Tahoe's
+`./release-screenshots capture`, with the pinned VM and fixed capture profile.
+Stage this edition's reviewed images with the Tahoe command's `stage
+--edition golden-gate --destination <this-checkout>`. Do not reuse pictures
+from an older version or fill rejected cases with old files. After pinning
+the published Tahoe release and committing the images, run its tool with
+`--repo <this-checkout> verify --tahoe-repo <tahoe-checkout>`.
+Publish through `.github/workflows/release.yml`, which runs that gate against
+the immutable Tahoe pin. Never bypass it with direct `gh release create`.
+The capture implementation belongs only in Tahoe; do not vendor it here.
+
 The shared Acrylic Glass KCM offers Tahoe and Golden Gate materials, both
 with blur strength 10 and stable saved IDs 1 and 2. Retired Clear ID 0 falls
 back to Tahoe without resetting saved optics when opening the KCM.

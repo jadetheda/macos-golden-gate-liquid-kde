@@ -1,0 +1,44 @@
+name: release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - name: Read immutable Tahoe pin
+        id: pin
+        run: |
+          python3 - <<'PY'
+          import json, os, re
+          pin = json.load(open('upstream.json'))
+          assert pin['repository'] == 'lestercorderomurillo/macos-tahoe-liquid-kde'
+          assert re.fullmatch('[a-f0-9]{40}', pin['commit'])
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write('commit=' + pin['commit'] + '\n')
+          PY
+      - uses: actions/checkout@v5
+        with:
+          repository: lestercorderomurillo/macos-tahoe-liquid-kde
+          ref: ${{ steps.pin.outputs.commit }}
+          fetch-depth: 0
+          path: tahoe
+      - name: Verify version-bound, reviewed screenshots
+        run: python3 tahoe/release-screenshots --repo . verify --ref "$GITHUB_SHA" --tahoe-repo tahoe
+      - name: Publish verified release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 tahoe/release-screenshots --repo . publish --ref "$GITHUB_SHA" --tahoe-repo tahoe
