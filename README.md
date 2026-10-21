@@ -25,7 +25,7 @@
   <a href="https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md#endeavouros" title="EndeavourOS"><img src="src/screenshots/distros/endeavouros.svg" alt="EndeavourOS" width="32" height="32"></a>
   <a href="https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md#fedora" title="Fedora"><img src="src/screenshots/distros/fedora.svg" alt="Fedora" width="32" height="32"></a>
   <a href="https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md#manjaro" title="Manjaro"><img src="src/screenshots/distros/manjaro.svg" alt="Manjaro" width="32" height="32"></a>
-  <a href="https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md#artix" title="Artix Linux (OpenRC; testing)"><img src="src/screenshots/distros/artixlinux.svg" alt="Artix Linux" width="32" height="32"></a>
+  <a href="https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md#artix" title="Artix Linux (OpenRC)"><img src="src/screenshots/distros/artixlinux.svg" alt="Artix Linux" width="32" height="32"></a>
   <a href="https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md#garuda" title="Garuda Linux"><img src="src/screenshots/distros/garudalinux.svg" alt="Garuda Linux" width="32" height="32"></a>
   <a href="https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md#nobara" title="Nobara Linux"><img src="src/screenshots/distros/nobaralinux.svg" alt="Nobara Linux" width="32" height="32"></a>
   <a href="https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md#opensuse" title="openSUSE Tumbleweed"><img src="src/screenshots/distros/opensuse.svg" alt="openSUSE" width="32" height="32"></a>
@@ -320,7 +320,7 @@ Check support for your distribution, init system and Plasma version.
 <details>
 <summary><b>Distributions</b></summary>
 
-Supported distributions and their current testing status.
+All 11 distributions in this table passed live VM qualification. Select a status badge for reviewed 4K screenshots and test results.
 
 | | Name | Status |
 |:--:|------|---------|
@@ -331,7 +331,7 @@ Supported distributions and their current testing status.
 | <img src="https://cdn.simpleicons.org/manjaro" alt="Manjaro" width="22"> | Manjaro | [![VM verified](https://img.shields.io/badge/VM%20verified-1A7F37)](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md#manjaro) |
 | <img src="https://cdn.simpleicons.org/linux" alt="Linux" width="22"> | Artix Linux (OpenRC) | [![VM verified](https://img.shields.io/badge/VM%20verified-1A7F37)](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md#artix) |
 | <img src="https://cdn.simpleicons.org/linux" alt="Linux" width="22"> | Garuda Linux | [![VM verified](https://img.shields.io/badge/VM%20verified-1A7F37)](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md#garuda) |
-| <img src="https://cdn.simpleicons.org/nobaralinux" alt="Nobara" width="22"> | Nobara | [![Needs more testing](https://img.shields.io/badge/needs%20more%20testing-B42318)](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md#nobara) |
+| <img src="https://cdn.simpleicons.org/nobaralinux" alt="Nobara" width="22"> | Nobara | [![VM verified](https://img.shields.io/badge/VM%20verified-1A7F37)](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md#nobara) |
 | <img src="https://cdn.simpleicons.org/opensuse" alt="openSUSE" width="22"> | openSUSE Tumbleweed | [![VM verified](https://img.shields.io/badge/VM%20verified-1A7F37)](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md#opensuse) |
 | <img src="https://cdn.simpleicons.org/kde" alt="KDE" width="22"> | KDE neon | [![VM verified](https://img.shields.io/badge/VM%20verified-1A7F37)](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md#neon) |
 | <img src="https://cdn.simpleicons.org/debian" alt="Debian" width="22"> | Debian testing / sid (Plasma 6.6+) | [![VM verified](https://img.shields.io/badge/VM%20verified-1A7F37)](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/tests/vm/PROOF.md#debian) |
