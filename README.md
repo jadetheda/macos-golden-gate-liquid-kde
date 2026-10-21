@@ -48,7 +48,7 @@ The desktop and its apps in light and dark mode.
 
 ### Golden Gate desktop
 
-The Golden Gate desktop in light and dark mode. Files and About This Computer are shown separately, each with its own window focused.
+The Golden Gate desktop in light and dark mode.
 
 <p align="center">
   <a href="src/screenshots/showcase_light_4k-d9094f49bef8.png"><img src="src/screenshots/showcase_light_4k-d9094f49bef8.png" alt="Golden Gate light desktop with Files focused" width="415"></a>
