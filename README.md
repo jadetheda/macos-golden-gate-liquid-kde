@@ -52,13 +52,13 @@ The desktop and its apps in light and dark mode.
 The Golden Gate desktop in light and dark mode.
 
 <p align="center">
-  <a href="src/screenshots/showcase_light_4k-9f0f8b2b1e20.png"><img src="src/screenshots/showcase_light_4k-9f0f8b2b1e20.png" alt="Golden Gate light desktop with Files focused" width="415"></a>
-  <a href="src/screenshots/desktop_about_light_4k-7aa4e24c74b4.png"><img src="src/screenshots/desktop_about_light_4k-7aa4e24c74b4.png" alt="Golden Gate light desktop with About This Computer focused" width="415"></a>
+  <a href="src/screenshots/showcase_light_4k-4e9975a44b3e.png"><img src="src/screenshots/showcase_light_4k-4e9975a44b3e.png" alt="Golden Gate light desktop with Files focused" width="415"></a>
+  <a href="src/screenshots/desktop_about_light_4k-84e9ea6bc749.png"><img src="src/screenshots/desktop_about_light_4k-84e9ea6bc749.png" alt="Golden Gate light desktop with About This Computer focused" width="415"></a>
 </p>
 
 <p align="center">
-  <a href="src/screenshots/showcase_dark_4k-fd14ec652e4f.png"><img src="src/screenshots/showcase_dark_4k-fd14ec652e4f.png" alt="Golden Gate dark desktop with Files focused" width="415"></a>
-  <a href="src/screenshots/desktop_about_dark_4k-212285ebd3ac.png"><img src="src/screenshots/desktop_about_dark_4k-212285ebd3ac.png" alt="Golden Gate dark desktop with About This Computer focused" width="415"></a>
+  <a href="src/screenshots/showcase_dark_4k-7f59e4baf242.png"><img src="src/screenshots/showcase_dark_4k-7f59e4baf242.png" alt="Golden Gate dark desktop with Files focused" width="415"></a>
+  <a href="src/screenshots/desktop_about_dark_4k-07823251c333.png"><img src="src/screenshots/desktop_about_dark_4k-07823251c333.png" alt="Golden Gate dark desktop with About This Computer focused" width="415"></a>
 </p>
 
 <br>
@@ -68,8 +68,8 @@ The Golden Gate desktop in light and dark mode.
 Detached search, favorites and app categories with blurred glass and a dark upper gradient. [Material settings](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/docs/glass-materials.md).
 
 <p align="center">
-  <img src="src/screenshots/launcher_preset_2_light-028fd42533eb.png" alt="Default Golden Gate preset 2 in light mode, with detached search and Golden Gate wallpaper" width="415">
-  <img src="src/screenshots/launcher_preset_2_dark-638799d16848.png" alt="Default Golden Gate preset 2 in dark mode, with detached search and Golden Gate wallpaper" width="415">
+  <img src="src/screenshots/launcher_preset_2_light-b3f6f222d435.png" alt="Default Golden Gate preset 2 in light mode, with detached search and Golden Gate wallpaper" width="415">
+  <img src="src/screenshots/launcher_preset_2_dark-06bd7dd41afc.png" alt="Default Golden Gate preset 2 in dark mode, with detached search and Golden Gate wallpaper" width="415">
 </p>
 
 <br>
@@ -89,7 +89,7 @@ Glass refraction, hover zoom, notification badges and auto-hide.
 Finder-style Nautilus in light and dark.
 
 <p align="center">
-  <img src="src/screenshots/finder_v1-162edb2a7945.png" alt="Finder-style Nautilus in light mode" width="415">
+  <img src="src/screenshots/finder_v1-d7344fdf64b8.png" alt="Finder-style Nautilus in light mode" width="415">
   <img src="src/screenshots/finder_dark_v1-124234cc8858.png" alt="Finder-style Nautilus in dark mode" width="415">
 </p>
 
@@ -111,8 +111,8 @@ System controls and global menus for compatible apps.
 Hardware, software and theme details in About This Computer.
 
 <p align="center">
-  <img src="src/screenshots/about_v1-e66694b53462.png" alt="About This Computer in light mode" width="415">
-  <img src="src/screenshots/about_dark_v1-ea1fa9607e12.png" alt="About This Computer in dark mode" width="415">
+  <img src="src/screenshots/about_v1-a79ae097decc.png" alt="About This Computer in light mode" width="415">
+  <img src="src/screenshots/about_dark_v1-88647dbbede3.png" alt="About This Computer in dark mode" width="415">
 </p>
 
 <br>
@@ -143,7 +143,7 @@ Plymouth startup and shutdown theme with LUKS2 unlock support.
 
 Here is what we added or improved in the components we ship.
 
-- **Multilanguage support:** English, Spanish and Simplified Chinese in the graphical and terminal installers, plus translated Plasma widgets.
+- **Multilanguage support:** English, Spanish, Simplified Chinese, Brazilian Portuguese and German in the graphical and terminal installers, plus translated Plasma widgets.
 - **Installation and packaging:** graphical installer, terminal wizard, selectable components, saved preferences, bundled theme assets and release updates.
 - **Multiple distributions:** dependency detection and package mappings for Arch-based, Fedora-based, openSUSE, Debian and KDE neon systems.
 - **systemd and OpenRC:** scheduled theme switching and OLED care through user timers or cron.
@@ -176,7 +176,7 @@ sudo ./install
 sudo ./uninstall
 ```
 
-English, Spanish and Simplified Chinese. All options: `sudo ./install --help`.
+English, Spanish, Simplified Chinese, Brazilian Portuguese and German. All options: `sudo ./install --help`.
 
 <details>
 <summary><b>Requirements</b></summary>
