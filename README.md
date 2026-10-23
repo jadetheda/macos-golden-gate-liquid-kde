@@ -52,13 +52,13 @@ The desktop and its apps in light and dark mode.
 The Golden Gate desktop in light and dark mode.
 
 <p align="center">
-  <a href="src/screenshots/showcase_light_4k-4e9975a44b3e.png"><img src="src/screenshots/showcase_light_4k-4e9975a44b3e.png" alt="Golden Gate light desktop with Files focused" width="415"></a>
-  <a href="src/screenshots/desktop_about_light_4k-84e9ea6bc749.png"><img src="src/screenshots/desktop_about_light_4k-84e9ea6bc749.png" alt="Golden Gate light desktop with About This Computer focused" width="415"></a>
+  <a href="src/screenshots/showcase_light_4k-04691e769638.png"><img src="src/screenshots/showcase_light_4k-04691e769638.png" alt="Golden Gate light desktop with Files focused" width="415"></a>
+  <a href="src/screenshots/desktop_about_light_4k-1689e8be3711.png"><img src="src/screenshots/desktop_about_light_4k-1689e8be3711.png" alt="Golden Gate light desktop with About This Computer focused" width="415"></a>
 </p>
 
 <p align="center">
-  <a href="src/screenshots/showcase_dark_4k-7f59e4baf242.png"><img src="src/screenshots/showcase_dark_4k-7f59e4baf242.png" alt="Golden Gate dark desktop with Files focused" width="415"></a>
-  <a href="src/screenshots/desktop_about_dark_4k-07823251c333.png"><img src="src/screenshots/desktop_about_dark_4k-07823251c333.png" alt="Golden Gate dark desktop with About This Computer focused" width="415"></a>
+  <a href="src/screenshots/showcase_dark_4k-89e3f18c8696.png"><img src="src/screenshots/showcase_dark_4k-89e3f18c8696.png" alt="Golden Gate dark desktop with Files focused" width="415"></a>
+  <a href="src/screenshots/desktop_about_dark_4k-25350d2d3a6f.png"><img src="src/screenshots/desktop_about_dark_4k-25350d2d3a6f.png" alt="Golden Gate dark desktop with About This Computer focused" width="415"></a>
 </p>
 
 <br>
@@ -68,8 +68,8 @@ The Golden Gate desktop in light and dark mode.
 Detached search, favorites and app categories with blurred glass and a dark upper gradient. [Material settings](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/docs/glass-materials.md).
 
 <p align="center">
-  <img src="src/screenshots/launcher_preset_2_light-b3f6f222d435.png" alt="Default Golden Gate preset 2 in light mode, with detached search and Golden Gate wallpaper" width="415">
-  <img src="src/screenshots/launcher_preset_2_dark-06bd7dd41afc.png" alt="Default Golden Gate preset 2 in dark mode, with detached search and Golden Gate wallpaper" width="415">
+  <img src="src/screenshots/launcher_preset_2_light-cb3324aa87d6.png" alt="Default Golden Gate preset 2 in light mode, with detached search and Golden Gate wallpaper" width="415">
+  <img src="src/screenshots/launcher_preset_2_dark-a4fc0878d87e.png" alt="Default Golden Gate preset 2 in dark mode, with detached search and Golden Gate wallpaper" width="415">
 </p>
 
 <br>
@@ -111,8 +111,8 @@ System controls and global menus for compatible apps.
 Hardware, software and theme details in About This Computer.
 
 <p align="center">
-  <img src="src/screenshots/about_v1-a79ae097decc.png" alt="About This Computer in light mode" width="415">
-  <img src="src/screenshots/about_dark_v1-88647dbbede3.png" alt="About This Computer in dark mode" width="415">
+  <img src="src/screenshots/about_v1-249efa16c28e.png" alt="About This Computer in light mode" width="415">
+  <img src="src/screenshots/about_dark_v1-825618ae2154.png" alt="About This Computer in dark mode" width="415">
 </p>
 
 <br>
