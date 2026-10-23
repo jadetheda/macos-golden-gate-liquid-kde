@@ -38,9 +38,6 @@
 > [!CAUTION]
 > Experimental. Desktop updates may break compatibility. Avoid production systems; [report issues here](https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde/issues/new).
 
-> [!NOTE]
-> Tahoe and Golden Gate reflect months of development and testing, so please credit the original work and highlight what you’ve changed or added. See our [licensing and attribution guide](LICENSING.md).
-
 <br>
 
 ![Features and screenshots](https://img.shields.io/badge/features-%26%20screenshots-4B6B8A?style=for-the-badge&logo=kde&logoColor=white)
