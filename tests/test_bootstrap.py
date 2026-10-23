@@ -1,6 +1,7 @@
 import hashlib
 import io
 import json
+import subprocess
 from pathlib import Path
 import sys
 import tarfile
@@ -85,6 +86,8 @@ def test_prepare_changes_only_defaults_and_reuses_verified_cache(tmp_path, monke
         destination.write_bytes(archive.read_bytes())
     monkeypatch.setattr(bootstrap, "ROOT", root)
     monkeypatch.delenv("GOLDEN_GATE_TAHOE_SOURCE", raising=False)
+    monkeypatch.delenv("MAC_TAHOE_NO_UPDATE_CHECK", raising=False)
+    monkeypatch.setattr(bootstrap, "latest_tahoe", lambda: None)  # GitHub unreachable
     monkeypatch.setattr(bootstrap, "download", download)
     prepared = bootstrap.prepare()
     assert json.loads((prepared / "src/scripts/defaults.json").read_text()) == {"wallpaper":"MacGoldenGate"}
@@ -123,6 +126,7 @@ def test_golden_gate_defaults_to_second_launcher_preset():
 
 def test_launch_forwards_arguments_and_disables_independent_updates(tmp_path, monkeypatch):
     monkeypatch.setattr(bootstrap, "prepare", lambda: tmp_path)
+    monkeypatch.setattr(bootstrap, "update_wrapper", lambda entry, args: None)
     monkeypatch.setattr(bootstrap.os, "chdir", lambda path: None)
     calls = []
     monkeypatch.setattr(bootstrap.os, "execv", lambda executable, args: calls.append(args))
@@ -130,3 +134,143 @@ def test_launch_forwards_arguments_and_disables_independent_updates(tmp_path, mo
     assert bootstrap.main("install", ["--dark", "--reset-wallpapers"]) == 0
     assert calls == [[sys.executable, str(tmp_path / "install"), "--dark", "--reset-wallpapers"]]
     assert bootstrap.os.environ["MAC_TAHOE_NO_UPDATE_CHECK"] == "true"
+
+
+def wrapper_at(tmp_path, monkeypatch, version="0.59.4"):
+    root = tmp_path / "wrapper"
+    root.mkdir()
+    (root / "bootstrap.py").write_text("recipe")
+    (root / "defaults.json").write_text('{"wallpaper":"MacGoldenGate"}')
+    (root / "upstream.json").write_text(json.dumps({"commit": "a" * 40, "sha256": "0" * 64}))
+    (root / "VERSION").write_text(version + "\n")
+    monkeypatch.setattr(bootstrap, "ROOT", root)
+    monkeypatch.delenv("GOLDEN_GATE_TAHOE_SOURCE", raising=False)
+    monkeypatch.delenv("MAC_TAHOE_NO_UPDATE_CHECK", raising=False)
+    monkeypatch.delenv("GOLDEN_GATE_UPDATED", raising=False)
+    return root
+
+
+def tahoe_archive(tmp_path, version):
+    return archive_at(tmp_path, [
+        ("repo/VERSION", tarfile.REGTYPE, version.encode() + b"\n"),
+        ("repo/src/scripts/defaults.json", tarfile.REGTYPE, b'{"wallpaper":"MacTahoe"}'),
+        ("repo/src/offline/wallpapers/MacGoldenGate/metadata.json", tarfile.REGTYPE, b'{}'),
+    ])
+
+
+@pytest.mark.parametrize("archived", ["0.60.0", "0.59.4"])
+def test_prepare_installs_the_latest_tahoe_release(tmp_path, monkeypatch, archived):
+    wrapper_at(tmp_path, monkeypatch)
+    release = {"repository": bootstrap.TAHOE_REPOSITORY, "commit": "b" * 40, "version": "0.60.0"}
+    monkeypatch.setattr(bootstrap, "latest_tahoe", lambda: release)
+    archive = tahoe_archive(tmp_path, archived)
+    calls = []
+    def download(pin, destination):
+        calls.append(pin)
+        destination.write_bytes(archive.read_bytes())
+    monkeypatch.setattr(bootstrap, "download", download)
+    if archived != release["version"]:
+        with pytest.raises(ValueError, match="does not match its version"):
+            bootstrap.prepare()
+        return
+    prepared = bootstrap.prepare()
+    assert calls == [release]
+    assert (prepared / ".golden-gate-ready").read_text() == "b" * 40 + "\n"
+    assert json.loads((prepared / "src/scripts/defaults.json").read_text())["wallpaper"] == "MacGoldenGate"
+
+
+def test_disabled_updates_install_the_verified_pin(tmp_path, monkeypatch):
+    root = wrapper_at(tmp_path, monkeypatch)
+    monkeypatch.setenv("MAC_TAHOE_NO_UPDATE_CHECK", "true")
+    monkeypatch.setattr(bootstrap, "latest_tahoe", lambda: pytest.fail("updates are disabled"))
+    archive = tahoe_archive(tmp_path, "0.59.4")
+    calls = []
+    def download(pin, destination):
+        calls.append(pin)
+        destination.write_bytes(archive.read_bytes())
+    monkeypatch.setattr(bootstrap, "download", download)
+    bootstrap.prepare()
+    assert calls == [json.loads((root / "upstream.json").read_text())]
+
+
+def test_release_download_is_checked_by_version_not_pin_digest(tmp_path, monkeypatch):
+    monkeypatch.setattr(bootstrap.urllib.request, "urlopen", lambda *a, **kw: io.BytesIO(b"archive"))
+    bootstrap.download({"commit": "a" * 40, "version": "0.60.0"}, tmp_path / "download")
+    with pytest.raises(ValueError, match="checksum"):
+        bootstrap.download({"commit": "a" * 40}, tmp_path / "download")
+
+
+def test_latest_tahoe_resolves_the_release_commit(monkeypatch):
+    replies = {
+        f"{bootstrap.TAHOE_REPOSITORY}/releases/latest": b'{"tag_name": "v0.60.0"}',
+        f"{bootstrap.TAHOE_REPOSITORY}/commits/v0.60.0": b"c" * 40 + b"\n",
+    }
+    monkeypatch.setattr(bootstrap, "_github", lambda path, accept=None: replies.get(path))
+    assert bootstrap.latest_tahoe() == {
+        "repository": bootstrap.TAHOE_REPOSITORY, "commit": "c" * 40, "version": "0.60.0"}
+    replies[f"{bootstrap.TAHOE_REPOSITORY}/releases/latest"] = b'{"tag_name": "nightly"}'
+    assert bootstrap.latest_tahoe() is None
+    monkeypatch.setattr(bootstrap, "_github", lambda path, accept=None: None)
+    assert bootstrap.latest_tahoe() is None
+
+
+class Git:
+    def __init__(self, root, status="", pull=0):
+        self.root, self.status, self.pull, self.calls = root, status, pull, []
+
+    def __call__(self, *args):
+        self.calls.append(args)
+        stdout = {"rev-parse": str(self.root) + "\n", "status": self.status}.get(args[0], "")
+        code = self.pull if args[0] == "pull" else 0
+        return subprocess.CompletedProcess(["git", *args], code, stdout, "")
+
+
+@pytest.fixture
+def updater(tmp_path, monkeypatch):
+    root = wrapper_at(tmp_path, monkeypatch)
+    (root / ".git").mkdir()
+    # Recorded so the restart flag set by update_wrapper is undone afterwards.
+    monkeypatch.setenv("GOLDEN_GATE_UPDATED", "0")
+    execs = []
+    monkeypatch.setattr(bootstrap.os, "execv", lambda executable, args: execs.append(args))
+    monkeypatch.setattr(bootstrap, "latest_release", lambda repository: "v0.60.0")
+    return root, execs
+
+
+def test_newer_release_pulls_a_clean_checkout_and_restarts(updater, monkeypatch):
+    root, execs = updater
+    git = Git(root)
+    monkeypatch.setattr(bootstrap, "_git", git)
+    bootstrap.update_wrapper("install", ["--dark"])
+    assert ("pull", "--ff-only") in git.calls
+    assert execs == [[sys.executable, str(root / "install"), "--dark"]]
+    assert bootstrap.os.environ["GOLDEN_GATE_UPDATED"] == "1"
+
+
+@pytest.mark.parametrize("case", ["current", "dirty", "failed-pull", "no-git"])
+def test_wrapper_update_falls_back_to_the_current_wrapper(updater, monkeypatch, capsys, case):
+    root, execs = updater
+    git = Git(root, status=" M bootstrap.py\n" if case == "dirty" else "",
+              pull=1 if case == "failed-pull" else 0)
+    monkeypatch.setattr(bootstrap, "_git", git)
+    if case == "current":
+        (root / "VERSION").write_text("0.60.0\n")
+    if case == "no-git":
+        (root / ".git").rmdir()
+    bootstrap.update_wrapper("install", [])
+    assert execs == []
+    assert ("pull", "--ff-only") not in git.calls or case == "failed-pull"
+    assert ("v0.60.0 is available" in capsys.readouterr().out) == (case != "current")
+
+
+@pytest.mark.parametrize("entry, args, env", [
+    ("uninstall", [], {}),
+    ("install", ["--prepare"], {}),
+    ("install", [], {"GOLDEN_GATE_UPDATED": "1"}),
+    ("install", [], {"MAC_TAHOE_NO_UPDATE_CHECK": "true"}),
+])
+def test_wrapper_update_is_skipped_when_not_wanted(updater, monkeypatch, entry, args, env):
+    for key, value in env.items():
+        monkeypatch.setenv(key, value)
+    monkeypatch.setattr(bootstrap, "latest_release", lambda repository: pytest.fail("no update check"))
+    bootstrap.update_wrapper(entry, args)

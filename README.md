@@ -192,7 +192,7 @@ Required desktop, build tools and system packages.
 - `dbus-send`
 - `systemctl` or `crontab` for scheduled features
 
-Tahoe and Golden Gate releases use matching version numbers. The first launch downloads the pinned shared Tahoe source and verifies its SHA-256. Theme assets are bundled in that source; later launches reuse it. Missing dependencies and optional KDE Rounded Corners also require internet access.
+Tahoe and Golden Gate releases use matching version numbers. Each launch installs the latest Tahoe release, and `./install` and `./installer` first update a git checkout to the latest Golden Gate release. Theme assets are bundled in that source; later launches reuse it until a new release is published. `MAC_TAHOE_NO_UPDATE_CHECK=true` skips both updates and installs the Tahoe release this version was published with. Missing dependencies and optional KDE Rounded Corners also require internet access.
 
 | Distro | Qt 6 tools | KDE Plasma 6 development packages |
 |--------|------------|-----------------------------------|

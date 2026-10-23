@@ -5,8 +5,14 @@ All implementation and wallpaper assets live in Tahoe. Keep this repository
 limited to the downloader, its tests, `defaults.json`, the audited upstream
 pin, release version, documentation, screenshots and the existing banner. Do not vendor Tahoe here.
 
-Update `upstream.json` with both a published immutable commit and its archive
-SHA-256. The selected commit must contain edition support and MacGoldenGate.
+Every entry point installs the latest published Tahoe release, checked
+against that release's `VERSION`. `install` and `installer` first fast-forward
+a clean git checkout to the latest Golden Gate release and restart; dirty
+checkouts and release downloads print the update instead. `upstream.json` is
+the verified fallback when GitHub's API is unreachable or
+`MAC_TAHOE_NO_UPDATE_CHECK=true`, and the reference for release checks.
+Update it with both a published immutable commit and its archive SHA-256.
+The selected commit must contain edition support and MacGoldenGate.
 Run the wrapper tests and the shared Tahoe suite against the prepared source.
 `GOLDEN_GATE_TAHOE_SOURCE` allows testing a local Tahoe checkout before publishing.
 
