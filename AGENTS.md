@@ -5,6 +5,10 @@ All implementation and wallpaper assets live in Tahoe. Keep this repository
 limited to the downloader, its tests, `defaults.json`, the audited upstream
 pin, release version, documentation, screenshots and the existing banner. Do not vendor Tahoe here.
 
+The shared offline `icon-toolset` also lives only in Tahoe. It generates icon
+appearances from the bundled base with arbitrary RGB glass tints; Golden Gate
+documents that tool without copying its implementation or generated assets.
+
 Every entry point installs the latest published Tahoe release, checked
 against that release's `VERSION`. `install` and `installer` first fast-forward
 a clean git checkout to the latest Golden Gate release and restart; dirty
