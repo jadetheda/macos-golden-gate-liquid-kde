@@ -57,7 +57,10 @@ from an older version or fill rejected cases with old files. After pinning
 the published Tahoe release and committing the images, run its tool with
 `--repo <this-checkout> verify --tahoe-repo <tahoe-checkout>`.
 Publish through `.github/workflows/release.yml`, which runs that gate against
-the immutable Tahoe pin. Never bypass it with direct `gh release create`.
+the immutable Tahoe pin.
+The release workflow also requires successful Tahoe `test.yml` push runs on both
+`main` and `dev` for the exact pinned commit. Its shared CI gate is itself pinned
+to an immutable Tahoe commit. Never bypass failed, cancelled, skipped or missing CI. Never bypass it with direct `gh release create`.
 The capture implementation belongs only in Tahoe; do not vendor it here.
 
 The shared installer must record a verified uninstall wallpaper reset as

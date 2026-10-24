@@ -7,18 +7,19 @@ on:
 
 permissions:
   contents: write
+  actions: read
 
 concurrency:
   group: release-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  publish:
+  source:
     runs-on: ubuntu-latest
+    outputs:
+      commit: ${{ steps.pin.outputs.commit }}
     steps:
       - uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
       - name: Read immutable Tahoe pin
         id: pin
         run: |
@@ -30,10 +31,25 @@ jobs:
           with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
               output.write('commit=' + pin['commit'] + '\n')
           PY
+
+  ci:
+    needs: source
+    uses: lestercorderomurillo/macos-tahoe-liquid-kde/.github/workflows/require-ci.yml@5d1c87c84090196e621bca693cc30a56ba427b73
+    with:
+      repository: lestercorderomurillo/macos-tahoe-liquid-kde
+      sha: ${{ needs.source.outputs.commit }}
+
+  publish:
+    needs: [source, ci]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
       - uses: actions/checkout@v5
         with:
           repository: lestercorderomurillo/macos-tahoe-liquid-kde
-          ref: ${{ steps.pin.outputs.commit }}
+          ref: ${{ needs.source.outputs.commit }}
           fetch-depth: 0
           path: tahoe
       - name: Verify version-bound, reviewed screenshots
