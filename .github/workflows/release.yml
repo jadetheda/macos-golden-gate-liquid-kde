@@ -39,8 +39,14 @@ jobs:
       repository: lestercorderomurillo/macos-tahoe-liquid-kde
       sha: ${{ needs.source.outputs.commit }}
 
+  wrapper-ci:
+    uses: lestercorderomurillo/macos-tahoe-liquid-kde/.github/workflows/require-ci.yml@5d1c87c84090196e621bca693cc30a56ba427b73
+    with:
+      repository: ${{ github.repository }}
+      sha: ${{ github.sha }}
+
   publish:
-    needs: [source, ci]
+    needs: [source, ci, wrapper-ci]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5

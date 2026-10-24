@@ -10,5 +10,10 @@ def test_release_requires_ci_for_exact_tahoe_pin():
     assert 'sha: ${{ needs.source.outputs.commit }}' in text
     assert 'ref: ${{ needs.source.outputs.commit }}' in text
     assert 'repository: lestercorderomurillo/macos-tahoe-liquid-kde' in text
-    assert 'needs: [source, ci]' in text.split('  publish:', 1)[1]
+    assert 'needs: [source, ci, wrapper-ci]' in text.split('  publish:', 1)[1]
     assert 'actions: read' in text
+    assert 'sha: ${{ github.sha }}' in text
+    assert 'repository: ${{ github.repository }}' in text
+    workflow = (repo / '.github/workflows/test.yml').read_text()
+    assert 'branches: [main, dev]' in workflow
+    assert 'python3 -m pytest tests -q' in workflow

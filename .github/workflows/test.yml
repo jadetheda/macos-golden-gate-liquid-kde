@@ -1,0 +1,20 @@
+name: tests
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install test dependencies
+        run: python3 -m pip install pytest
+      - name: Test the wrapper and release routing
+        run: python3 -m pytest tests -q
