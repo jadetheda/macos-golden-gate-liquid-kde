@@ -78,7 +78,12 @@ preserving radius controls and window rules. Preset data and rendering
 live only in Tahoe, including Plasma/Kvantum popup surfaces. Golden Gate stages
 light Plasma popups, tooltips, the detached search capsule and native Qt menus
 with 60% white fill so dark text stays readable. Dark surfaces retain 1% white
-fill. Preserve the saved gradient, blur and refraction in both modes; apply
+fill. About This Computer must use those same mode-dependent Golden Gate
+fills. Its `hint-clear-surface` marker identifies the edition; it must never
+force 1% white in light mode. Keep light/dark/light transition and
+secondary-label contrast tests in Tahoe so this regression cannot be approved
+as expected behavior.
+Preserve the saved gradient, blur and refraction in both modes; apply
 these surfaces in both the installer and Nix staging.
 Tahoe retains 55% white light fills and slightly clearer 48% black dark fills.
 Golden Gate menus retain their black upper gradient in light and dark mode:
