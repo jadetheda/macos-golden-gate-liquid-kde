@@ -1,4 +1,4 @@
-"""Fetch the latest shared Tahoe release and select Golden Gate defaults."""
+"""Use local Tahoe sources when available, otherwise fetch a published release."""
 
 import fcntl
 import hashlib
@@ -16,8 +16,7 @@ import tempfile
 import urllib.request
 
 ROOT = Path(__file__).resolve().parent
-ENTRY_POINTS = {"install", "uninstall", "installer", "legacy-install",
-                "legacy-uninstall", "test", "vm"}
+ENTRY_POINTS = {"install", "uninstall", "installer", "test", "vm"}
 # Entry points that fast-forward this checkout before running.
 UPDATE_ENTRY_POINTS = {"install", "installer"}
 TAHOE_REPOSITORY = "lestercorderomurillo/macos-tahoe-liquid-kde"
@@ -124,7 +123,24 @@ def local_files(source: Path) -> list[str]:
     result = subprocess.run(
         ["git", "-C", str(source), "ls-files", "--cached", "--others",
          "--exclude-standard", "-z"], check=True, capture_output=True)
-    return sorted(set(filter(None, result.stdout.decode().split("\0"))))
+    # ls-files includes tracked deletions in an in-progress rewrite.
+    return sorted(name for name in set(result.stdout.decode().split("\0"))
+                  if name and ((source / name).is_file() or (source / name).is_symlink()))
+
+
+def local_source() -> Path | None:
+    """An explicit checkout wins, then the sibling repository; never modify it."""
+    explicit = os.environ.get("GOLDEN_GATE_TAHOE_SOURCE")
+    source = (Path(explicit).expanduser() if explicit else
+              ROOT.parent / "macos-tahoe-liquid-kde").resolve()
+    required = ("VERSION", "installer", "src/installer/installer_ui.py",
+                "src/scripts/defaults.json", "src/scripts/launcher_defaults.py",
+                "src/offline/wallpapers/MacGoldenGate/metadata.json")
+    if all((source / name).is_file() for name in required):
+        return source
+    if explicit:
+        raise ValueError(f"Incomplete local Tahoe source: {source}")
+    return None
 
 
 def apply_defaults(source: Path, defaults: dict) -> None:
@@ -146,16 +162,14 @@ def apply_defaults(source: Path, defaults: dict) -> None:
 
 
 def prepare() -> Path:
-    # Install the latest Tahoe release; the audited pin is the fallback when
-    # GitHub's API is unreachable or updates are disabled.
+    # Resolve local development sources before making any network request.
     pin = json.loads((ROOT / "upstream.json").read_text())
     defaults = json.loads((ROOT / "defaults.json").read_text())
-    local = os.environ.get("GOLDEN_GATE_TAHOE_SOURCE")
-    if not local and os.environ.get("MAC_TAHOE_NO_UPDATE_CHECK", "").lower() != "true":
+    source = local_source()
+    if source is None and os.environ.get("MAC_TAHOE_NO_UPDATE_CHECK", "").lower() != "true":
         pin = latest_tahoe() or pin
     digest = hashlib.sha256((ROOT / "bootstrap.py").read_bytes())
     digest.update(json.dumps([pin, defaults], sort_keys=True).encode())
-    source = Path(local).resolve() if local else None
     files = local_files(source) if source else []
     for name in files:
         path = source / name
@@ -185,7 +199,7 @@ def prepare() -> Path:
                     raise ValueError("Tahoe release archive does not match its version")
             apply_defaults(checkout, defaults)
             (checkout / ".golden-gate-ready").write_text(
-                (pin["commit"] or "local-development") + "\n")
+                ("local-development" if source else pin["commit"]) + "\n")
             checkout.rename(target)
     return target
 
@@ -224,7 +238,8 @@ def _clean_checkout() -> bool:
 def update_wrapper(entry: str, args: list[str]) -> None:
     """Fast-forward a clean checkout to the newest Golden Gate release and
     restart the same entry point. Any other case continues with this wrapper."""
-    if (entry not in UPDATE_ENTRY_POINTS or args == ["--prepare"]
+    if (local_source() is not None
+            or entry not in UPDATE_ENTRY_POINTS or args == ["--prepare"]
             or os.environ.get("GOLDEN_GATE_UPDATED") == "1"
             or os.environ.get("MAC_TAHOE_NO_UPDATE_CHECK", "").lower() == "true"):
         return
@@ -255,9 +270,9 @@ def main(entry: str = "installer", args: list[str] | None = None) -> int:
     if entry not in ENTRY_POINTS:
         raise ValueError("Unknown entry point")
     args = sys.argv[1:] if args is None else args
-    update_wrapper(entry, args)
     original_uid, original_gid = os.geteuid(), os.getegid()
     try:
+        update_wrapper(entry, args)
         # sudo entry points retain their root hop for Tahoe's own privilege
         # handling; downloads and extraction belong to the invoking user.
         if original_uid == 0 and os.environ.get("SUDO_UID"):
@@ -271,8 +286,7 @@ def main(entry: str = "installer", args: list[str] | None = None) -> int:
         if os.geteuid() != original_uid:
             os.seteuid(original_uid)
             os.setegid(original_gid)
-    # The prepared source is not a git checkout; this wrapper already updated
-    # itself and selected the latest Tahoe release.
+    # Keep the selected local snapshot or release throughout this invocation.
     os.environ["MAC_TAHOE_NO_UPDATE_CHECK"] = "true"
     if args == ["--prepare"]:
         print(source)

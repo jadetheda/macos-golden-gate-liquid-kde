@@ -76,7 +76,9 @@ Detached search, favorites and app categories with blurred glass and a dark uppe
 Glass refraction, hover zoom, notification badges and auto-hide.
 
 <p align="center">
-  <img src="src/screenshots/dock_1_v1-f52422cd61aa.png" alt="Glass Dock with pinned applications" width="840">
+  <img src="src/screenshots/dock_1_v1-3fe6c214ac5e.png" alt="Glass Dock with ten pinned applications and light icons" width="840">
+  <br>
+  <img src="src/screenshots/dock_1_dark_v1-183117dec7a1.png" alt="The same Dock with dark icons" width="840">
 </p>
 
 <br>
@@ -140,8 +142,8 @@ Plymouth startup and shutdown theme with LUKS2 unlock support.
 
 Here is what we added or improved in the components we ship.
 
-- **Multilanguage support:** English, Spanish, Simplified Chinese, Brazilian Portuguese and German in the graphical and terminal installers, plus translated Plasma widgets.
-- **Installation and packaging:** graphical installer, terminal wizard, selectable components, saved preferences, bundled theme assets and release updates.
+- **Multilanguage support:** English, Spanish, Simplified Chinese, Brazilian Portuguese and German in the graphical installer, plus translated Plasma widgets.
+- **Installation and packaging:** graphical install/uninstall wizard, selectable components, bundled theme assets and release updates.
 - **Multiple distributions:** dependency detection and package mappings for Arch-based, Fedora-based, openSUSE, Debian and KDE neon systems.
 - **systemd and OpenRC:** scheduled theme switching and OLED care through user timers or cron.
 - **Glass improvements:** configurable blur, edge refraction, opacity and gradients; Tahoe and Golden Gate materials with consistent light/dark surfaces and paired edge highlights.
@@ -158,22 +160,17 @@ Here is what we added or improved in the components we ship.
 
 ![Getting started](https://img.shields.io/badge/getting-started-3B7B5B?style=for-the-badge&logo=gnubash&logoColor=white)
 
-Install with the graphical interface or terminal wizard.
-
-**Graphical installer**
+Install and uninstall through one graphical wizard:
 
 ```bash
 ./installer
 ```
 
-**Terminal wizard**
+Choose **Install** to configure the theme, or **Uninstall** to remove it.
+The language selector is between these actions. The wizard asks for administrator
+access only when you confirm. `./install` and `./uninstall` open the same UI.
 
-```bash
-sudo ./install
-sudo ./uninstall
-```
-
-English, Spanish, Simplified Chinese, Brazilian Portuguese and German. All options: `sudo ./install --help`.
+English, Spanish, Simplified Chinese, Brazilian Portuguese and German.
 
 <details>
 <summary><b>Requirements</b></summary>
@@ -181,7 +178,7 @@ English, Spanish, Simplified Chinese, Brazilian Portuguese and German. All optio
 Required desktop, build tools and system packages.
 
 - KDE Plasma 6.6+
-- Python 3.10+
+- Python 3.10+ and PyQt6
 - `sudo`
 - Qt 6 development tools
 - KDE and Qt 6 development packages for the compiled plasmoids and KWin effects
@@ -189,7 +186,7 @@ Required desktop, build tools and system packages.
 - `dbus-send`
 - `systemctl` or `crontab` for scheduled features
 
-Tahoe and Golden Gate releases use matching version numbers. Each launch installs the latest Tahoe release, and `./install` and `./installer` first update a git checkout to the latest Golden Gate release. Theme assets are bundled in that source; later launches reuse it until a new release is published. `MAC_TAHOE_NO_UPDATE_CHECK=true` skips both updates and installs the Tahoe release this version was published with. Missing dependencies and optional KDE Rounded Corners also require internet access.
+Tahoe and Golden Gate releases use matching version numbers. With both repositories side by side, `./installer` automatically uses the local Tahoe checkout without downloading or updating either repository. `GOLDEN_GATE_TAHOE_SOURCE` can select another checkout. Golden Gate stages its own defaults in a separate cached copy, leaving Tahoe unchanged. Without a local checkout, each launch installs the latest Tahoe release, and `./install` and `./installer` first update a git checkout to the latest Golden Gate release. Theme assets are bundled in that source; later launches reuse it until a new release is published. `MAC_TAHOE_NO_UPDATE_CHECK=true` skips both updates and installs the Tahoe release this version was published with. Missing dependencies and optional KDE Rounded Corners also require internet access.
 
 | Distro | Qt 6 tools | KDE Plasma 6 development packages |
 |--------|------------|-----------------------------------|
@@ -202,27 +199,19 @@ Tahoe and Golden Gate releases use matching version numbers. Each launch install
 <details>
 <summary><b>Choose features and theme mode</b></summary>
 
-Flags skip the wizard. Exclude components with `--no-<name>` or select them with `--only`:
+The wizard offers appearance (automatic, light or dark), regular or tinted glass
+icons, theme color, wallpaper, launcher, top bar and Dock, effects, fonts,
+Firefox, file manager, boot animation and optional OLED care. Review your choices
+before installing; each summary row can be edited.
 
-```bash
-sudo ./install --no-gtk --no-sddm
-sudo ./install --only --fonts --icons
-sudo ./uninstall --only --cursors
-```
+The default option is always first and selected. Opening the other edition starts
+with that repository's defaults, including its wallpaper and launcher. Choosing
+**Keep my icons**, **Keep my wallpaper** or **Keep my fonts** preserves those choices.
 
-**Features**
+The global menu, window theme, cursors, sounds, Qt/GTK styles and file dialogs are
+included. The theme is applied immediately after installation.
 
-`wallpapers`, `fonts`, `cursors`, `plasma-theme`, `window-decorations`, `kvantum`, `color-schemes`, `icons`, `plasmoids`, `globalmenu`, `acrylic-glass`, `rounded-corners`, `global-theme`, `layout`, `sounds`, `gtk`, `firefox`, `sddm`, `apps`, `nautilus`, `nautilus-bookmarks`, `portals`, `oled-care`, `plymouth`.
-
-**Theme mode**
-
-```bash
-sudo ./install          # auto: light at 06:00, dark at 18:00
-sudo ./install --light
-sudo ./install --dark
-```
-
-**Live switching**
+Automatic appearance changes at 06:00 and 18:00. Manual switching remains available:
 
 ```bash
 mac-tahoe-theme-switch light
@@ -230,24 +219,7 @@ mac-tahoe-theme-switch dark
 mac-tahoe-theme-switch auto
 ```
 
-**Saved choices**
-
-```bash
-sudo ./install --no-gtk --dark --save
-sudo ./install --reset
-```
-
-**Maintenance**
-
-- `--preflight` checks the system without installing.
-- `--no-apply-theme` stages files without switching the desktop.
-- `--no-grub-modify` leaves `/etc/default/grub` unchanged.
-- Theme changes keep any wallpaper you've chosen for each monitor.
-- `--reset-wallpapers` returns all monitors to the bundled light/dark wallpapers.
-- Both Tahoe and Golden Gate light/dark wallpapers are bundled. Golden Gate is the default here.
-- Choose **Tahoe (1)** or **Golden Gate (2)** from the Launcher's **…** menu.
-- The editions share the Tahoe installer and runtime IDs, so install one edition at a time.
-- `./legacy-install` and `./legacy-uninstall` use the classic prompt instead of the terminal wizard.
+Both launcher presets remain available from the Launcher's **…** menu.
 
 </details>
 
@@ -289,12 +261,8 @@ Browser data and customizations are preserved; uninstall removes the theme's add
 
 Optional panel shifts; disabled by default.
 
-```bash
-sudo ./install --oled-care
-sudo ./install --oled-care --save
-sudo ./install --no-oled-care
-sudo ./install --oled-care --oled-interval=3 --oled-max-shift=4
-```
+Enable it on the **OLED protection** page. Choose the shift interval and maximum
+pixel displacement there; it is disabled by default.
 
 **Manual controls**
 
@@ -407,7 +375,6 @@ The current status of each component.
 | Auto Theme Switcher | Available |
 | OLED Care | Available |
 | Installer UI | Available |
-| Installer TUI | Available |
 | Localization | Available |
 | Aurorae Decorations | Available |
 | Global Menu | Available |
@@ -504,3 +471,6 @@ Everything here is maintained independently. Thanks to the open source projects 
 - **[512pixels.net](https://512pixels.net/projects/default-mac-wallpapers-in-5k/)**: high-resolution macOS wallpaper archive.
 
 Independent reimplementation inspired by the macOS aesthetic, not affiliated with or endorsed by Apple. "macOS" and "Apple" are trademarks of Apple Inc.; the bundled wallpapers and SF fonts remain Apple's property. Licensed GPL-3.0.
+
+
+[Installer screenshots and testing](TESTING.md).

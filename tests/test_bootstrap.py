@@ -274,3 +274,70 @@ def test_wrapper_update_is_skipped_when_not_wanted(updater, monkeypatch, entry, 
         monkeypatch.setenv(key, value)
     monkeypatch.setattr(bootstrap, "latest_release", lambda repository: pytest.fail("no update check"))
     bootstrap.update_wrapper(entry, args)
+
+
+def local_checkout(path):
+    path.mkdir()
+    files = {
+        "VERSION": "0.61.0\n",
+        "installer": "# local installer\n",
+        "src/installer/installer_ui.py": "# local UI\n",
+        "src/scripts/defaults.json": '{"wallpaper":"MacTahoe","launcher_preset":1}',
+        "src/scripts/launcher_defaults.py": "# presets\n",
+        "src/offline/wallpapers/MacGoldenGate/metadata.json": "{}",
+    }
+    for name, contents in files.items():
+        target = path / name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_text(contents)
+    subprocess.run(["git", "init", "-q", str(path)], check=True)
+    obsolete = path / "legacy-install"
+    obsolete.write_text("retired")
+    subprocess.run(["git", "-C", str(path), "add", "."], check=True)
+    obsolete.unlink()
+    (path / "new-ui.py").write_text("untracked UI")
+    return path
+
+
+@pytest.mark.parametrize("explicit", [False, True])
+def test_local_checkout_stages_current_files_without_network(tmp_path, monkeypatch, explicit):
+    wrapper_at(tmp_path, monkeypatch)
+    source = local_checkout(tmp_path / "macos-tahoe-liquid-kde")
+    if explicit:
+        override = local_checkout(tmp_path / "another-tahoe")
+        monkeypatch.setenv("GOLDEN_GATE_TAHOE_SOURCE", str(override))
+        source = override
+    def no_network(*args, **kwargs):
+        pytest.fail("Local sources must not query, pull or download releases")
+    monkeypatch.setattr(bootstrap.urllib.request, "urlopen", no_network)
+    monkeypatch.setattr(bootstrap, "_git", no_network)
+    assert bootstrap.local_source() == source
+    for entry in ("installer", "install", "uninstall"):
+        bootstrap.update_wrapper(entry, [])
+    original = (source / "src/scripts/defaults.json").read_bytes()
+    prepared = bootstrap.prepare()
+    assert prepared != source
+    assert (prepared / ".golden-gate-ready").read_text() == "local-development\n"
+    assert (prepared / "new-ui.py").read_text() == "untracked UI"
+    assert not (prepared / "legacy-install").exists()
+    assert json.loads((prepared / "src/scripts/defaults.json").read_text())["wallpaper"] == "MacGoldenGate"
+    assert (source / "src/scripts/defaults.json").read_bytes() == original
+    assert bootstrap.prepare() == prepared
+    (source / "new-ui.py").write_text("changed UI")
+    refreshed = bootstrap.prepare()
+    assert refreshed != prepared
+    assert (refreshed / "new-ui.py").read_text() == "changed UI"
+    assert (source / "src/scripts/defaults.json").read_bytes() == original
+
+
+def test_incomplete_explicit_source_does_not_download(tmp_path, monkeypatch):
+    wrapper_at(tmp_path, monkeypatch)
+    monkeypatch.setenv("GOLDEN_GATE_TAHOE_SOURCE", str(tmp_path / "missing"))
+    monkeypatch.setattr(bootstrap.urllib.request, "urlopen", lambda *a, **kw: pytest.fail("network"))
+    assert bootstrap.main("installer", []) == 1
+
+
+def test_incomplete_sibling_does_not_shadow_release(tmp_path, monkeypatch):
+    wrapper_at(tmp_path, monkeypatch)
+    (tmp_path / "macos-tahoe-liquid-kde").mkdir()
+    assert bootstrap.local_source() is None

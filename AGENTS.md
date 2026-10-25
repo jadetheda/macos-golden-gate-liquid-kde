@@ -9,7 +9,12 @@ The shared offline `icon-toolset` also lives only in Tahoe. It generates icon
 appearances from the bundled base with arbitrary RGB glass tints; Golden Gate
 documents that tool without copying its implementation or generated assets.
 
-Every entry point installs the latest published Tahoe release, checked
+Every entry point first uses `GOLDEN_GATE_TAHOE_SOURCE` or a complete sibling
+`../macos-tahoe-liquid-kde` checkout when present, without querying releases,
+pulling, or downloading. Stage a content-addressed copy with Golden Gate
+defaults; never modify the Tahoe checkout. Include untracked source files and
+omit tracked deletions when staging local work. Without local sources, every
+entry point installs the latest published Tahoe release, checked
 against that release's `VERSION`. `install` and `installer` first fast-forward
 a clean git checkout to the latest Golden Gate release and restart; dirty
 checkouts and release downloads print the update instead. `upstream.json` is
@@ -70,7 +75,7 @@ alone is not proof of ownership; legacy misclassified states require an
 explicit reset. Keep this implementation in Tahoe.
 
 The shared Acrylic Glass KCM offers Tahoe and Golden Gate materials, both
-with blur strength 10 and stable saved IDs 1 and 2. Retired Clear ID 0 falls
+with blur strength 5 and stable saved IDs 1 and 2. Retired Clear ID 0 falls
 back to Tahoe without resetting saved optics when opening the KCM.
 Installing or reinstalling Acrylic Glass selects the complete Golden Gate
 material, replacing saved material selections and optical overrides while
@@ -109,3 +114,11 @@ separate images in each appearance mode. Each frame must contain only its
 featured application with that window focused; reject combined or unfocused
 frames. Enforce this in capture and release validation. This requirement is
 for the main README gallery, not distro qualification/OS screenshots.
+
+The shared v0.61 installer is a single native PyQt6 wizard. `install` and
+`uninstall` are aliases for the graphical UI, with no legacy or terminal wizard.
+Keep the native implementation in Tahoe. Source-edition defaults are first and
+selected on every new wizard launch; user choices are scoped to one transaction.
+
+Keep installer screenshots in TESTING.md, linked from the README. Desktop and Dock
+photographs remain in the README; stage and verify both documentation files.
