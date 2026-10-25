@@ -24,12 +24,32 @@ GOLDEN_GATE_REPOSITORY = "lestercorderomurillo/macos-golden-gate-liquid-kde"
 RELEASES_URL = f"https://github.com/{GOLDEN_GATE_REPOSITORY}/releases/latest"
 
 
+def active_prepared(cache: Path) -> set[Path] | None:
+    """Older wrappers have no lease; their entry points still run in the source."""
+    active = set()
+    try:
+        processes = list(Path("/proc").iterdir())
+    except OSError:
+        return None  # Cannot establish whether legacy snapshots are in use.
+    for process in processes:
+        if not process.name.isdecimal():
+            continue
+        try:
+            relative = Path(os.readlink(process / "cwd")).relative_to(cache)
+        except (OSError, ValueError):
+            continue
+        if relative.parts:
+            active.add(cache / relative.parts[0])
+    return active
+
+
 def prune_prepared(cache: Path, current: Path) -> None:
     """Retire only wrapper snapshots, after their replacement is ready.
 
     A running entry point holds a shared lock on its ready marker. Never
     unlink a locked snapshot: the wizard and its backend still import it.
     """
+    active = active_prepared(cache)
     for previous in cache.iterdir():
         # The caller owns .prepare.lock; no extraction can still be using
         # these TemporaryDirectory names left behind by an interrupted run.
@@ -40,7 +60,8 @@ def prune_prepared(cache: Path, current: Path) -> None:
             except OSError as exc:
                 print(f"Golden Gate: could not remove interrupted download {previous}: {exc}", file=sys.stderr)
             continue
-        if (previous == current or previous.is_symlink()
+        if (active is None or previous in active
+                or previous == current or previous.is_symlink()
                 or not previous.is_dir()
                 or not re.fullmatch(r"[0-9a-f]{20}", previous.name)):
             continue

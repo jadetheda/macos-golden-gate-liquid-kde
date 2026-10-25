@@ -440,3 +440,24 @@ os.execv(sys.executable, [sys.executable, '-c',
         if child.poll() is None:
             child.kill()
         child.wait()
+
+
+def test_cleanup_preserves_running_legacy_entry_without_a_lease(tmp_path, monkeypatch):
+    wrapper_at(tmp_path, monkeypatch)
+    source = local_checkout(tmp_path / "macos-tahoe-liquid-kde")
+    first = bootstrap.prepare()
+    child = subprocess.Popen(
+        [sys.executable, "-c", "import sys; print('ready', flush=True); sys.stdin.read(1)"],
+        cwd=first, stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
+    try:
+        assert child.stdout.readline().strip() == "ready"
+        (source / "new-ui.py").write_text("replacement")
+        second = bootstrap.prepare()
+        assert first.exists()
+        child.communicate("x", timeout=10)
+        assert bootstrap.prepare() == second
+        assert not first.exists()
+    finally:
+        if child.poll() is None:
+            child.kill()
+        child.wait()
