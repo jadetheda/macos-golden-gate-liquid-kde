@@ -77,13 +77,13 @@ The desktop and its apps in light and dark mode.
 The Golden Gate desktop in light and dark mode.
 
 <p align="center">
-  <a href="src/screenshots/showcase_light_4k-9da87c9c2cb2.png"><img src="src/screenshots/showcase_light_4k-9da87c9c2cb2.png" alt="Golden Gate light desktop with Files focused" width="415"></a>
-  <a href="src/screenshots/desktop_about_light_4k-c68afdc7d906.png"><img src="src/screenshots/desktop_about_light_4k-c68afdc7d906.png" alt="Golden Gate light desktop with About This Computer focused" width="415"></a>
+  <a href="src/screenshots/showcase_light_4k-1c8813da87aa.png"><img src="src/screenshots/showcase_light_4k-1c8813da87aa.png" alt="Golden Gate light desktop with Files focused" width="415"></a>
+  <a href="src/screenshots/desktop_about_light_4k-d3acfa4874e7.png"><img src="src/screenshots/desktop_about_light_4k-d3acfa4874e7.png" alt="Golden Gate light desktop with About This Computer focused" width="415"></a>
 </p>
 
 <p align="center">
-  <a href="src/screenshots/showcase_dark_4k-8923665fe14d.png"><img src="src/screenshots/showcase_dark_4k-8923665fe14d.png" alt="Golden Gate dark desktop with Files focused" width="415"></a>
-  <a href="src/screenshots/desktop_about_dark_4k-7fc4290e5ff5.png"><img src="src/screenshots/desktop_about_dark_4k-7fc4290e5ff5.png" alt="Golden Gate dark desktop with About This Computer focused" width="415"></a>
+  <a href="src/screenshots/showcase_dark_4k-d1062d0a6d90.png"><img src="src/screenshots/showcase_dark_4k-d1062d0a6d90.png" alt="Golden Gate dark desktop with Files focused" width="415"></a>
+  <a href="src/screenshots/desktop_about_dark_4k-190e876e381b.png"><img src="src/screenshots/desktop_about_dark_4k-190e876e381b.png" alt="Golden Gate dark desktop with About This Computer focused" width="415"></a>
 </p>
 
 <br>
@@ -93,8 +93,8 @@ The Golden Gate desktop in light and dark mode.
 Detached search, favorites and app categories with blurred glass and a dark upper gradient. [Material settings](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/docs/glass-materials.md).
 
 <p align="center">
-  <img src="src/screenshots/launcher_preset_2_light-4cd8b994c07c.png" alt="Default Golden Gate preset 2 in light mode, with detached search and Golden Gate wallpaper" width="415">
-  <img src="src/screenshots/launcher_preset_2_dark-53b27ef77910.png" alt="Default Golden Gate preset 2 in dark mode, with detached search and Golden Gate wallpaper" width="415">
+  <img src="src/screenshots/launcher_preset_2_light-97f67b4f63b8.png" alt="Default Golden Gate preset 2 in light mode, with detached search and Golden Gate wallpaper" width="415">
+  <img src="src/screenshots/launcher_preset_2_dark-3d7ae660fc04.png" alt="Default Golden Gate preset 2 in dark mode, with detached search and Golden Gate wallpaper" width="415">
 </p>
 
 <br>
@@ -104,9 +104,9 @@ Detached search, favorites and app categories with blurred glass and a dark uppe
 Glass refraction, hover zoom, notification badges and auto-hide.
 
 <p align="center">
-  <img src="src/screenshots/dock_1_v1-2ca4cb468fbc.png" alt="Glass Dock with ten pinned applications and light icons" width="840">
+  <img src="src/screenshots/dock_1_v1-9678783a7fa9.png" alt="Glass Dock with ten pinned applications and light icons" width="840">
   <br>
-  <img src="src/screenshots/dock_1_dark_v1-ad4e04ba7efa.png" alt="The same Dock with dark icons" width="840">
+  <img src="src/screenshots/dock_1_dark_v1-1cb2a9e18b71.png" alt="The same Dock with dark icons" width="840">
 </p>
 
 <br>
@@ -116,7 +116,7 @@ Glass refraction, hover zoom, notification badges and auto-hide.
 Finder-style Nautilus in light and dark.
 
 <p align="center">
-  <img src="src/screenshots/finder_v1-051c9dff8eca.png" alt="Finder-style Nautilus in light mode" width="415">
+  <img src="src/screenshots/finder_v1-28715898ebe7.png" alt="Finder-style Nautilus in light mode" width="415">
   <img src="src/screenshots/finder_dark_v1-4798339eb131.png" alt="Finder-style Nautilus in dark mode" width="415">
 </p>
 
@@ -127,8 +127,8 @@ Finder-style Nautilus in light and dark.
 System controls and global menus for compatible apps.
 
 <p align="center">
-  <img src="src/screenshots/menu_v1-a2927d6377d6.png" alt="System menu in light mode" width="415">
-  <img src="src/screenshots/menu_dark_v1-8813bc88caab.png" alt="System menu in dark mode" width="415">
+  <img src="src/screenshots/menu_v1-a7b116b0bbbe.png" alt="System menu in light mode" width="415">
+  <img src="src/screenshots/menu_dark_v1-bb87d0890c66.png" alt="System menu in dark mode" width="415">
 </p>
 
 <br>
@@ -138,8 +138,8 @@ System controls and global menus for compatible apps.
 Hardware, software and theme details in About This Computer.
 
 <p align="center">
-  <img src="src/screenshots/about_v1-b31c0f3a5f6a.png" alt="About This Computer in light mode" width="415">
-  <img src="src/screenshots/about_dark_v1-2b1bc5da47cd.png" alt="About This Computer in dark mode" width="415">
+  <img src="src/screenshots/about_v1-9d82c847e5b8.png" alt="About This Computer in light mode" width="415">
+  <img src="src/screenshots/about_dark_v1-91b25b1f66d4.png" alt="About This Computer in dark mode" width="415">
 </p>
 
 <br>
