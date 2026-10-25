@@ -125,7 +125,7 @@ def test_golden_gate_defaults_to_second_launcher_preset():
 
 
 def test_launch_forwards_arguments_and_disables_independent_updates(tmp_path, monkeypatch):
-    monkeypatch.setattr(bootstrap, "prepare", lambda: tmp_path)
+    monkeypatch.setattr(bootstrap, "prepare", lambda **kwargs: tmp_path)
     monkeypatch.setattr(bootstrap, "update_wrapper", lambda entry, args: None)
     monkeypatch.setattr(bootstrap.os, "chdir", lambda path: None)
     calls = []
@@ -326,6 +326,7 @@ def test_local_checkout_stages_current_files_without_network(tmp_path, monkeypat
     (source / "new-ui.py").write_text("changed UI")
     refreshed = bootstrap.prepare()
     assert refreshed != prepared
+    assert not prepared.exists()
     assert (refreshed / "new-ui.py").read_text() == "changed UI"
     assert (source / "src/scripts/defaults.json").read_bytes() == original
 
@@ -341,3 +342,101 @@ def test_incomplete_sibling_does_not_shadow_release(tmp_path, monkeypatch):
     wrapper_at(tmp_path, monkeypatch)
     (tmp_path / "macos-tahoe-liquid-kde").mkdir()
     assert bootstrap.local_source() is None
+
+
+def test_prepare_retires_old_downloads_only_after_success(tmp_path, monkeypatch):
+    root = wrapper_at(tmp_path, monkeypatch)
+    release = {"commit": "b" * 40, "version": "0.60.0"}
+    monkeypatch.setattr(bootstrap, "latest_tahoe", lambda: release)
+    archive = tahoe_archive(tmp_path, "0.60.0")
+    monkeypatch.setattr(bootstrap, "download", lambda pin, dest: dest.write_bytes(archive.read_bytes()))
+    first = bootstrap.prepare()
+    (first / "build").mkdir()
+    (first / "build/old-cache").write_text("compiled artifacts")
+    release.update(commit="c" * 40, version="0.61.0")
+    # Failed validation must keep the last working release and its build cache.
+    with pytest.raises(ValueError, match="version"):
+        bootstrap.prepare()
+    assert (first / "build/old-cache").is_file()
+    archive = tahoe_archive(tmp_path, "0.61.0")
+    second = bootstrap.prepare()
+    assert not first.exists()
+    assert second.exists()
+    assert list(root.glob("build/.prepare-*")) == []
+
+
+def test_cleanup_preserves_live_snapshots_and_unrelated_files(tmp_path, monkeypatch):
+    import os
+
+    root = wrapper_at(tmp_path, monkeypatch)
+    source = local_checkout(tmp_path / "macos-tahoe-liquid-kde")
+    first = bootstrap.prepare()
+    fd = bootstrap.lease_prepared(first)
+    assert os.get_inheritable(fd)
+    cache = root / "build"
+    unrelated = cache / ("e" * 20)
+    unrelated.mkdir()
+    (unrelated / "my-work").write_text("keep")
+    external = tmp_path / "external"
+    external.mkdir()
+    (external / ".golden-gate-ready").write_text("local-development\n")
+    (cache / ("d" * 20)).symlink_to(external, target_is_directory=True)
+    interrupted = cache / ".prepare-abcdefgh"
+    interrupted.mkdir()
+    (interrupted / "tahoe.tar.gz").write_text("partial")
+    try:
+        (source / "new-ui.py").write_text("new")
+        current = bootstrap.prepare()
+        assert first.exists()
+        assert not interrupted.exists()
+    finally:
+        os.close(fd)
+    assert bootstrap.prepare() == current
+    assert not first.exists()
+    assert (unrelated / "my-work").read_text() == "keep"
+    assert external.is_dir()
+    assert (cache / ("d" * 20)).is_symlink()
+
+
+def test_cleanup_does_not_follow_marker_symlinks(tmp_path):
+    cache = tmp_path / "cache"
+    candidate = cache / ("a" * 20)
+    candidate.mkdir(parents=True)
+    marker = tmp_path / "marker"
+    marker.write_text("local-development\n")
+    (candidate / ".golden-gate-ready").symlink_to(marker)
+    bootstrap.prune_prepared(cache, cache / "current")
+    assert candidate.is_dir()
+    assert marker.is_file()
+
+
+def test_running_entry_keeps_its_snapshot_across_exec(tmp_path, monkeypatch):
+    root = wrapper_at(tmp_path, monkeypatch)
+    source = local_checkout(tmp_path / "macos-tahoe-liquid-kde")
+    first = bootstrap.prepare()
+    program = """
+import os, sys
+from pathlib import Path
+sys.path.insert(0, sys.argv[1])
+import bootstrap
+bootstrap.ROOT = Path(sys.argv[2])
+bootstrap.prepare(lease=True)
+os.execv(sys.executable, [sys.executable, '-c',
+    "import sys; print('ready', flush=True); sys.stdin.read(1)"])
+"""
+    child = subprocess.Popen(
+        [sys.executable, "-c", program, str(Path(bootstrap.__file__).parent), str(root)],
+        stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
+    try:
+        assert child.stdout.readline().strip() == "ready"
+        (source / "new-ui.py").write_text("replacement")
+        second = bootstrap.prepare()
+        assert first.exists()
+        child.communicate("x", timeout=10)
+        assert child.returncode == 0
+        assert bootstrap.prepare() == second
+        assert not first.exists()
+    finally:
+        if child.poll() is None:
+            child.kill()
+        child.wait()

@@ -24,6 +24,55 @@ GOLDEN_GATE_REPOSITORY = "lestercorderomurillo/macos-golden-gate-liquid-kde"
 RELEASES_URL = f"https://github.com/{GOLDEN_GATE_REPOSITORY}/releases/latest"
 
 
+def prune_prepared(cache: Path, current: Path) -> None:
+    """Retire only wrapper snapshots, after their replacement is ready.
+
+    A running entry point holds a shared lock on its ready marker. Never
+    unlink a locked snapshot: the wizard and its backend still import it.
+    """
+    for previous in cache.iterdir():
+        # The caller owns .prepare.lock; no extraction can still be using
+        # these TemporaryDirectory names left behind by an interrupted run.
+        if (not previous.is_symlink() and previous.is_dir()
+                and re.fullmatch(r"\.prepare-[a-z0-9_]{8}", previous.name)):
+            try:
+                shutil.rmtree(previous)
+            except OSError as exc:
+                print(f"Golden Gate: could not remove interrupted download {previous}: {exc}", file=sys.stderr)
+            continue
+        if (previous == current or previous.is_symlink()
+                or not previous.is_dir()
+                or not re.fullmatch(r"[0-9a-f]{20}", previous.name)):
+            continue
+        marker = previous / ".golden-gate-ready"
+        try:
+            fd = os.open(marker, os.O_RDONLY | os.O_NOFOLLOW)
+            with os.fdopen(fd) as lease:
+                if not re.fullmatch(r"(?:local-development|[0-9a-f]{40})\n", lease.read()):
+                    continue
+                try:
+                    fcntl.flock(lease, fcntl.LOCK_EX | fcntl.LOCK_NB)
+                except BlockingIOError:
+                    continue
+                shutil.rmtree(previous)
+        except FileNotFoundError:
+            continue
+        except OSError as exc:
+            print(f"Golden Gate: could not remove old cache {previous}: {exc}", file=sys.stderr)
+
+
+def lease_prepared(target: Path) -> int:
+    """Keep the snapshot alive across exec until the entry point exits."""
+    fd = os.open(target / ".golden-gate-ready", os.O_RDONLY | os.O_NOFOLLOW)
+    try:
+        fcntl.flock(fd, fcntl.LOCK_SH)
+        os.set_inheritable(fd, True)
+    except BaseException:
+        os.close(fd)
+        raise
+    return fd
+
+
 def extract_archive(archive: Path, destination: Path) -> Path:
     """Extract regular files first, then contained relative symbolic links."""
     with tarfile.open(archive, "r:gz") as tar:
@@ -161,7 +210,7 @@ def apply_defaults(source: Path, defaults: dict) -> None:
     config.write_text(json.dumps(defaults, indent=2) + "\n")
 
 
-def prepare() -> Path:
+def prepare(*, lease: bool = False) -> Path:
     # Resolve local development sources before making any network request.
     pin = json.loads((ROOT / "upstream.json").read_text())
     defaults = json.loads((ROOT / "defaults.json").read_text())
@@ -181,7 +230,14 @@ def prepare() -> Path:
     target = cache / digest.hexdigest()[:20]
     with (cache / ".prepare.lock").open("a") as lock:
         fcntl.flock(lock, fcntl.LOCK_EX)
+        if target.is_symlink():
+            raise ValueError("Prepared source must not be a symbolic link")
+        if (target / ".golden-gate-ready").is_symlink():
+            raise ValueError("Prepared source marker must not be a symbolic link")
         if (target / ".golden-gate-ready").is_file():
+            if lease:
+                lease_prepared(target)
+            prune_prepared(cache, target)
             return target
         with tempfile.TemporaryDirectory(prefix=".prepare-", dir=cache) as temporary:
             staging = Path(temporary)
@@ -201,6 +257,9 @@ def prepare() -> Path:
             (checkout / ".golden-gate-ready").write_text(
                 ("local-development" if source else pin["commit"]) + "\n")
             checkout.rename(target)
+        if lease:
+            lease_prepared(target)
+        prune_prepared(cache, target)
     return target
 
 
@@ -278,7 +337,7 @@ def main(entry: str = "installer", args: list[str] | None = None) -> int:
         if original_uid == 0 and os.environ.get("SUDO_UID"):
             os.setegid(int(os.environ["SUDO_GID"]))
             os.seteuid(int(os.environ["SUDO_UID"]))
-        source = prepare()
+        source = prepare(lease=args != ["--prepare"])
     except (OSError, ValueError, tarfile.TarError, subprocess.SubprocessError) as exc:
         print(f"Golden Gate: {exc}", file=sys.stderr)
         return 1

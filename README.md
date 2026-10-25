@@ -160,6 +160,19 @@ Here is what we added or improved in the components we ship.
 
 ![Getting started](https://img.shields.io/badge/getting-started-3B7B5B?style=for-the-badge&logo=gnubash&logoColor=white)
 
+To avoid downloading historical screenshots, start with a shallow checkout:
+
+```bash
+git clone --depth 1 --single-branch https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde.git
+cd macos-golden-gate-liquid-kde
+./installer
+```
+
+Reuse this directory for updates. Source ZIP/tar downloads omit the documentation
+gallery; browse the screenshots on GitHub, or use a Git checkout for the complete
+offline documentation. Installer previews, theme assets, tests and license notices
+remain bundled. Git checkouts retain their history as they are updated.
+
 Install and uninstall through one graphical wizard:
 
 ```bash
@@ -186,7 +199,7 @@ Required desktop, build tools and system packages.
 - `dbus-send`
 - `systemctl` or `crontab` for scheduled features
 
-Tahoe and Golden Gate releases use matching version numbers. With both repositories side by side, `./installer` automatically uses the local Tahoe checkout without downloading or updating either repository. `GOLDEN_GATE_TAHOE_SOURCE` can select another checkout. Golden Gate stages its own defaults in a separate cached copy, leaving Tahoe unchanged. Without a local checkout, each launch installs the latest Tahoe release, and `./install` and `./installer` first update a git checkout to the latest Golden Gate release. Theme assets are bundled in that source; later launches reuse it until a new release is published. `MAC_TAHOE_NO_UPDATE_CHECK=true` skips both updates and installs the Tahoe release this version was published with. Missing dependencies and optional KDE Rounded Corners also require internet access.
+Tahoe and Golden Gate releases use matching version numbers. With both repositories side by side, `./installer` automatically uses the local Tahoe checkout without downloading or updating either repository. `GOLDEN_GATE_TAHOE_SOURCE` can select another checkout. Golden Gate stages its own defaults in a separate cached copy, leaving Tahoe unchanged. A verified replacement retires older managed copies and their build caches; copies still used by an open entry point remain until a later launch. Interrupted downloads are cleaned after a successful preparation. Failed downloads retain the last working copy. Without a local checkout, each launch installs the latest Tahoe release, and `./install` and `./installer` first update a git checkout to the latest Golden Gate release. Theme assets are bundled in that source; later launches reuse it until a new release is published. `MAC_TAHOE_NO_UPDATE_CHECK=true` skips both updates and installs the Tahoe release this version was published with. Missing dependencies and optional KDE Rounded Corners also require internet access.
 
 | Distro | Qt 6 tools | KDE Plasma 6 development packages |
 |--------|------------|-----------------------------------|
