@@ -461,3 +461,32 @@ def test_cleanup_preserves_running_legacy_entry_without_a_lease(tmp_path, monkey
         if child.poll() is None:
             child.kill()
         child.wait()
+
+
+def test_apply_aurorae_enables_group_hover_and_calibrated_controls(tmp_path):
+    source = tmp_path / "tahoe"
+    (source / "src/offline/aurorae").mkdir(parents=True)
+    for variant in ("Light", "Dark"):
+        (source / f"src/offline/aurorae/MacTahoeLiquidKde-{variant}rc").write_text(
+            "[General]\nLeftButtons=XIA\n\n[Layout]\nTitleEdgeTop=8\nButtonSpacing=10\n"
+        )
+    (source / "src/scripts").mkdir(parents=True)
+    (source / "src/scripts/window_controls.py").write_text(
+        'from pathlib import Path\nimport re\n'
+        'STATES = ("active", "inactive", "hover", "pressed", "deactivated", "hover-inactive", "pressed-inactive", "deactivated-inactive")\n'
+        'BUTTONS = ("close", "minimize", "maximize", "restore", "alldesktops", "keepabove", "keepbelow")\n'
+    )
+    bootstrap.apply_aurorae(source)
+    for variant in ("Light", "Dark"):
+        gg_rc = (source / f"src/offline/aurorae/MacGoldenGateLiquidKde-{variant}/MacGoldenGateLiquidKde-{variant}rc").read_text()
+        tahoe_rc = (source / f"src/offline/aurorae/MacTahoeLiquidKde-{variant}rc").read_text()
+        assert "ButtonGroupHover=true" in gg_rc
+        assert "ButtonGroupHover=true" in tahoe_rc
+        assert "TitleEdgeTop=8" in tahoe_rc
+        close_svg = (source / f"src/offline/aurorae/MacGoldenGateLiquidKde-{variant}/close.svg").read_text()
+        for state in ("active", "inactive", "hover", "pressed", "deactivated", "hover-inactive", "pressed-inactive", "deactivated-inactive"):
+            assert f'id="{state}-center"' in close_svg
+            single = bootstrap._single_state_svg(close_svg, state)
+            assert 'viewBox="0 0 16 16"' in single
+            assert f'id="{state}-center"' in single
+
