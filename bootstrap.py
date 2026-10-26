@@ -213,6 +213,64 @@ def local_source() -> Path | None:
     return None
 
 
+def apply_aurorae(source: Path) -> None:
+    aurorae_root = ROOT / "src/offline/aurorae"
+    if not aurorae_root.is_dir():
+        return
+    dest_aurorae = source / "src/offline/aurorae"
+    dest_aurorae.mkdir(parents=True, exist_ok=True)
+    for variant in ("Light", "Dark"):
+        gg_dir = aurorae_root / f"MacGoldenGateLiquidKde-{variant}"
+        if not gg_dir.is_dir():
+            continue
+        # 1. Copy complete standalone MacGoldenGateLiquidKde-{variant} theme
+        target_gg = dest_aurorae / f"MacGoldenGateLiquidKde-{variant}"
+        if target_gg.exists():
+            shutil.rmtree(target_gg)
+        shutil.copytree(gg_dir, target_gg)
+
+        # 2. Update Tahoe's built-in decoration and icons with Golden Gate SVGs & RC
+        tahoe_dir = dest_aurorae / f"MacTahoeLiquidKde-{variant}"
+        tahoe_dir.mkdir(parents=True, exist_ok=True)
+        if (gg_dir / "decoration.svg").is_file():
+            shutil.copy2(gg_dir / "decoration.svg", tahoe_dir / "decoration.svg")
+        if (gg_dir / f"MacGoldenGateLiquidKde-{variant}rc").is_file():
+            shutil.copy2(gg_dir / f"MacGoldenGateLiquidKde-{variant}rc", dest_aurorae / f"MacTahoeLiquidKde-{variant}rc")
+
+        icons_dir = dest_aurorae / f"icons-{variant}"
+        icons_dir.mkdir(parents=True, exist_ok=True)
+        for icon in gg_dir.glob("*.svg"):
+            if icon.name != "decoration.svg":
+                shutil.copy2(icon, icons_dir / icon.name)
+
+    # 3. Enable MacGoldenGateLiquidKde in window_decorations step
+    step_file = source / "src/scripts/steps/window_decorations.py"
+    if step_file.is_file():
+        code = step_file.read_text()
+        target_pat = '    for mode in VARIANTS:\n        name = f"MacTahoeLiquidKde-{mode}"'
+        repl = '    for mode in VARIANTS:\n      for theme_prefix in ("MacGoldenGateLiquidKde", "MacTahoeLiquidKde"):\n        name = f"{theme_prefix}-{mode}"'
+        if target_pat in code:
+            code = code.replace(target_pat, repl)
+            code = code.replace(
+                'chosen = "MacTahoeLiquidKde-Light" if theme_mode() == "light" else "MacTahoeLiquidKde-Dark"',
+                'chosen = "MacGoldenGateLiquidKde-Light" if theme_mode() == "light" else "MacGoldenGateLiquidKde-Dark"'
+            )
+            step_file.write_text(code)
+
+    # 4. Enable MacGoldenGateLiquidKde in theme_switch
+    theme_switch_file = source / "src/scripts/theme_switch.py"
+    if theme_switch_file.is_file():
+        ts_code = theme_switch_file.read_text()
+        ts_code = ts_code.replace(
+            "__aurorae__svg__MacTahoeLiquidKde-Dark",
+            "__aurorae__svg__MacGoldenGateLiquidKde-Dark"
+        ).replace(
+            "__aurorae__svg__MacTahoeLiquidKde-Light",
+            "__aurorae__svg__MacGoldenGateLiquidKde-Light"
+        )
+        theme_switch_file.write_text(ts_code)
+
+
 def apply_defaults(source: Path, defaults: dict) -> None:
     package = defaults.get("wallpaper")
     if package not in ("MacTahoe", "MacGoldenGate"):
@@ -229,6 +287,7 @@ def apply_defaults(source: Path, defaults: dict) -> None:
                          "the shared update, or set GOLDEN_GATE_TAHOE_SOURCE to "
                          "the updated local Tahoe checkout")
     config.write_text(json.dumps(defaults, indent=2) + "\n")
+    apply_aurorae(source)
 
 
 def prepare(*, lease: bool = False) -> Path:
@@ -240,6 +299,12 @@ def prepare(*, lease: bool = False) -> Path:
         pin = latest_tahoe() or pin
     digest = hashlib.sha256((ROOT / "bootstrap.py").read_bytes())
     digest.update(json.dumps([pin, defaults], sort_keys=True).encode())
+    aurorae_dir = ROOT / "src/offline/aurorae"
+    if aurorae_dir.is_dir():
+        for path in sorted(aurorae_dir.rglob("*")):
+            if path.is_file():
+                digest.update(str(path.relative_to(ROOT)).encode())
+                digest.update(path.read_bytes())
     files = local_files(source) if source else []
     for name in files:
         path = source / name

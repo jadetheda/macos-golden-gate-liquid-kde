@@ -1,0 +1,22 @@
+{
+    "KPackageStructure": "aurorae",
+    "KPlugin": {
+        "Authors": [
+            {
+                "Name": "Lester Cordero Murillo / Calibrated 1:1"
+            }
+        ],
+        "Category": "Plasma 6 Window Decorations",
+        "ServiceTypes": [
+            "aurorae"
+        ],
+        "EnabledByDefault": true,
+        "Name": "MacGoldenGateLiquidKde-Dark",
+        "Description": "MacGoldenGateLiquidKde-Dark 1:1 liquid-glass window decorations",
+        "Id": "MacGoldenGateLiquidKde-Dark",
+        "Version": "1.0",
+        "License": "GPL-3.0",
+        "X-KDE-PluginInfo-blur": false,
+        "X-KPackage-Dependencies": []
+    }
+}

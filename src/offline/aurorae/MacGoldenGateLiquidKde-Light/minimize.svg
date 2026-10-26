@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="16" height="80" viewBox="0 0 16 80">
+<g id="active-center">
+<rect x="0" y="0" width="16" height="16" fill="#000000" fill-opacity="0"/>
+<g transform="translate(8,8)"><defs><linearGradient id="bodymin0" x1="0" y1="0" x2="0" y2="1"><stop offset="0.0000" stop-color="#EEAC36"/><stop offset="0.0536" stop-color="#F8B731"/><stop offset="0.1071" stop-color="#FBBA31"/><stop offset="0.2143" stop-color="#FBBB2C"/><stop offset="0.3571" stop-color="#FCC12D"/><stop offset="0.5000" stop-color="#FCC839"/><stop offset="0.6429" stop-color="#FDCF43"/><stop offset="0.7857" stop-color="#FED348"/><stop offset="0.8929" stop-color="#FDD246"/><stop offset="0.9464" stop-color="#F8CC43"/><stop offset="1.0000" stop-color="#F0C244"/></linearGradient>
+<linearGradient id="rimmin0" x1="0" y1="0" x2="1" y2="0">
+ <stop offset="0" stop-color="#9C0400"/><stop offset="0.05" stop-color="#9C0400"/>
+ <stop offset="0.1" stop-color="#9C0400" stop-opacity="0.5"/><stop offset="0.2" stop-color="#9C0400" stop-opacity="0.12"/>
+ <stop offset="0.32" stop-color="#9C0400" stop-opacity="0"/><stop offset="0.68" stop-color="#9C0400" stop-opacity="0"/>
+ <stop offset="0.8" stop-color="#9C0400" stop-opacity="0.12"/><stop offset="0.9" stop-color="#9C0400" stop-opacity="0.5"/>
+ <stop offset="0.95" stop-color="#9C0400"/><stop offset="1" stop-color="#9C0400"/></linearGradient>
+<radialGradient id="shmin0" cx="0.5" cy="0.5" r="0.5">
+ <stop offset="0.8" stop-color="#FED348" stop-opacity="0.2"/><stop offset="1" stop-color="#FED348" stop-opacity="0"/></radialGradient></defs>
+<circle cx="0" cy="0.8" r="8" fill="url(#shmin0)"/>
+<circle r="7" fill="url(#bodymin0)"/>
+<circle r="6.7" fill="none" stroke="url(#rimmin0)" stroke-width="0.6"/>
+</g>
+</g>
+<g id="inactive-center">
+<rect x="0" y="16" width="16" height="16" fill="#000000" fill-opacity="0"/>
+<g transform="translate(8,24)"><defs>
+<linearGradient id="rimmin1" x1="0" y1="0" x2="0" y2="1">
+ <stop offset="0" stop-color="#000000" stop-opacity="0.17"/><stop offset="0.25" stop-color="#000000" stop-opacity="0.29"/>
+ <stop offset="0.75" stop-color="#000000" stop-opacity="0.29"/><stop offset="1" stop-color="#000000" stop-opacity="0.09"/></linearGradient></defs>
+<circle r="6.725" fill="#C9C9C9" fill-opacity="0.23"/>
+<circle r="6.725" fill="none" stroke="url(#rimmin1)" stroke-width="0.55"/>
+</g>
+</g>
+<g id="hover-center">
+<rect x="0" y="32" width="16" height="16" fill="#000000" fill-opacity="0"/>
+<g transform="translate(8,40)"><defs><linearGradient id="bodymin2" x1="0" y1="0" x2="0" y2="1"><stop offset="0.0000" stop-color="#EEAC36"/><stop offset="0.0536" stop-color="#F8B731"/><stop offset="0.1071" stop-color="#FBBA31"/><stop offset="0.2143" stop-color="#FBBB2C"/><stop offset="0.3571" stop-color="#FCC12D"/><stop offset="0.5000" stop-color="#FCC839"/><stop offset="0.6429" stop-color="#FDCF43"/><stop offset="0.7857" stop-color="#FED348"/><stop offset="0.8929" stop-color="#FDD246"/><stop offset="0.9464" stop-color="#F8CC43"/><stop offset="1.0000" stop-color="#F0C244"/></linearGradient>
+<linearGradient id="rimmin2" x1="0" y1="0" x2="1" y2="0">
+ <stop offset="0" stop-color="#9C0400"/><stop offset="0.05" stop-color="#9C0400"/>
+ <stop offset="0.1" stop-color="#9C0400" stop-opacity="0.5"/><stop offset="0.2" stop-color="#9C0400" stop-opacity="0.12"/>
+ <stop offset="0.32" stop-color="#9C0400" stop-opacity="0"/><stop offset="0.68" stop-color="#9C0400" stop-opacity="0"/>
+ <stop offset="0.8" stop-color="#9C0400" stop-opacity="0.12"/><stop offset="0.9" stop-color="#9C0400" stop-opacity="0.5"/>
+ <stop offset="0.95" stop-color="#9C0400"/><stop offset="1" stop-color="#9C0400"/></linearGradient>
+<radialGradient id="shmin2" cx="0.5" cy="0.5" r="0.5">
+ <stop offset="0.8" stop-color="#FED348" stop-opacity="0.2"/><stop offset="1" stop-color="#FED348" stop-opacity="0"/></radialGradient></defs>
+<circle cx="0" cy="0.8" r="8" fill="url(#shmin2)"/>
+<circle r="7" fill="url(#bodymin2)"/>
+<circle r="6.7" fill="none" stroke="url(#rimmin2)" stroke-width="0.6"/>
+<path d="M-3.0,0 L3.0,0" stroke="#C14401" stroke-width="1.75" stroke-linecap="round" fill="none"/>
+</g>
+</g>
+<g id="pressed-center">
+<rect x="0" y="48" width="16" height="16" fill="#000000" fill-opacity="0"/>
+<g transform="translate(8,56)"><defs><linearGradient id="bodymin3" x1="0" y1="0" x2="0" y2="1"><stop offset="0.0000" stop-color="#FAF64D"/><stop offset="0.0536" stop-color="#FAFA46"/><stop offset="0.1071" stop-color="#FAFA46"/><stop offset="0.2143" stop-color="#FAFA3F"/><stop offset="0.3571" stop-color="#FAFA40"/><stop offset="0.5000" stop-color="#FAFA52"/><stop offset="0.6429" stop-color="#FAFA60"/><stop offset="0.7857" stop-color="#FAFA67"/><stop offset="0.8929" stop-color="#FAFA64"/><stop offset="0.9464" stop-color="#FAFA60"/><stop offset="1.0000" stop-color="#FAFA61"/></linearGradient>
+<linearGradient id="rimmin3" x1="0" y1="0" x2="1" y2="0">
+ <stop offset="0" stop-color="#9C0400"/><stop offset="0.05" stop-color="#9C0400"/>
+ <stop offset="0.1" stop-color="#9C0400" stop-opacity="0.5"/><stop offset="0.2" stop-color="#9C0400" stop-opacity="0.12"/>
+ <stop offset="0.32" stop-color="#9C0400" stop-opacity="0"/><stop offset="0.68" stop-color="#9C0400" stop-opacity="0"/>
+ <stop offset="0.8" stop-color="#9C0400" stop-opacity="0.12"/><stop offset="0.9" stop-color="#9C0400" stop-opacity="0.5"/>
+ <stop offset="0.95" stop-color="#9C0400"/><stop offset="1" stop-color="#9C0400"/></linearGradient>
+<radialGradient id="shmin3" cx="0.5" cy="0.5" r="0.5">
+ <stop offset="0.8" stop-color="#FED348" stop-opacity="0.2"/><stop offset="1" stop-color="#FED348" stop-opacity="0"/></radialGradient></defs>
+<circle cx="0" cy="0.8" r="8" fill="url(#shmin3)"/>
+<circle r="7" fill="url(#bodymin3)"/>
+<circle r="6.7" fill="none" stroke="url(#rimmin3)" stroke-width="0.6"/>
+<path d="M-3.0,0 L3.0,0" stroke="#C14401" stroke-width="1.75" stroke-linecap="round" fill="none"/>
+</g>
+</g>
+<g id="deactivated-center">
+<rect x="0" y="64" width="16" height="16" fill="#000000" fill-opacity="0"/>
+<g transform="translate(8,72)"><defs>
+<linearGradient id="rimmin4" x1="0" y1="0" x2="1" y2="0">
+ <stop offset="0" stop-color="#000000" stop-opacity="0.22"/><stop offset="0.08" stop-color="#000000" stop-opacity="0.22"/>
+ <stop offset="0.25" stop-color="#000000" stop-opacity="0.04"/><stop offset="0.75" stop-color="#000000" stop-opacity="0.04"/>
+ <stop offset="0.92" stop-color="#000000" stop-opacity="0.22"/><stop offset="1" stop-color="#000000" stop-opacity="0.22"/></linearGradient>
+<linearGradient id="bodymin4" x1="0" y1="0" x2="0" y2="1">
+ <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.30"/><stop offset="1" stop-color="#FFFFFF" stop-opacity="0.22"/></linearGradient></defs>
+<circle r="7" fill="url(#rimmin4)"/>
+<circle r="6.45" fill="#D0D0D2" fill-opacity="0.55"/>
+<circle r="6.45" fill="url(#bodymin4)"/>
+</g>
+</g>
+</svg>
