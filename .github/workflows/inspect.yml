@@ -1,0 +1,16 @@
+name: Inspect Golden Gate Assets
+
+on:
+  workflow_dispatch:
+
+jobs:
+  inspect:
+    runs-on: macos-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+      - name: Run find_assets
+        run: |
+          chmod +x tools/find_assets.sh
+          ./tools/find_assets.sh
