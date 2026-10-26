@@ -15,6 +15,7 @@ TextShadowOffsetY=1
 LeftButtons=XIA
 Shadow=true
 Animation=1
+ButtonGroupHover=true
 
 [Layout]
 BorderLeft=1

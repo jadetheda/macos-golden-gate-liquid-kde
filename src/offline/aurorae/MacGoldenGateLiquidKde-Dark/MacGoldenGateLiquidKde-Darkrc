@@ -16,6 +16,7 @@ LeftButtons=XIA
 Shadow=true
 Blur=false
 Animation=1
+ButtonGroupHover=true
 
 [Layout]
 BorderLeft=1
