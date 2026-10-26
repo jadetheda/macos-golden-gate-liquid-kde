@@ -1,0 +1,35 @@
+name: Dump macOS Assets & Window Controls
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'tools/**'
+      - '.github/workflows/dump_macos_assets.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  extract:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [macos-latest, macos-15]
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Make scripts executable
+        run: chmod +x tools/capture_runner.sh
+
+      - name: Run capture and extraction pipeline
+        run: ./tools/capture_runner.sh
+
+      - name: Upload extracted assets and screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-traffic-assets-${{ matrix.os }}
+          path: output_traffic_lights/
+          if-no-files-found: warn
