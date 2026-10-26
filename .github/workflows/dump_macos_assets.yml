@@ -1,4 +1,4 @@
-name: Dump macOS Assets & Window Controls
+name: Dump macOS 27 Golden Gate Assets
 
 on:
   workflow_dispatch:
@@ -7,29 +7,23 @@ on:
       - 'tools/**'
       - '.github/workflows/dump_macos_assets.yml'
 
-permissions:
-  contents: read
-
 jobs:
   extract:
-    runs-on: ${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [macos-latest, macos-15]
+    runs-on: macos-latest
+    timeout-minutes: 30
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
 
       - name: Make scripts executable
-        run: chmod +x tools/capture_runner.sh
+        run: chmod +x tools/*.sh
 
-      - name: Run capture and extraction pipeline
-        run: ./tools/capture_runner.sh
+      - name: Run Golden Gate asset extraction pipeline
+        run: ./tools/extract_golden_gate.sh
 
-      - name: Upload extracted assets and screenshots
+      - name: Upload extracted assets
         uses: actions/upload-artifact@v4
         with:
-          name: macos-traffic-assets-${{ matrix.os }}
+          name: macos-27-golden-gate-assets
           path: output_traffic_lights/
           if-no-files-found: warn
