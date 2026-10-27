@@ -6,11 +6,10 @@ on:
 jobs:
   inspect:
     runs-on: macos-latest
-    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Run find_assets8
+      - name: Run Golden Gate traffic light capture & asset extraction
         run: |
-          chmod +x tools/find_assets8.sh
-          ./tools/find_assets8.sh
+          chmod +x tools/*.sh
+          ./tools/capture_runner.sh

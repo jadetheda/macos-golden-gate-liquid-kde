@@ -1,4 +1,4 @@
-name: Dump macOS 27 Golden Gate Assets
+name: Dump macOS Golden Gate Assets
 
 on:
   workflow_dispatch:
@@ -9,8 +9,11 @@ on:
 
 jobs:
   extract:
-    runs-on: macos-latest
-    timeout-minutes: 30
+    strategy:
+      matrix:
+        os: [macos-latest, macos-15]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
     steps:
       - name: Checkout repository
         uses: actions/checkout@v5
@@ -18,12 +21,12 @@ jobs:
       - name: Make scripts executable
         run: chmod +x tools/*.sh
 
-      - name: Run Golden Gate asset extraction pipeline
-        run: ./tools/extract_golden_gate.sh
+      - name: Run Golden Gate traffic light capture & asset extraction
+        run: ./tools/capture_runner.sh
 
       - name: Upload extracted assets
         uses: actions/upload-artifact@v4
         with:
-          name: macos-27-golden-gate-assets
+          name: macos-golden-gate-assets-${{ matrix.os }}
           path: output_traffic_lights/
           if-no-files-found: warn
