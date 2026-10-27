@@ -1,199 +1,336 @@
 import Cocoa
 import CoreGraphics
 import Foundation
+import ObjectiveC.runtime
 
-// Ensure standard Cocoa application environment
 let app = NSApplication.shared
 app.setActivationPolicy(.regular)
-
-let osVersion = ProcessInfo.processInfo.operatingSystemVersion
-print("macOS System Version: \(osVersion.majorVersion).\(osVersion.minorVersion).\(osVersion.patchVersion)")
 
 let outputDir = URL(fileURLWithPath: CommandLine.arguments.count > 1 ? CommandLine.arguments[1] : "./traffic_captures")
 try? FileManager.default.createDirectory(at: outputDir, withIntermediateDirectories: true)
 
-// Helper: Save an NSImage or CGImage to PNG file
-func saveCGImage(_ cgImage: CGImage, to filename: String) {
-    let url = outputDir.appendingPathComponent(filename)
-    let rep = NSBitmapImageRep(cgImage: cgImage)
-    guard let data = rep.representation(using: .png, properties: [:]) else {
-        print("Failed to encode PNG for \(filename)")
-        return
-    }
-    do {
-        try data.write(to: url)
-        print("Saved: \(filename) (\(cgImage.width)x\(cgImage.height))")
-    } catch {
-        print("Error saving \(filename): \(error)")
+var logLines: [String] = []
+func log(_ msg: String) {
+    print(msg)
+    logLines.append(msg)
+}
+
+let osVer = ProcessInfo.processInfo.operatingSystemVersion
+log("macOS Version: \(osVer.majorVersion).\(osVer.minorVersion).\(osVer.patchVersion)")
+log("Main Bundle ID: \(Bundle.main.bundleIdentifier ?? "nil")")
+log("Main Bundle InfoDictionary: \(Bundle.main.infoDictionary ?? [:])")
+
+func pumpRunLoop(_ duration: TimeInterval) {
+    let deadline = Date(timeIntervalSinceNow: duration)
+    while Date() < deadline {
+        while let event = NSApp.nextEvent(matching: .any, until: nil, inMode: .default, dequeue: true) {
+            NSApp.sendEvent(event)
+        }
+        NSApp.updateWindows()
+        RunLoop.current.run(mode: .default, before: Date(timeIntervalSinceNow: 0.015))
     }
 }
 
-// Function to set system appearance via AppleScript
-func setDarkMode(_ dark: Bool) {
-    let script = "tell application \"System Events\" to tell appearance preferences to set dark mode to \(dark ? "true" : "false")"
-    if let appleScript = NSAppleScript(source: script) {
-        var error: NSDictionary?
-        appleScript.executeAndReturnError(&error)
-        if let err = error {
-            print("AppleScript appearance error: \(err)")
+func dumpObjCInfo(_ obj: AnyObject, label: String) {
+    let cls: AnyClass = object_getClass(obj)!
+    log("=== Introspection: \(label) (class: \(NSStringFromClass(cls))) ===")
+    var currentCls: AnyClass? = cls
+    while let c = currentCls {
+        let cname = NSStringFromClass(c)
+        if cname == "NSResponder" || cname == "NSObject" { break }
+        var mCount: UInt32 = 0
+        if let methods = class_copyMethodList(c, &mCount) {
+            var mNames: [String] = []
+            for i in 0..<Int(mCount) {
+                let sel = method_getName(methods[i])
+                mNames.append(NSStringFromSelector(sel))
+            }
+            free(methods)
+            log("  [\(cname) methods]: \(mNames.sorted().joined(separator: ", "))")
+        }
+        var iCount: UInt32 = 0
+        if let ivars = class_copyIvarList(c, &iCount) {
+            var iNames: [String] = []
+            for i in 0..<Int(iCount) {
+                if let name = ivar_getName(ivars[i]) {
+                    iNames.append(String(cString: name))
+                }
+            }
+            free(ivars)
+            log("  [\(cname) ivars]: \(iNames.sorted().joined(separator: ", "))")
+        }
+        currentCls = class_getSuperclass(c)
+    }
+}
+
+func dumpViewHierarchy(_ view: NSView, indent: String = "") {
+    let clsName = NSStringFromClass(type(of: view))
+    let layerInfo = view.layer.map { "\(NSStringFromClass(type(of: $0))) frame=\($0.frame) sublayers=\($0.sublayers?.count ?? 0)" } ?? "no-layer"
+    log("\(indent)- \(clsName) frame=\(view.frame) bounds=\(view.bounds) flipped=\(view.isFlipped) trackingAreas=\(view.trackingAreas.count) layer=[\(layerInfo)]")
+    if let layer = view.layer {
+        dumpLayerHierarchy(layer, indent: indent + "    [L] ")
+    }
+    for sub in view.subviews {
+        dumpViewHierarchy(sub, indent: indent + "  ")
+    }
+}
+
+func dumpLayerHierarchy(_ layer: CALayer, indent: String) {
+    let clsName = NSStringFromClass(type(of: layer))
+    log("\(indent)\(clsName) frame=\(layer.frame) opacity=\(layer.opacity) contents=\(String(describing: layer.contents)) filters=\(String(describing: layer.filters))")
+    for sub in layer.sublayers ?? [] {
+        dumpLayerHierarchy(sub, indent: indent + "  ")
+    }
+}
+
+func savePNG(_ rep: NSBitmapImageRep, to filename: String) {
+    let url = outputDir.appendingPathComponent(filename)
+    if let data = rep.representation(using: .png, properties: [:]) {
+        try? data.write(to: url)
+        log("Saved \(filename) (\(rep.pixelsWide)x\(rep.pixelsHigh))")
+    }
+}
+
+func saveCGImage(_ cgImage: CGImage, to filename: String) {
+    let rep = NSBitmapImageRep(cgImage: cgImage)
+    savePNG(rep, to: filename)
+}
+
+func captureWindowViaScreencapture(_ window: NSWindow, prefix: String) {
+    let fullURL = outputDir.appendingPathComponent("\(prefix)_window.png")
+    let proc = Process()
+    proc.executableURL = URL(fileURLWithPath: "/usr/sbin/screencapture")
+    proc.arguments = ["-x", "-o", "-l", "\(window.windowNumber)", fullURL.path]
+    try? proc.run()
+    proc.waitUntilExit()
+
+    if let data = try? Data(contentsOf: fullURL),
+       let rep = NSBitmapImageRep(data: data),
+       let cgImg = rep.cgImage {
+        let scale = CGFloat(cgImg.width) / window.frame.width
+        let cropRect = CGRect(x: 0, y: 0, width: min(CGFloat(cgImg.width), 115.0 * scale), height: min(CGFloat(cgImg.height), 48.0 * scale))
+        if let cropped = cgImg.cropping(to: cropRect) {
+            saveCGImage(cropped, to: "\(prefix)_cluster_screencap.png")
         }
     }
-    Thread.sleep(forTimeInterval: 1.0)
 }
 
-// Capture on-screen region using macOS screencapture CLI
-func captureRect(_ rect: CGRect, filename: String) {
-    let url = outputDir.appendingPathComponent(filename)
-    let process = Process()
-    process.executableURL = URL(fileURLWithPath: "/usr/sbin/screencapture")
-    let x = max(0, Int(rect.origin.x))
-    let y = max(0, Int(rect.origin.y))
-    let w = max(1, Int(rect.size.width))
-    let h = max(1, Int(rect.size.height))
-    process.arguments = ["-x", "-R\(x),\(y),\(w),\(h)", url.path]
-    try? process.run()
-    process.waitUntilExit()
-    print("Captured rect \(x),\(y),\(w),\(h) to \(filename)")
+func renderViewHiDPI(_ view: NSView, rect: NSRect, scale: Int, filename: String) {
+    let pw = max(1, Int(rect.width) * scale)
+    let ph = max(1, Int(rect.height) * scale)
+    guard let rep = NSBitmapImageRep(
+        bitmapDataPlanes: nil,
+        pixelsWide: pw,
+        pixelsHigh: ph,
+        bitsPerSample: 8,
+        samplesPerPixel: 4,
+        hasAlpha: true,
+        isPlanar: false,
+        colorSpaceName: .deviceRGB,
+        bytesPerRow: 0,
+        bitsPerPixel: 0
+    ) else { return }
+    rep.size = rect.size
+    view.cacheDisplay(in: rect, to: rep)
+    savePNG(rep, to: filename)
 }
 
-// Post mouse events
-func moveMouse(to pt: CGPoint) {
-    let ev = CGEvent(mouseEventSource: nil, mouseType: .mouseMoved, mouseCursorPosition: pt, mouseButton: .left)
-    ev?.post(tap: .cghidEventTap)
-    Thread.sleep(forTimeInterval: 0.25)
+func triggerMouseHover(on views: [NSView], in window: NSWindow, entered: Bool) {
+    let loc = NSPoint(x: 20, y: window.frame.height - 18)
+    let evType: NSEvent.EventType = entered ? .mouseEntered : .mouseExited
+    for v in views {
+        for ta in v.trackingAreas {
+            if let owner = ta.owner as? NSResponder {
+                if let ev = NSEvent.enterExitEvent(
+                    with: evType,
+                    location: loc,
+                    modifierFlags: [],
+                    timestamp: ProcessInfo.processInfo.systemUptime,
+                    windowNumber: window.windowNumber,
+                    context: nil,
+                    eventNumber: 0,
+                    trackingNumber: 0,
+                    userData: nil
+                ) {
+                    if entered {
+                        owner.mouseEntered(with: ev)
+                    } else {
+                        owner.mouseExited(with: ev)
+                    }
+                }
+            }
+        }
+        // Also try private rollover selectors if present
+        let rolloverSel = NSSelectorFromString("setRollover:")
+        if v.responds(to: rolloverSel) {
+            typealias SetBoolFn = @convention(c) (AnyObject, Selector, ObjCBool) -> Void
+            let impl = v.method(for: rolloverSel)
+            let fn = unsafeBitCast(impl, to: SetBoolFn.self)
+            fn(v, rolloverSel, ObjCBool(entered))
+        }
+        if let btn = v as? NSButton, let cell = btn.cell {
+            if cell.responds(to: rolloverSel) {
+                typealias SetBoolFn = @convention(c) (AnyObject, Selector, ObjCBool) -> Void
+                let impl = cell.method(for: rolloverSel)
+                let fn = unsafeBitCast(impl, to: SetBoolFn.self)
+                fn(cell, rolloverSel, ObjCBool(entered))
+            }
+            let mouseInGroupSel = NSSelectorFromString("_setMouseTrackingInRect:ofView:")
+            _ = mouseInGroupSel
+        }
+        v.needsDisplay = true
+    }
+    window.displayIfNeeded()
+    pumpRunLoop(0.25)
 }
 
-func leftDown(at pt: CGPoint) {
-    let ev = CGEvent(mouseEventSource: nil, mouseType: .leftMouseDown, mouseCursorPosition: pt, mouseButton: .left)
-    ev?.post(tap: .cghidEventTap)
-    Thread.sleep(forTimeInterval: 0.25)
+func setDarkModeSystem(_ dark: Bool) {
+    let src = "tell application \"System Events\" to tell appearance preferences to set dark mode to \(dark ? "true" : "false")"
+    if let script = NSAppleScript(source: src) {
+        var err: NSDictionary?
+        script.executeAndReturnError(&err)
+    }
+    pumpRunLoop(0.6)
 }
 
-func leftUp(at pt: CGPoint) {
-    let ev = CGEvent(mouseEventSource: nil, mouseType: .leftMouseUp, mouseCursorPosition: pt, mouseButton: .left)
-    ev?.post(tap: .cghidEventTap)
-    Thread.sleep(forTimeInterval: 0.25)
-}
-
-func setOptionKeyDown(_ down: Bool) {
-    let flags: CGEventFlags = down ? .maskAlternate : []
-    let ev = CGEvent(source: nil)
-    ev?.flags = flags
-    ev?.post(tap: .cghidEventTap)
-    Thread.sleep(forTimeInterval: 0.25)
-}
-
-// Create a test window with standard traffic lights
-func runCaptures() {
-    print("Starting traffic light capture sequence...")
+func runAllCaptures() {
+    var didIntrospect = false
 
     for isDark in [false, true] {
         let mode = isDark ? "dark" : "light"
-        setDarkMode(isDark)
+        setDarkModeSystem(isDark)
+        let appAppearance = NSAppearance(named: isDark ? .darkAqua : .aqua)
+        NSApp.appearance = appAppearance
 
-        let windowRect = NSRect(x: 200, y: 200, width: 450, height: 300)
+        let windowRect = NSRect(x: 180, y: 220, width: 460, height: 300)
         let styleMask: NSWindow.StyleMask = [.titled, .closable, .miniaturizable, .resizable]
         let window = NSWindow(contentRect: windowRect, styleMask: styleMask, backing: .buffered, defer: false)
-        window.title = "Traffic Light Calibration - \(mode.capitalized)"
-        window.appearance = NSAppearance(named: isDark ? .darkAqua : .aqua)
+        window.title = "Golden Gate Traffic Calibration (\(mode))"
+        window.appearance = appAppearance
+        window.backgroundColor = isDark ? NSColor(srgbRed: 0.12, green: 0.12, blue: 0.13, alpha: 1.0) : NSColor(srgbRed: 0.96, green: 0.96, blue: 0.97, alpha: 1.0)
+
         window.makeKeyAndOrderFront(nil)
-        app.activate(ignoringOtherApps: true)
-        Thread.sleep(forTimeInterval: 1.0)
+        NSApp.activate(ignoringOtherApps: true)
+        pumpRunLoop(1.0)
+
+        log("[\(mode)] window.isKeyWindow=\(window.isKeyWindow) isMainWindow=\(window.isMainWindow) backingScaleFactor=\(window.backingScaleFactor)")
 
         guard let closeBtn = window.standardWindowButton(.closeButton),
               let minBtn = window.standardWindowButton(.miniaturizeButton),
-              let zoomBtn = window.standardWindowButton(.zoomButton) else {
-            print("Could not obtain standard window buttons")
+              let zoomBtn = window.standardWindowButton(.zoomButton),
+              let titlebarView = closeBtn.superview else {
+            log("ERROR: Could not find standardWindowButtons")
             continue
         }
 
-        // Window frame coordinates on screen (AppKit bottom-left to CG top-left conversion)
-        guard let screen = window.screen else { continue }
-        let screenHeight = screen.frame.height
-        
-        // Convert button bounds to window coordinates, then to screen coordinates
-        let closeScreenRect = window.convertToScreen(closeBtn.convert(closeBtn.bounds, to: nil))
-        let minScreenRect = window.convertToScreen(minBtn.convert(minBtn.bounds, to: nil))
-        let zoomScreenRect = window.convertToScreen(zoomBtn.convert(zoomBtn.bounds, to: nil))
+        let themeFrame = titlebarView.superview ?? titlebarView
+        var allTitlebarViews: [NSView] = [closeBtn, minBtn, zoomBtn, titlebarView, themeFrame]
+        for sub in titlebarView.subviews {
+            if !allTitlebarViews.contains(sub) { allTitlebarViews.append(sub) }
+        }
 
-        // Convert to CoreGraphics coordinates (Y=0 at screen top)
-        let cgClose = CGPoint(x: closeScreenRect.midX, y: screenHeight - closeScreenRect.midY)
-        let cgMin = CGPoint(x: minScreenRect.midX, y: screenHeight - minScreenRect.midY)
-        let cgZoom = CGPoint(x: zoomScreenRect.midX, y: screenHeight - zoomScreenRect.midY)
+        if !didIntrospect {
+            didIntrospect = true
+            dumpObjCInfo(closeBtn, label: "closeBtn")
+            if let cell = closeBtn.cell {
+                dumpObjCInfo(cell, label: "closeBtn.cell")
+            }
+            dumpObjCInfo(zoomBtn, label: "zoomBtn")
+            dumpObjCInfo(titlebarView, label: "titlebarView (closeBtn.superview)")
+            dumpObjCInfo(themeFrame, label: "themeFrame")
+            log("=== Titlebar View Hierarchy ===")
+            dumpViewHierarchy(themeFrame)
+        }
 
-        // Region enclosing all 3 traffic light buttons at the top of the window
-        let clusterMinX = closeScreenRect.minX - 12
-        let clusterMaxX = zoomScreenRect.maxX + 12
-        let clusterMinY = closeScreenRect.minY - 12
-        let clusterMaxY = closeScreenRect.maxY + 12
-
-        let clusterRect = CGRect(
-            x: clusterMinX,
-            y: screenHeight - clusterMaxY,
-            width: clusterMaxX - clusterMinX,
-            height: clusterMaxY - clusterMinY
+        // Compute bounding rect of the 3 buttons inside titlebarView
+        let cRect = closeBtn.frame
+        let zRect = zoomBtn.frame
+        let groupRectInTitlebar = NSRect(
+            x: max(0, min(cRect.minX, zRect.minX) - 8),
+            y: max(0, min(cRect.minY, zRect.minY) - 6),
+            width: (max(cRect.maxX, zRect.maxX) - min(cRect.minX, zRect.minX)) + 16,
+            height: max(cRect.height, zRect.height) + 12
         )
 
-        // Full window reference capture
-        let winFrame = window.frame
-        let fullWinCG = CGRect(
-            x: winFrame.origin.x,
-            y: screenHeight - (winFrame.origin.y + winFrame.size.height),
-            width: winFrame.size.width,
-            height: winFrame.size.height
+        func captureState(_ stateName: String) {
+            window.displayIfNeeded()
+            titlebarView.displayIfNeeded()
+            pumpRunLoop(0.2)
+            let prefix = "\(mode)_\(stateName)"
+            captureWindowViaScreencapture(window, prefix: prefix)
+            renderViewHiDPI(titlebarView, rect: groupRectInTitlebar, scale: 2, filename: "\(prefix)_2x.png")
+            renderViewHiDPI(titlebarView, rect: groupRectInTitlebar, scale: 4, filename: "\(prefix)_4x.png")
+            renderViewHiDPI(closeBtn, rect: closeBtn.bounds, scale: 4, filename: "\(prefix)_close_4x.png")
+            renderViewHiDPI(minBtn, rect: minBtn.bounds, scale: 4, filename: "\(prefix)_min_4x.png")
+            renderViewHiDPI(zoomBtn, rect: zoomBtn.bounds, scale: 4, filename: "\(prefix)_zoom_4x.png")
+        }
+
+        // 1. Active Idle
+        triggerMouseHover(on: allTitlebarViews, in: window, entered: false)
+        captureState("01_idle")
+
+        // 2. Active Group Hover
+        triggerMouseHover(on: allTitlebarViews, in: window, entered: true)
+        captureState("02_hover")
+
+        // 3. Active Pressed Close
+        closeBtn.isHighlighted = true
+        captureState("03_pressed_close")
+        closeBtn.isHighlighted = false
+
+        // 4. Active Pressed Minimize
+        minBtn.isHighlighted = true
+        captureState("04_pressed_min")
+        minBtn.isHighlighted = false
+
+        // 5. Active Pressed Zoom
+        zoomBtn.isHighlighted = true
+        captureState("05_pressed_zoom")
+        zoomBtn.isHighlighted = false
+
+        // 6. Active Disabled / Deactivated
+        triggerMouseHover(on: allTitlebarViews, in: window, entered: false)
+        closeBtn.isEnabled = false
+        minBtn.isEnabled = false
+        zoomBtn.isEnabled = false
+        captureState("06_disabled")
+        closeBtn.isEnabled = true
+        minBtn.isEnabled = true
+        zoomBtn.isEnabled = true
+
+        // 7. Inactive / Unfocused Window
+        let secondWindow = NSWindow(
+            contentRect: NSRect(x: 680, y: 220, width: 300, height: 200),
+            styleMask: [.titled, .closable],
+            backing: .buffered,
+            defer: false
         )
-        captureRect(fullWinCG, filename: "\(mode)_window_full.png")
-
-        // 1. Idle state (move mouse far away)
-        moveMouse(to: CGPoint(x: 10, y: 10))
-        Thread.sleep(forTimeInterval: 0.5)
-        captureRect(clusterRect, filename: "\(mode)_cluster_idle.png")
-
-        // 2. Hover states (hover close, hover min, hover zoom)
-        moveMouse(to: cgClose)
-        captureRect(clusterRect, filename: "\(mode)_cluster_hover_close.png")
-
-        moveMouse(to: cgMin)
-        captureRect(clusterRect, filename: "\(mode)_cluster_hover_min.png")
-
-        moveMouse(to: cgZoom)
-        captureRect(clusterRect, filename: "\(mode)_cluster_hover_zoom.png")
-
-        // 3. Option key (Restore / Plus / Exit-Full-Screen glyph state)
-        setOptionKeyDown(true)
-        moveMouse(to: cgZoom)
-        captureRect(clusterRect, filename: "\(mode)_cluster_hover_zoom_option.png")
-        setOptionKeyDown(false)
-
-        // 4. Pressed states (click and hold)
-        moveMouse(to: cgClose)
-        leftDown(at: cgClose)
-        captureRect(clusterRect, filename: "\(mode)_cluster_pressed_close.png")
-        leftUp(at: cgClose)
-
-        moveMouse(to: cgMin)
-        leftDown(at: cgMin)
-        captureRect(clusterRect, filename: "\(mode)_cluster_pressed_min.png")
-        leftUp(at: cgMin)
-
-        moveMouse(to: cgZoom)
-        leftDown(at: cgZoom)
-        captureRect(clusterRect, filename: "\(mode)_cluster_pressed_zoom.png")
-        leftUp(at: cgZoom)
-
-        // 5. Inactive / Unfocused state
-        // Create a second window and focus it
-        let secondWindow = NSWindow(contentRect: NSRect(x: 700, y: 200, width: 300, height: 200), styleMask: [.titled], backing: .buffered, defer: false)
+        secondWindow.title = "Focus Stealer"
         secondWindow.makeKeyAndOrderFront(nil)
-        moveMouse(to: CGPoint(x: 750, y: screenHeight - 250))
-        Thread.sleep(forTimeInterval: 0.5)
-        captureRect(clusterRect, filename: "\(mode)_cluster_inactive.png")
+        pumpRunLoop(0.6)
+        log("[\(mode)] After focus steal: window.isKeyWindow=\(window.isKeyWindow)")
 
+        triggerMouseHover(on: allTitlebarViews, in: window, entered: false)
+        captureState("07_inactive_idle")
+
+        // 8. Inactive Hover
+        triggerMouseHover(on: allTitlebarViews, in: window, entered: true)
+        captureState("08_inactive_hover")
+
+        // 9. Inactive Pressed Close
+        closeBtn.isHighlighted = true
+        captureState("09_inactive_pressed_close")
+        closeBtn.isHighlighted = false
+
+        triggerMouseHover(on: allTitlebarViews, in: window, entered: false)
         secondWindow.orderOut(nil)
         window.orderOut(nil)
+        pumpRunLoop(0.3)
     }
 
-    print("Capture sequence completed successfully.")
+    let reportURL = outputDir.appendingPathComponent("runtime_introspection.txt")
+    try? logLines.joined(separator: "\n").write(to: reportURL, atomically: true, encoding: .utf8)
+    log("All captures and introspection saved.")
 }
 
-runCaptures()
+runAllCaptures()
