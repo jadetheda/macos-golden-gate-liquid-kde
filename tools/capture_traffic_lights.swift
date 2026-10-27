@@ -41,13 +41,19 @@ func setDarkMode(_ dark: Bool) {
     Thread.sleep(forTimeInterval: 1.0)
 }
 
-// Capture on-screen region
+// Capture on-screen region using macOS screencapture CLI
 func captureRect(_ rect: CGRect, filename: String) {
-    if let image = CGWindowListCreateImage(rect, .optionOnScreenOnly, kCGNullWindowID, [.bestResolution, .nominalResolution]) {
-        saveCGImage(image, to: filename)
-    } else {
-        print("Failed to capture rect \(rect) for \(filename)")
-    }
+    let url = outputDir.appendingPathComponent(filename)
+    let process = Process()
+    process.executableURL = URL(fileURLWithPath: "/usr/sbin/screencapture")
+    let x = max(0, Int(rect.origin.x))
+    let y = max(0, Int(rect.origin.y))
+    let w = max(1, Int(rect.size.width))
+    let h = max(1, Int(rect.size.height))
+    process.arguments = ["-x", "-R\(x),\(y),\(w),\(h)", url.path]
+    try? process.run()
+    process.waitUntilExit()
+    print("Captured rect \(x),\(y),\(w),\(h) to \(filename)")
 }
 
 // Post mouse events

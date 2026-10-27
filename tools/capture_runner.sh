@@ -29,35 +29,21 @@ fi
 echo "=== Step 4: Extracting Assets.car Catalog & Images ==="
 for car in $CAR_FILES; do
     if [ -f "$car" ]; then
-        base=$(basename "$(dirname "$car")")_$(basename "$car")
-        echo "Processing $car -> $base"
+        # Create unique folder name from file path
+        slug=$(echo "$car" | sed 's|/System/Library/||g' | tr '/' '_')
+        echo "Processing $car -> $slug"
         
         # Dump catalog JSON using built-in macOS assetutil
-        /usr/bin/assetutil -I "$car" > "$OUTPUT_DIR/extracted_car_assets/${base}_catalog.json" 2>/dev/null || true
+        /usr/bin/assetutil -I "$car" > "$OUTPUT_DIR/extracted_car_assets/${slug}_catalog.json" 2>/dev/null || true
         
         # Extract assets using cartool if compiled
         if [ -f /tmp/cartool ]; then
-            car_out="$OUTPUT_DIR/extracted_car_assets/$base"
+            car_out="$OUTPUT_DIR/extracted_car_assets/$slug"
             mkdir -p "$car_out"
             /tmp/cartool "$car" "$car_out" 2>/dev/null || true
         fi
     fi
 done
-
-# Try installing acextract via Homebrew if available
-if command -v brew &>/dev/null; then
-    echo "Attempting acextract installation..."
-    brew install acextract 2>/dev/null || true
-    if command -v acextract &>/dev/null; then
-        for car in $CAR_FILES; do
-            if [ -f "$car" ]; then
-                car_out="$OUTPUT_DIR/extracted_car_assets/acextract_$(basename "$car" .car)"
-                mkdir -p "$car_out"
-                acextract -i "$car" -o "$car_out" 2>/dev/null || true
-            fi
-        done
-    fi
-fi
 
 echo "=== Step 5: Collecting Window Controls & Traffic Light Assets ==="
 find "$OUTPUT_DIR" -type f \( -iname "*close*" -o -iname "*mini*" -o -iname "*zoom*" -o -iname "*traffic*" -o -iname "*window*" -o -iname "*cluster*" \) -exec cp {} "$OUTPUT_DIR/window_controls/" 2>/dev/null || true
