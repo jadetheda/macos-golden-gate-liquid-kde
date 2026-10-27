@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Run debug_sm3
+      - name: Run debug_sm4
         run: |
-          chmod +x tools/debug_sm3.sh
-          ./tools/debug_sm3.sh
+          chmod +x tools/debug_sm4.sh
+          ./tools/debug_sm4.sh
