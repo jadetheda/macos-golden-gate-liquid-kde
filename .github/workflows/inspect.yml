@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-      - name: Run find_assets6
+      - name: Run find_assets7
         run: |
-          chmod +x tools/find_assets6.sh
-          ./tools/find_assets6.sh
+          chmod +x tools/find_assets7.sh
+          ./tools/find_assets7.sh
