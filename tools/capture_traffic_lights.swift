@@ -111,23 +111,38 @@ func runCaptures() {
         guard let screen = window.screen else { continue }
         let screenHeight = screen.frame.height
         
-        let winFrame = window.frame
-        let closeScreenPt = window.convertToScreen(closeBtn.frame).origin
-        let minScreenPt = window.convertToScreen(minBtn.frame).origin
-        let zoomScreenPt = window.convertToScreen(zoomBtn.frame).origin
+        // Convert button bounds to window coordinates, then to screen coordinates
+        let closeScreenRect = window.convertToScreen(closeBtn.convert(closeBtn.bounds, to: nil))
+        let minScreenRect = window.convertToScreen(minBtn.convert(minBtn.bounds, to: nil))
+        let zoomScreenRect = window.convertToScreen(zoomBtn.convert(zoomBtn.bounds, to: nil))
 
-        // Convert to CoreGraphics coordinates (y starts from top)
-        let cgClose = CGPoint(x: closeScreenPt.x + closeBtn.frame.width / 2.0, y: screenHeight - (closeScreenPt.y + closeBtn.frame.height / 2.0))
-        let cgMin = CGPoint(x: minScreenPt.x + minBtn.frame.width / 2.0, y: screenHeight - (minScreenPt.y + minBtn.frame.height / 2.0))
-        let cgZoom = CGPoint(x: zoomScreenPt.x + zoomBtn.frame.width / 2.0, y: screenHeight - (zoomScreenPt.y + zoomBtn.frame.height / 2.0))
+        // Convert to CoreGraphics coordinates (Y=0 at screen top)
+        let cgClose = CGPoint(x: closeScreenRect.midX, y: screenHeight - closeScreenRect.midY)
+        let cgMin = CGPoint(x: minScreenRect.midX, y: screenHeight - minScreenRect.midY)
+        let cgZoom = CGPoint(x: zoomScreenRect.midX, y: screenHeight - zoomScreenRect.midY)
 
-        // Region enclosing all 3 buttons
+        // Region enclosing all 3 traffic light buttons at the top of the window
+        let clusterMinX = closeScreenRect.minX - 12
+        let clusterMaxX = zoomScreenRect.maxX + 12
+        let clusterMinY = closeScreenRect.minY - 12
+        let clusterMaxY = closeScreenRect.maxY + 12
+
         let clusterRect = CGRect(
-            x: closeScreenPt.x - 10,
-            y: screenHeight - (closeScreenPt.y + closeBtn.frame.height + 12),
-            width: (zoomScreenPt.x + zoomBtn.frame.width - closeScreenPt.x) + 20,
-            height: closeBtn.frame.height + 24
+            x: clusterMinX,
+            y: screenHeight - clusterMaxY,
+            width: clusterMaxX - clusterMinX,
+            height: clusterMaxY - clusterMinY
         )
+
+        // Full window reference capture
+        let winFrame = window.frame
+        let fullWinCG = CGRect(
+            x: winFrame.origin.x,
+            y: screenHeight - (winFrame.origin.y + winFrame.size.height),
+            width: winFrame.size.width,
+            height: winFrame.size.height
+        )
+        captureRect(fullWinCG, filename: "\(mode)_window_full.png")
 
         // 1. Idle state (move mouse far away)
         moveMouse(to: CGPoint(x: 10, y: 10))
