@@ -185,12 +185,10 @@ func triggerMouseHover(on views: [NSView], in window: NSWindow, entered: Bool) {
 }
 
 func setDarkModeSystem(_ dark: Bool) {
-    let src = "tell application \"System Events\" to tell appearance preferences to set dark mode to \(dark ? "true" : "false")"
-    if let script = NSAppleScript(source: src) {
-        var err: NSDictionary?
-        script.executeAndReturnError(&err)
-    }
-    pumpRunLoop(0.6)
+    // Set appearance directly in-process via NSApp.appearance and window.appearance
+    // to avoid triggering a blocking TCC Automation modal prompt for System Events.
+    NSApp.appearance = NSAppearance(named: dark ? .darkAqua : .aqua)
+    pumpRunLoop(0.2)
 }
 
 func runAllCaptures() {
