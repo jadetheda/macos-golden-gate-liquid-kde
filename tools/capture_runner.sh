@@ -4,7 +4,6 @@ set -e
 echo "=== System Information ==="
 sw_vers
 uname -a
-system_profiler SPDisplaysDataType || true
 
 OUTPUT_DIR="$(pwd)/output_traffic_lights"
 mkdir -p "$OUTPUT_DIR/live_captures"
@@ -56,37 +55,31 @@ echo "=== Running TrafficCalibrator.app ==="
 "$APP_BUNDLE/Contents/MacOS/TrafficCalibrator" "$OUTPUT_DIR/live_captures" || echo "TrafficCalibrator exited non-zero"
 
 echo "=== Step 2: Listing All Files in SystemAppearance.bundle ==="
-ls -la /System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/ || true
+ls -lh /System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/ > "$OUTPUT_DIR/system_appearance_files.txt" 2>&1 || true
+cat "$OUTPUT_DIR/system_appearance_files.txt"
 
-echo "=== Step 3: Copying Raw .car Files from SystemAppearance.bundle & AppKit ==="
-for car in /System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/*.car /System/Library/Frameworks/AppKit.framework/Resources/*.car; do
+echo "=== Step 3: Copying Core .car Files from SystemAppearance.bundle & AppKit ==="
+for car_name in Aqua.car DarkAqua.car SystemAppearance.car Assets.car VibrantLight.car VibrantDark.car; do
+    car="/System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/$car_name"
     if [ -f "$car" ]; then
-        base=$(basename "$(dirname "$(dirname "$(dirname "$car")")")")_$(basename "$car")
-        cp "$car" "$OUTPUT_DIR/raw_cars/$base" || true
-        echo "Copied raw car: $car -> $base"
+        cp "$car" "$OUTPUT_DIR/raw_cars/SystemAppearance_$car_name" || true
+        echo "Copied $car"
     fi
 done
+if [ -f "/System/Library/Frameworks/AppKit.framework/Resources/Assets.car" ]; then
+    cp "/System/Library/Frameworks/AppKit.framework/Resources/Assets.car" "$OUTPUT_DIR/raw_cars/AppKit_Assets.car" || true
+fi
 
-echo "=== Step 4: Compiling extract_car.swift & Extracting All .car Catalogs ==="
-swiftc tools/extract_car.swift -o /tmp/extract_car || true
-
-ALL_CARS=$(find /System/Library/CoreServices/SystemAppearance.bundle /System/Library/Frameworks/AppKit.framework /System/Library/PrivateFrameworks/CoreUI.framework /System/Library/PrivateFrameworks/SystemDesktopAppearance.framework -name "*.car" 2>/dev/null || true)
-
-for car in $ALL_CARS; do
+echo "=== Step 4: Fast Catalog Dump with 10s Timeout ==="
+for car_name in SystemAppearance.car Aqua.car DarkAqua.car Assets.car; do
+    car="/System/Library/CoreServices/SystemAppearance.bundle/Contents/Resources/$car_name"
     if [ -f "$car" ]; then
-        slug=$(echo "$car" | sed 's|/System/Library/||g' | tr '/' '_')
-        echo "Processing $car -> $slug"
-        json_out="$OUTPUT_DIR/extracted_car_assets/${slug}_catalog.json"
-        /usr/bin/assetutil -I "$car" > "$json_out" 2>/dev/null || true
-        if [ -f /tmp/extract_car ]; then
-            car_out="$OUTPUT_DIR/extracted_car_assets/$slug"
-            mkdir -p "$car_out"
-            /tmp/extract_car "$car" "$car_out" "$json_out" || true
-        fi
+        echo "Dumping catalog for $car_name..."
+        perl -e 'alarm 10; exec @ARGV' /usr/bin/assetutil -I "$car" > "$OUTPUT_DIR/extracted_car_assets/${car_name}_catalog.json" 2>/dev/null || true
     fi
 done
 
 echo "=== Step 5: Capture Summary ==="
 ls -lh "$OUTPUT_DIR/live_captures" || true
 ls -lh "$OUTPUT_DIR/raw_cars" || true
-find "$OUTPUT_DIR/extracted_car_assets" -type f | head -n 80 || true
+ls -lh "$OUTPUT_DIR/extracted_car_assets" || true
