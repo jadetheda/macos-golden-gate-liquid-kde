@@ -468,6 +468,11 @@ def button_svg(button: str, mode: str, state: str | None = None) -> str:
         f"{group}\\n</svg>\\n"
     )
 '''
+        if "def apply_global_theme" in wc_code and "library=org.kde.kwin.aurorae.v2" not in wc_code:
+            wc_code = wc_code.replace(
+                'path.read_text()))',
+                'path.read_text())).replace("library=org.kde.kwin.aurorae\\n", "library=org.kde.kwin.aurorae.v2\\n")',
+            )
         if "_GG_AURORAE_ROOT" not in wc_code:
             wc_code = wc_code + override
         wc_file.write_text(wc_code, encoding="utf-8")
@@ -475,6 +480,16 @@ def button_svg(button: str, mode: str, state: str | None = None) -> str:
     # 6. Enable group hover in GTK 3/4 and Firefox titlebuttons
     _patch_gtk_group_hover(source / "src/offline/gtk")
     _patch_firefox_controls(source / "src/offline/firefox", aurorae_root)
+
+    # 7. Ensure Look-and-Feel package defaults use aurorae.v2
+    laf_dir = source / "src/offline/look-and-feel"
+    if laf_dir.is_dir():
+        for defaults_file in laf_dir.glob("*/contents/defaults"):
+            if defaults_file.is_file():
+                def_text = defaults_file.read_text(encoding="utf-8")
+                if "library=org.kde.kwin.aurorae\n" in def_text:
+                    def_text = def_text.replace("library=org.kde.kwin.aurorae\n", "library=org.kde.kwin.aurorae.v2\n")
+                    defaults_file.write_text(def_text, encoding="utf-8")
 
 
 

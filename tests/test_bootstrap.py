@@ -486,16 +486,27 @@ def test_apply_aurorae_enables_group_hover_and_calibrated_controls(tmp_path):
     (source / "src/scripts/theme_switch.py").write_text(
         '("library", "org.kde.kwin.aurorae"),\n("theme", "MacTahoeLiquidKde-Light")\n'
     )
+    (source / "src/offline/look-and-feel/MacTahoeLiquidKde-Light/contents").mkdir(parents=True)
+    (source / "src/offline/look-and-feel/MacTahoeLiquidKde-Light/contents/defaults").write_text(
+        "[kwinrc][org.kde.kdecoration2]\nlibrary=org.kde.kwin.aurorae\ntheme=__aurorae__svg__MacTahoeLiquidKde-Light\n"
+    )
     (source / "src/scripts/window_controls.py").write_text(
         'from pathlib import Path\nimport re\n'
         'STATES = ("active", "inactive", "hover", "pressed", "deactivated", "hover-inactive", "pressed-inactive", "deactivated-inactive")\n'
         'BUTTONS = ("close", "minimize", "maximize", "restore", "alldesktops", "keepabove", "keepbelow")\n'
         'def assemble_aurorae(source, destination, mode, edition):\n'
         '    (destination / f"{edition}LiquidKde-{mode}rc").write_text(text)\n'
+        'def apply_global_theme(theme: Path) -> None:\n'
+        '    path = theme / "contents/defaults"\n'
+        '    if path.is_file():\n'
+        '        path.write_text(re.sub(r"(?m)^theme=__aurorae__svg__Mac(?:Tahoe|GoldenGate)LiquidKde-(Light|Dark)$", lambda match: "theme=__aurorae__svg__MacGoldenGateLiquidKde-Light", path.read_text()))\n'
     )
     bootstrap.apply_aurorae(source)
     assert '("library", "org.kde.kwin.aurorae.v2")' in (source / "src/scripts/steps/window_decorations.py").read_text()
     assert '("library", "org.kde.kwin.aurorae.v2")' in (source / "src/scripts/theme_switch.py").read_text()
+    assert "library=org.kde.kwin.aurorae.v2\n" in (source / "src/offline/look-and-feel/MacTahoeLiquidKde-Light/contents/defaults").read_text()
+    wc_text = (source / "src/scripts/window_controls.py").read_text()
+    assert "library=org.kde.kwin.aurorae.v2" in wc_text
     for variant in ("Light", "Dark"):
         gg_rc = (source / f"src/offline/aurorae/MacGoldenGateLiquidKde-{variant}/MacGoldenGateLiquidKde-{variant}rc").read_text()
         tahoe_rc = (source / f"src/offline/aurorae/MacTahoeLiquidKde-{variant}rc").read_text()
