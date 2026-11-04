@@ -479,18 +479,31 @@ def test_apply_aurorae_enables_group_hover_and_calibrated_controls(tmp_path):
             "[General]\nLeftButtons=XIA\n\n[Layout]\nTitleEdgeTop=8\nButtonSpacing=10\n"
         )
     (source / "src/scripts").mkdir(parents=True)
+    (source / "src/scripts/steps").mkdir(parents=True)
+    (source / "src/scripts/steps/window_decorations.py").write_text(
+        '("library", "org.kde.kwin.aurorae"),\n("theme", "MacTahoeLiquidKde-Light")\n'
+    )
+    (source / "src/scripts/theme_switch.py").write_text(
+        '("library", "org.kde.kwin.aurorae"),\n("theme", "MacTahoeLiquidKde-Light")\n'
+    )
     (source / "src/scripts/window_controls.py").write_text(
         'from pathlib import Path\nimport re\n'
         'STATES = ("active", "inactive", "hover", "pressed", "deactivated", "hover-inactive", "pressed-inactive", "deactivated-inactive")\n'
         'BUTTONS = ("close", "minimize", "maximize", "restore", "alldesktops", "keepabove", "keepbelow")\n'
+        'def assemble_aurorae(source, destination, mode, edition):\n'
+        '    (destination / f"{edition}LiquidKde-{mode}rc").write_text(text)\n'
     )
     bootstrap.apply_aurorae(source)
+    assert '("library", "org.kde.kwin.aurorae.v2")' in (source / "src/scripts/steps/window_decorations.py").read_text()
+    assert '("library", "org.kde.kwin.aurorae.v2")' in (source / "src/scripts/theme_switch.py").read_text()
     for variant in ("Light", "Dark"):
         gg_rc = (source / f"src/offline/aurorae/MacGoldenGateLiquidKde-{variant}/MacGoldenGateLiquidKde-{variant}rc").read_text()
         tahoe_rc = (source / f"src/offline/aurorae/MacTahoeLiquidKde-{variant}rc").read_text()
         assert "ButtonGroupHover=true" in gg_rc
         assert "ButtonGroupHover=true" in tahoe_rc
         assert "TitleEdgeTop=8" in tahoe_rc
+        assert "TitleEdgeTop=14" in gg_rc
+        assert "TitleEdgeLeft=18" in gg_rc
         close_svg = (source / f"src/offline/aurorae/MacGoldenGateLiquidKde-{variant}/close.svg").read_text()
         for state in ("active", "inactive", "hover", "pressed", "deactivated", "hover-inactive", "pressed-inactive", "deactivated-inactive"):
             assert f'id="{state}-center"' in close_svg

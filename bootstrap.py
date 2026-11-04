@@ -362,6 +362,8 @@ def apply_aurorae(source: Path) -> None:
         if target_gg.exists():
             shutil.rmtree(target_gg)
         shutil.copytree(gg_dir, target_gg)
+        if (gg_dir / f"MacGoldenGateLiquidKde-{variant}rc").is_file():
+            shutil.copy2(gg_dir / f"MacGoldenGateLiquidKde-{variant}rc", dest_aurorae / f"MacGoldenGateLiquidKde-{variant}rc")
 
         if has_window_controls:
             tahoe_rc = dest_aurorae / f"MacTahoeLiquidKde-{variant}rc"
@@ -385,7 +387,7 @@ def apply_aurorae(source: Path) -> None:
                 if icon.name != "decoration.svg":
                     shutil.copy2(icon, icons_dir / icon.name)
 
-    # 3. Enable MacGoldenGateLiquidKde in window_decorations step (legacy Tahoe < 0.61.6)
+    # 3. Enable MacGoldenGateLiquidKde and aurorae.v2 in window_decorations step
     step_file = source / "src/scripts/steps/window_decorations.py"
     if step_file.is_file():
         code = step_file.read_text()
@@ -397,9 +399,11 @@ def apply_aurorae(source: Path) -> None:
                 'chosen = "MacTahoeLiquidKde-Light" if theme_mode() == "light" else "MacTahoeLiquidKde-Dark"',
                 'chosen = "MacGoldenGateLiquidKde-Light" if theme_mode() == "light" else "MacGoldenGateLiquidKde-Dark"'
             )
-            step_file.write_text(code)
+        if '("library", "org.kde.kwin.aurorae")' in code:
+            code = code.replace('("library", "org.kde.kwin.aurorae")', '("library", "org.kde.kwin.aurorae.v2")')
+        step_file.write_text(code)
 
-    # 4. Enable MacGoldenGateLiquidKde in theme_switch (legacy Tahoe < 0.61.6)
+    # 4. Enable MacGoldenGateLiquidKde and aurorae.v2 in theme_switch
     theme_switch_file = source / "src/scripts/theme_switch.py"
     if theme_switch_file.is_file():
         ts_code = theme_switch_file.read_text()
@@ -411,13 +415,26 @@ def apply_aurorae(source: Path) -> None:
                 "__aurorae__svg__MacTahoeLiquidKde-Light",
                 "__aurorae__svg__MacGoldenGateLiquidKde-Light"
             )
-            theme_switch_file.write_text(ts_code)
+        if '("library", "org.kde.kwin.aurorae")' in ts_code:
+            ts_code = ts_code.replace('("library", "org.kde.kwin.aurorae")', '("library", "org.kde.kwin.aurorae.v2")')
+        theme_switch_file.write_text(ts_code)
 
-    # 5. Ensure window_controls.py (Tahoe >= 0.61.6) serves our calibrated Golden Gate SVGs and ButtonGroupHover=true
+    # 5. Ensure window_controls.py (Tahoe >= 0.61.6) serves calibrated Golden Gate SVGs, calibrated RC margins, and ButtonGroupHover=true
     wc_file = source / "src/scripts/window_controls.py"
     if wc_file.is_file():
         wc_code = wc_file.read_text(encoding="utf-8")
-        if "ButtonGroupHover=true" not in wc_code:
+        target_rc_write = '(destination / f"{name}rc").write_text(text)'
+        repl_rc_write = '''gg_rc_src = source / name / f"{name}rc"
+        if not gg_rc_src.is_file():
+            gg_rc_src = source / f"{name}rc"
+        if edition == "MacGoldenGate" and gg_rc_src.is_file():
+            text = gg_rc_src.read_text(encoding="utf-8")
+        if "ButtonGroupHover=" not in text:
+            text = text.replace("[General]\\n", "[General]\\nButtonGroupHover=true\\n", 1)
+        (destination / f"{name}rc").write_text(text, encoding="utf-8")'''
+        if target_rc_write in wc_code:
+            wc_code = wc_code.replace(target_rc_write, repl_rc_write)
+        elif "ButtonGroupHover=true" not in wc_code:
             wc_code = wc_code.replace(
                 '(destination / f"{name}rc").write_text(text)',
                 'if "ButtonGroupHover=" not in text:\n            text = text.replace("[General]\\n", "[General]\\nButtonGroupHover=true\\n", 1)\n        (destination / f"{name}rc").write_text(text)',
