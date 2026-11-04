@@ -127,6 +127,7 @@ def test_golden_gate_defaults_to_second_launcher_preset():
 def test_launch_forwards_arguments_and_disables_independent_updates(tmp_path, monkeypatch):
     monkeypatch.setattr(bootstrap, "prepare", lambda **kwargs: tmp_path)
     monkeypatch.setattr(bootstrap, "update_wrapper", lambda entry, args: None)
+    monkeypatch.setattr(bootstrap, "update_local_source", lambda entry, args: None)
     monkeypatch.setattr(bootstrap.os, "chdir", lambda path: None)
     calls = []
     monkeypatch.setattr(bootstrap.os, "execv", lambda executable, args: calls.append(args))
@@ -215,13 +216,17 @@ def test_latest_tahoe_resolves_the_release_commit(monkeypatch):
 
 
 class Git:
-    def __init__(self, root, status="", pull=0):
-        self.root, self.status, self.pull, self.calls = root, status, pull, []
+    def __init__(self, root, status="", fetch=0):
+        self.root, self.status, self.fetch, self.calls = root, status, fetch, []
 
     def __call__(self, *args):
         self.calls.append(args)
         stdout = {"rev-parse": str(self.root) + "\n", "status": self.status}.get(args[0], "")
-        code = self.pull if args[0] == "pull" else 0
+        code = self.fetch if args[0] == "fetch" else 0
+        if args == ("rev-parse", "FETCH_HEAD^{commit}"):
+            stdout = "a" * 40
+        elif args[0] == "show":
+            stdout = "0.60.0"
         return subprocess.CompletedProcess(["git", *args], code, stdout, "")
 
 
@@ -242,16 +247,17 @@ def test_newer_release_pulls_a_clean_checkout_and_restarts(updater, monkeypatch)
     git = Git(root)
     monkeypatch.setattr(bootstrap, "_git", git)
     bootstrap.update_wrapper("install", ["--dark"])
-    assert ("pull", "--ff-only") in git.calls
+    assert ("merge", "--ff-only", "--no-overwrite-ignore", "a" * 40) in git.calls
+    assert ("fetch", "--no-tags", f"https://github.com/{bootstrap.GOLDEN_GATE_REPOSITORY}.git", "refs/tags/v0.60.0") in git.calls
     assert execs == [[sys.executable, str(root / "install"), "--dark"]]
     assert bootstrap.os.environ["GOLDEN_GATE_UPDATED"] == "1"
 
 
-@pytest.mark.parametrize("case", ["current", "dirty", "failed-pull", "no-git"])
+@pytest.mark.parametrize("case", ["current", "dirty", "failed-fetch", "no-git"])
 def test_wrapper_update_falls_back_to_the_current_wrapper(updater, monkeypatch, capsys, case):
     root, execs = updater
     git = Git(root, status=" M bootstrap.py\n" if case == "dirty" else "",
-              pull=1 if case == "failed-pull" else 0)
+              fetch=1 if case == "failed-fetch" else 0)
     monkeypatch.setattr(bootstrap, "_git", git)
     if case == "current":
         (root / "VERSION").write_text("0.60.0\n")
@@ -259,7 +265,7 @@ def test_wrapper_update_falls_back_to_the_current_wrapper(updater, monkeypatch, 
         (root / ".git").rmdir()
     bootstrap.update_wrapper("install", [])
     assert execs == []
-    assert ("pull", "--ff-only") not in git.calls or case == "failed-pull"
+    assert not any(call[0] == "merge" for call in git.calls)
     assert ("v0.60.0 is available" in capsys.readouterr().out) == (case != "current")
 
 
@@ -312,8 +318,10 @@ def test_local_checkout_stages_current_files_without_network(tmp_path, monkeypat
     monkeypatch.setattr(bootstrap.urllib.request, "urlopen", no_network)
     monkeypatch.setattr(bootstrap, "_git", no_network)
     assert bootstrap.local_source() == source
-    for entry in ("installer", "install", "uninstall"):
-        bootstrap.update_wrapper(entry, [])
+    if explicit:
+        for entry in ("installer", "install", "uninstall"):
+            bootstrap.update_wrapper(entry, [])
+            bootstrap.update_local_source(entry, [])
     original = (source / "src/scripts/defaults.json").read_bytes()
     prepared = bootstrap.prepare()
     assert prepared != source

@@ -78,13 +78,13 @@ The desktop and its apps in light and dark mode.
 The Golden Gate desktop in light and dark mode.
 
 <p align="center">
-  <a href="src/screenshots/showcase_light_4k-cf56b851ae73.png"><img src="src/screenshots/showcase_light_4k-cf56b851ae73.png" alt="Golden Gate light desktop with Files focused" width="415"></a>
-  <a href="src/screenshots/desktop_about_light_4k-5a1b8e1fd3d2.png"><img src="src/screenshots/desktop_about_light_4k-5a1b8e1fd3d2.png" alt="Golden Gate light desktop with About This Computer focused" width="415"></a>
+  <a href="src/screenshots/showcase_light_4k-d4c1daa39fb6.png"><img src="src/screenshots/showcase_light_4k-d4c1daa39fb6.png" alt="Golden Gate light desktop with Files focused" width="415"></a>
+  <a href="src/screenshots/desktop_about_light_4k-0b0739adae46.png"><img src="src/screenshots/desktop_about_light_4k-0b0739adae46.png" alt="Golden Gate light desktop with About This Computer focused" width="415"></a>
 </p>
 
 <p align="center">
-  <a href="src/screenshots/showcase_dark_4k-973f6552f1d6.png"><img src="src/screenshots/showcase_dark_4k-973f6552f1d6.png" alt="Golden Gate dark desktop with Files focused" width="415"></a>
-  <a href="src/screenshots/desktop_about_dark_4k-efe287195fbe.png"><img src="src/screenshots/desktop_about_dark_4k-efe287195fbe.png" alt="Golden Gate dark desktop with About This Computer focused" width="415"></a>
+  <a href="src/screenshots/showcase_dark_4k-a0a3436cb708.png"><img src="src/screenshots/showcase_dark_4k-a0a3436cb708.png" alt="Golden Gate dark desktop with Files focused" width="415"></a>
+  <a href="src/screenshots/desktop_about_dark_4k-16c7983f5caf.png"><img src="src/screenshots/desktop_about_dark_4k-16c7983f5caf.png" alt="Golden Gate dark desktop with About This Computer focused" width="415"></a>
 </p>
 
 <br>
@@ -94,8 +94,8 @@ The Golden Gate desktop in light and dark mode.
 Detached search, favorites and app categories with blurred glass and a dark upper gradient. [Material settings](https://github.com/lestercorderomurillo/macos-tahoe-liquid-kde/blob/main/docs/glass-materials.md).
 
 <p align="center">
-  <img src="src/screenshots/launcher_preset_2_light-a823b21b2468.png" alt="Default Golden Gate preset 2 in light mode, with detached search and Golden Gate wallpaper" width="415">
-  <img src="src/screenshots/launcher_preset_2_dark-fe3d38bdaed9.png" alt="Default Golden Gate preset 2 in dark mode, with detached search and Golden Gate wallpaper" width="415">
+  <img src="src/screenshots/launcher_preset_2_light-4adba6eea2ac.png" alt="Default Golden Gate preset 2 in light mode, with detached search and Golden Gate wallpaper" width="415">
+  <img src="src/screenshots/launcher_preset_2_dark-6a70a0b7eed9.png" alt="Default Golden Gate preset 2 in dark mode, with detached search and Golden Gate wallpaper" width="415">
 </p>
 
 <br>
@@ -105,9 +105,9 @@ Detached search, favorites and app categories with blurred glass and a dark uppe
 Glass refraction, hover zoom, notification badges and auto-hide.
 
 <p align="center">
-  <img src="src/screenshots/dock_1_v1-9678783a7fa9.png" alt="Glass Dock with ten pinned applications and light icons" width="840">
+  <img src="src/screenshots/dock_1_v1-4e320be76ca6.png" alt="Glass Dock with ten pinned applications and light icons" width="840">
   <br>
-  <img src="src/screenshots/dock_1_dark_v1-1cb2a9e18b71.png" alt="The same Dock with dark icons" width="840">
+  <img src="src/screenshots/dock_1_dark_v1-0c1f85f5ce36.png" alt="The same Dock with dark icons" width="840">
 </p>
 
 <br>
@@ -117,8 +117,8 @@ Glass refraction, hover zoom, notification badges and auto-hide.
 Finder-style Nautilus in light and dark.
 
 <p align="center">
-  <img src="src/screenshots/finder_v1-28715898ebe7.png" alt="Finder-style Nautilus in light mode" width="415">
-  <img src="src/screenshots/finder_dark_v1-4798339eb131.png" alt="Finder-style Nautilus in dark mode" width="415">
+  <img src="src/screenshots/finder_v1-3695a758ea6a.png" alt="Finder-style Nautilus in light mode" width="415">
+  <img src="src/screenshots/finder_dark_v1-1dccaef015bc.png" alt="Finder-style Nautilus in dark mode" width="415">
 </p>
 
 <br>
@@ -128,7 +128,7 @@ Finder-style Nautilus in light and dark.
 System controls and global menus for compatible apps.
 
 <p align="center">
-  <img src="src/screenshots/menu_v1-05f0808e293c.png" alt="System menu in light mode" width="415">
+  <img src="src/screenshots/menu_v1-3317153484a4.png" alt="System menu in light mode" width="415">
   <img src="src/screenshots/menu_dark_v1-bb87d0890c66.png" alt="System menu in dark mode" width="415">
 </p>
 
@@ -139,8 +139,8 @@ System controls and global menus for compatible apps.
 Hardware, software and theme details in About This Computer.
 
 <p align="center">
-  <img src="src/screenshots/about_v1-d48df5b4ad45.png" alt="About This Computer in light mode" width="415">
-  <img src="src/screenshots/about_dark_v1-9317a5d08f95.png" alt="About This Computer in dark mode" width="415">
+  <img src="src/screenshots/about_v1-6a0afc85811a.png" alt="About This Computer in light mode" width="415">
+  <img src="src/screenshots/about_dark_v1-ddc8ec026d1b.png" alt="About This Computer in dark mode" width="415">
 </p>
 
 <br>
@@ -150,8 +150,8 @@ Hardware, software and theme details in About This Computer.
 Translucent menus and popups with matching light and dark colors.
 
 <p align="center">
-  <img src="src/screenshots/context_menu_v1-77a6ba0028c9.png" alt="Desktop context menu in light mode" width="415">
-  <img src="src/screenshots/context_menu_dark_v1-1a06cb59b59f.png" alt="Desktop context menu in dark mode" width="415">
+  <img src="src/screenshots/context_menu_v1-ea9097a6fd3d.png" alt="Desktop context menu in light mode" width="415">
+  <img src="src/screenshots/context_menu_dark_v1-864c473dee4b.png" alt="Desktop context menu in dark mode" width="415">
 </p>
 
 <br>
@@ -189,18 +189,16 @@ Here is what we added or improved in the components we ship.
 
 ![Getting started](https://img.shields.io/badge/getting-started-3B7B5B?style=for-the-badge&logo=gnubash&logoColor=white)
 
-To avoid downloading historical screenshots, start with a shallow checkout:
+Clone the current files with history available on demand:
 
 ```bash
-git clone --depth 1 --single-branch https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde.git
+git clone --filter=blob:none https://github.com/lestercorderomurillo/macos-golden-gate-liquid-kde.git
 cd macos-golden-gate-liquid-kde
 ./installer
 ```
 
-Reuse this directory for updates. Source ZIP/tar downloads omit the documentation
-gallery; browse the screenshots on GitHub, or use a Git checkout for the complete
-offline documentation. Installer previews, theme assets, tests and license notices
-remain bundled. Git checkouts retain their history as they are updated.
+Run `./installer` again to update. Uncheck **Reset Dock and panel customization** to keep your layout.
+Run `./installer --free-space` to free storage while preserving `.git` and local work.
 
 Install and uninstall through one graphical wizard:
 
@@ -208,11 +206,23 @@ Install and uninstall through one graphical wizard:
 ./installer
 ```
 
-Choose **Install** to configure the theme, or **Uninstall** to remove it.
-The language selector is between these actions. The wizard asks for administrator
-access only when you confirm. `./install` and `./uninstall` open the same UI.
-
-English, Spanish, Simplified Chinese, Brazilian Portuguese and German.
+| Installer language | Status |
+| --- | --- |
+| 🇺🇸 English | Available |
+| 🇪🇸 Spanish | Available |
+| 🇨🇳 Simplified Chinese | Available |
+| 🇧🇷 Brazilian Portuguese | Available |
+| 🇩🇪 German | Available |
+| 🇫🇷 French | Planned |
+| 🇮🇹 Italian | Planned |
+| 🇯🇵 Japanese | Planned |
+| 🇰🇷 Korean | Planned |
+| 🇷🇺 Russian | Planned |
+| 🇸🇦 Arabic | Planned |
+| 🇮🇳 Hindi | Planned |
+| 🇳🇱 Dutch | Planned |
+| 🇵🇱 Polish | Planned |
+| 🇹🇷 Turkish | Planned |
 
 <details>
 <summary><b>Requirements</b></summary>
@@ -228,7 +238,7 @@ Required desktop, build tools and system packages.
 - `dbus-send`
 - `systemctl` or `crontab` for scheduled features
 
-Tahoe and Golden Gate releases use matching version numbers. With both repositories side by side, `./installer` automatically uses the local Tahoe checkout without downloading or updating either repository. `GOLDEN_GATE_TAHOE_SOURCE` can select another checkout. Golden Gate stages its own defaults in a separate cached copy, leaving Tahoe unchanged. A verified replacement retires older managed copies and their build caches; copies still used by an open entry point remain until a later launch. Interrupted downloads are cleaned after a successful preparation. Failed downloads retain the last working copy. Without a local checkout, each launch installs the latest Tahoe release, and `./install` and `./installer` first update a git checkout to the latest Golden Gate release. Theme assets are bundled in that source; later launches reuse it until a new release is published. `MAC_TAHOE_NO_UPDATE_CHECK=true` skips both updates and installs the Tahoe release this version was published with. Missing dependencies and optional KDE Rounded Corners also require internet access.
+Internet access is required for downloads, missing dependencies and optional KDE Rounded Corners.
 
 | Distro | Qt 6 tools | KDE Plasma 6 development packages |
 |--------|------------|-----------------------------------|
@@ -246,9 +256,29 @@ icons, theme color, wallpaper, launcher, top bar and Dock, effects, fonts,
 Firefox, file manager, boot animation and optional OLED care. Review your choices
 before installing; each summary row can be edited.
 
+Choose **Flat** or **Glassy** window controls in the wizard, with close-up Nautilus previews. Tahoe starts with Flat; Golden Gate starts with Glassy. Your choice applies to window decorations and GTK title bars, including later light/dark switches.
+
 The default option is always first and selected. Opening the other edition starts
 with that repository's defaults, including its wallpaper and launcher. Choosing
 **Keep my icons**, **Keep my wallpaper** or **Keep my fonts** preserves those choices.
+
+**Reset Dock and panel customization** is checked by default. Reinstalling
+rebuilds the selected top bar and Dock while carrying pinned apps across.
+Uncheck it to preserve the current layout, sizes, autohide and widgets. A first
+installation creates the selected layout automatically.
+
+The Window shadows page compares **no, soft, medium or hard window shadows**
+with Nautilus screenshots. The choice applies to the theme's Aurorae
+decorations and GTK windows. Medium is the default. The chosen
+level applies in light and dark mode; applications that draw their own
+decorations may use their own shadows.
+
+Golden Gate includes reflective window controls in both Aurorae and GTK title bars.
+
+The file-manager step explicitly offers **Install Nautilus**, **Use Dolphin**,
+or **Skip Nautilus and keep my file manager**. The latter preserves the current
+file associations and skips the Nautilus package and setup. These choices apply
+to the current installation; already-installed applications are not removed.
 
 The global menu, window theme, cursors, sounds, Qt/GTK styles and file dialogs are
 included. The theme is applied immediately after installation.

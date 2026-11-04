@@ -210,6 +210,11 @@ def local_source() -> Path | None:
         return source
     if explicit:
         raise ValueError(f"Incomplete local Tahoe source: {source}")
+    if (source / ".git").exists():
+        status = _git("status", "--porcelain", "--untracked-files=all", root=source)
+        if status is not None and status.returncode == 0 and status.stdout.strip():
+            raise ValueError(f"Local Tahoe source has unfinished changes and missing required files: "
+                             f"{source}. Restore the missing files to test this checkout.")
     return None
 
 
@@ -534,7 +539,7 @@ def prepare(*, lease: bool = False) -> Path:
     return target
 
 
-def _git(*args: str) -> subprocess.CompletedProcess | None:
+def _git(*args: str, root: Path | None = None) -> subprocess.CompletedProcess | None:
     """Run git in this checkout as the invoking user; pulling as root would
     leave root-owned objects."""
     env = dict(os.environ)
@@ -549,45 +554,91 @@ def _git(*args: str) -> subprocess.CompletedProcess | None:
             os.setresgid(gid, gid, gid)
             os.setresuid(uid, uid, uid)
     try:
-        return subprocess.run(["git", "-C", str(ROOT), *args], capture_output=True, text=True,
+        return subprocess.run(["git", "-c", "maintenance.auto=false", "-c", "gc.auto=0",
+                               "-C", str(root or ROOT), *args], capture_output=True, text=True,
                               timeout=120, env=env, preexec_fn=drop, check=False)
     except (OSError, subprocess.SubprocessError):
         return None
 
 
-def _clean_checkout() -> bool:
-    if not (ROOT / ".git").exists():
+def _clean_checkout(root: Path | None = None) -> bool:
+    root = root or ROOT
+    if not (root / ".git").exists():
         return False
-    top = _git("rev-parse", "--show-toplevel")
-    if top is None or top.returncode != 0 or Path(top.stdout.strip()).resolve() != ROOT:
+    git = _git if root == ROOT else lambda *args: _git(*args, root=root)
+    top = git("rev-parse", "--show-toplevel")
+    if top is None or top.returncode != 0 or Path(top.stdout.strip()).resolve() != root:
         return False
-    status = _git("status", "--porcelain")
+    status = git("status", "--porcelain", "--untracked-files=all")
     return status is not None and status.returncode == 0 and not status.stdout.strip()
 
 
-def update_wrapper(entry: str, args: list[str]) -> None:
-    """Fast-forward a clean checkout to the newest Golden Gate release and
-    restart the same entry point. Any other case continues with this wrapper."""
-    if (local_source() is not None
-            or entry not in UPDATE_ENTRY_POINTS or args == ["--prepare"]
-            or os.environ.get("GOLDEN_GATE_UPDATED") == "1"
-            or os.environ.get("MAC_TAHOE_NO_UPDATE_CHECK", "").lower() == "true"):
-        return
+def _update_checkout(root: Path, repository: str, label: str) -> bool:
+    """Only a newer published VERSION and a clean fast-forward may change files."""
     try:
-        current = (ROOT / "VERSION").read_text()
+        current = (root / "VERSION").read_text().strip()
     except OSError:
-        return
-    latest = latest_release(GOLDEN_GATE_REPOSITORY)
+        return False
+    if not re.fullmatch(r"\d+\.\d+\.\d+", current):
+        return False
+    latest = latest_release(repository)
+    try:
+        hints = json.loads(os.environ.get('MAC_TAHOE_RELEASE_HINTS', '{}'))
+    except ValueError:
+        hints = {}
+    hints[repository] = latest.removeprefix('v') if latest else None
+    os.environ['MAC_TAHOE_RELEASE_HINTS'] = json.dumps(hints)
     if not latest or _version(latest) <= _version(current):
+        return False
+    available = f"{label} {latest} is available (local v{current})."
+    release_url = f"https://github.com/{repository}/releases/tag/{latest}"
+    if not _clean_checkout(root):
+        print(f"{available} Keeping local source: changes present or not a clean git checkout. "
+              f"{release_url}", flush=True)
+        return False
+
+    git = _git if root == ROOT else lambda *args: _git(*args, root=root)
+
+    def git_ok(*args):
+        result = git(*args)
+        return result if result is not None and result.returncode == 0 else None
+
+    partial = git_ok('config', '--get', 'remote.origin.partialclonefilter')
+    filtering = ['--filter=blob:none'] if partial is not None and partial.stdout.strip() == 'blob:none' else []
+    fetched = git_ok("fetch", "--no-tags", *filtering, f"https://github.com/{repository}.git",
+                     "refs/tags/" + latest)
+    target = git_ok("rev-parse", "FETCH_HEAD^{commit}") if fetched is not None else None
+    commit = target.stdout.strip() if target is not None else ""
+    version = git_ok("show", commit + ":VERSION") if re.fullmatch(r"[0-9a-f]{40}", commit) else None
+    if version is None or version.stdout.strip() != latest.removeprefix("v"):
+        print(f"{available} Could not verify the published update; keeping local source. "
+              f"{release_url}", flush=True)
+        return False
+    if git_ok("merge-base", "--is-ancestor", "HEAD", commit) is None:
+        print(f"{available} Keeping local commits: the release is not a fast-forward. "
+              f"{release_url}", flush=True)
+        return False
+    if not _clean_checkout(root) or git_ok("merge", "--ff-only", "--no-overwrite-ignore", commit) is None:
+        print(f"{available} Could not safely update; keeping local source. "
+              f"{release_url}", flush=True)
+        return False
+    print(f"Updated {label}: v{current} → {latest}", flush=True)
+    return True
+
+
+def _updates_enabled(entry: str, args: list[str]) -> bool:
+    return (entry in UPDATE_ENTRY_POINTS
+            and not any(arg in args for arg in
+                        ("--prepare", "--check-update", "--free-space", "--help", "-h", "--uninstall", "--supervise"))
+            and not os.environ.get("GOLDEN_GATE_TAHOE_SOURCE")
+            and os.environ.get("MAC_TAHOE_NO_UPDATE_CHECK", "").lower() != "true")
+
+
+def update_wrapper(entry: str, args: list[str]) -> None:
+    """Update the wrapper independently of an automatically discovered sibling."""
+    if not _updates_enabled(entry, args) or os.environ.get("GOLDEN_GATE_UPDATED") == "1":
         return
-    manual = f"Golden Gate {latest} is available: git pull, or download it from {RELEASES_URL}"
-    if not _clean_checkout():
-        print(manual, flush=True)
-        return
-    print(f"Updating Golden Gate to {latest}…", flush=True)
-    pull = _git("pull", "--ff-only")
-    if pull is None or pull.returncode != 0:
-        print(manual, flush=True)
+    if not _update_checkout(ROOT, GOLDEN_GATE_REPOSITORY, "Golden Gate"):
         return
     os.environ["GOLDEN_GATE_UPDATED"] = "1"
     try:
@@ -596,19 +647,50 @@ def update_wrapper(entry: str, args: list[str]) -> None:
         os.environ.pop("GOLDEN_GATE_UPDATED", None)
 
 
+def update_local_source(entry: str, args: list[str]) -> bool:
+    """An implicit sibling follows releases unless it contains local test work."""
+    if not _updates_enabled(entry, args):
+        return False
+    source = local_source()
+    if source is not None:
+        return _update_checkout(source, TAHOE_REPOSITORY, "Tahoe")
+    return False
+
+
 def main(entry: str = "installer", args: list[str] | None = None) -> int:
     if entry not in ENTRY_POINTS:
         raise ValueError("Unknown entry point")
     args = sys.argv[1:] if args is None else args
+    maintenance_requested = entry in UPDATE_ENTRY_POINTS and args == ["--free-space"]
+    original_no_update = os.environ.get("MAC_TAHOE_NO_UPDATE_CHECK")
     original_uid, original_gid = os.geteuid(), os.getegid()
     try:
+        if maintenance_requested:
+            # Maintenance uses the local source or verified offline pin, never
+            # queries or installs a newer release as a side effect.
+            os.environ["MAC_TAHOE_NO_UPDATE_CHECK"] = "true"
         update_wrapper(entry, args)
+        source_updated = update_local_source(entry, args)
         # sudo entry points retain their root hop for Tahoe's own privilege
         # handling; downloads and extraction belong to the invoking user.
         if original_uid == 0 and os.environ.get("SUDO_UID"):
             os.setegid(int(os.environ["SUDO_GID"]))
             os.seteuid(int(os.environ["SUDO_UID"]))
         source = prepare(lease=args != ["--prepare"])
+        maintenance = source / "src/scripts/repository_maintenance.py"
+        roots = [ROOT]
+        sibling = local_source()
+        if sibling is not None:
+            roots.append(sibling)
+        maintenance_args = [arg for root in roots for arg in ("--repository", str(root))]
+        if _updates_enabled(entry, args) and maintenance.is_file():
+            try:
+                result = subprocess.run([sys.executable, str(maintenance), "--auto", *maintenance_args],
+                                        check=False, timeout=660)
+                if result.returncode:
+                    print("Golden Gate: Git maintenance did not finish; continuing with the update.", file=sys.stderr)
+            except (OSError, subprocess.SubprocessError) as exc:
+                print(f"Golden Gate: Git maintenance did not finish: {exc}", file=sys.stderr)
     except (OSError, ValueError, tarfile.TarError, subprocess.SubprocessError) as exc:
         print(f"Golden Gate: {exc}", file=sys.stderr)
         return 1
@@ -620,6 +702,18 @@ def main(entry: str = "installer", args: list[str] | None = None) -> int:
     os.environ["MAC_TAHOE_NO_UPDATE_CHECK"] = "true"
     if args == ["--prepare"]:
         print(source)
+        return 0
+    if maintenance_requested:
+        # Preparing the pinned source was offline. Restore the caller's policy
+        # so explicit cleanup may verify public cache ownership without updating.
+        if original_no_update is None:
+            os.environ.pop('MAC_TAHOE_NO_UPDATE_CHECK', None)
+        else:
+            os.environ['MAC_TAHOE_NO_UPDATE_CHECK'] = original_no_update
+        if not maintenance.is_file():
+            print("Golden Gate: this Tahoe source does not support --free-space yet.", file=sys.stderr)
+            return 1
+        os.execv(sys.executable, [sys.executable, str(maintenance), *maintenance_args])
         return 0
     os.chdir(source)
     os.execv(sys.executable, [sys.executable, str(source / entry), *args])
